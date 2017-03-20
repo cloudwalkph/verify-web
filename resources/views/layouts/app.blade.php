@@ -85,5 +85,12 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $(function() {
+            $('.clickable').on('click', function() {
+                location.href = $(this).data('uri');
+            });
+        });
+    </script>
 </body>
 </html>

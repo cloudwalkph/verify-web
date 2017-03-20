@@ -24,7 +24,7 @@
 
                         <tbody>
                             @foreach ($projects as $project)
-                                <tr>
+                                <tr class="clickable" data-uri="/projects/{{ $project->id }}">
                                     <td>
                                         <strong>{{ $project->name }}</strong>
                                     </td>
