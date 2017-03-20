@@ -18,8 +18,9 @@ class CreateProjectLocationsTable extends Migration
             $table->integer('project_id')->unsigned();
             $table->string('name');
             $table->date('date');
-            $table->string('status');
             $table->string('assigned_raspberry');
+            $table->integer('target_hits');
+            $table->string('status');
             $table->timestamps();
             $table->softDeletes();
 

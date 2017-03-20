@@ -34,6 +34,17 @@ class UsersTableSeeder extends Seeder
                     'birthdate'     => \Carbon\Carbon::today()->toDateString()
                 ]
             ],
+            [
+                'user_group_id' => 3,
+                'email' => 'ba@verify.com',
+                'password'  => bcrypt('password'),
+                'profile'   => [
+                    'first_name'    => 'rina',
+                    'last_name'     => 'martez',
+                    'gender'        => 'female',
+                    'birthdate'     => \Carbon\Carbon::today()->toDateString()
+                ]
+            ]
         ];
 
         foreach ($users as $data) {
