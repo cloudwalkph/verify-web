@@ -38,6 +38,11 @@ window.Echo = new Echo({
     key: '560a948394287251a7a8'
 });
 
+/**
+ * Toastr
+ */
+window.Toastr = require('toastr');
+
 window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': window.Laravel.csrfToken,
     'X-Requested-With': 'XMLHttpRequest'
