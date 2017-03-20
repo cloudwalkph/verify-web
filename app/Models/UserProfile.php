@@ -16,4 +16,9 @@ class UserProfile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getFullNameAttribute()
+    {
+        return ucwords($this->attributes['first_name'] . ' ' . $this->attributes['last_name']);
+    }
 }
