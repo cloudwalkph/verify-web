@@ -15,11 +15,21 @@ class CreateHitAnswersTable extends Migration
     {
         Schema::create('hit_answers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('hit_id');
-            $table->integer('poll_id');
+            $table->integer('hit_id')->unsigned();
+            $table->integer('poll_id')->unsigned();
             $table->string('value');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('hit_id')
+                ->references('id')
+                ->on('hits')
+                ->onDelete('cascade');
+
+            $table->foreign('poll_id')
+                ->references('id')
+                ->on('polls')
+                ->onDelete('cascade');
         });
     }
 

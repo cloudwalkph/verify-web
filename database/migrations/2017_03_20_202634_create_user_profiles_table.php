@@ -15,7 +15,7 @@ class CreateUserProfilesTable extends Migration
     {
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
             $table->string('first_name');
             $table->string('last_name');
             $table->enum('gender', ['male', 'female'])->default('male');
@@ -23,6 +23,11 @@ class CreateUserProfilesTable extends Migration
             $table->text('address')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

@@ -15,13 +15,18 @@ class CreateProjectLocationsTable extends Migration
     {
         Schema::create('project_locations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_id');
+            $table->integer('project_id')->unsigned();
             $table->string('name');
             $table->date('date');
             $table->string('status');
             $table->string('assigned_raspberry');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('project_id')
+                ->references('id')
+                ->on('projects')
+                ->onDelete('cascade');
         });
     }
 

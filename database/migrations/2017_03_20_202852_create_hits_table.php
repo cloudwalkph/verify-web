@@ -15,7 +15,7 @@ class CreateHitsTable extends Migration
     {
         Schema::create('hits', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_location_id');
+            $table->integer('project_location_id')->unsigned();
             $table->timestamp('hit_timestamp');
             $table->string('name')->nullable();
             $table->string('email')->nullable();
@@ -24,6 +24,11 @@ class CreateHitsTable extends Migration
             $table->json('location')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('project_location_id')
+                ->references('id')
+                ->on('project_locations')
+                ->onDelete('cascade');
         });
     }
 
