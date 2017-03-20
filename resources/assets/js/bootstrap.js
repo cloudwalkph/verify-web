@@ -1,3 +1,4 @@
+import Echo from 'laravel-echo';
 
 window._ = require('lodash');
 
@@ -26,6 +27,16 @@ window.Vue = require('vue');
  */
 
 window.axios = require('axios');
+
+/**
+ * Laravel Echo
+ * Realtime communication between the server and the frontend
+ */
+window.Pusher = require('pusher-js');
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: '560a948394287251a7a8'
+});
 
 window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': window.Laravel.csrfToken,
