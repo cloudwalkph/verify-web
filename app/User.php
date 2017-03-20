@@ -47,6 +47,6 @@ class User extends Authenticatable
 
     public function locations()
     {
-        return $this->belongsToMany(Location::class);
+        return $this->belongsToMany(Location::class, 'project_location_user');
     }
 }

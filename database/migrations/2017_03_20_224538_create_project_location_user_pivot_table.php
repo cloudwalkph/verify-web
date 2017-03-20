@@ -17,7 +17,6 @@ class CreateProjectLocationUserPivotTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('project_location_id')->unsigned();
-            $table->timestamps();
 
             $table->foreign('user_id')
                 ->references('id')

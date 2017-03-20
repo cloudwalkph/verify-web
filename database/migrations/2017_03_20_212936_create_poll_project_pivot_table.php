@@ -17,7 +17,6 @@ class CreatePollProjectPivotTable extends Migration
             $table->increments('id');
             $table->integer('project_id')->unsigned();
             $table->integer('poll_id')->unsigned();
-            $table->timestamps();
 
             $table->foreign('project_id')
                 ->references('id')

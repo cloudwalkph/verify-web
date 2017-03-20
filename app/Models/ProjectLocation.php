@@ -14,7 +14,7 @@ class ProjectLocation extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'project_location_user');
     }
 
     public function project()
@@ -30,5 +30,20 @@ class ProjectLocation extends Model
     public function hits()
     {
         return $this->hasMany(Hit::class);
+    }
+
+    public function scopeOnGoing($query)
+    {
+        return $query->where('status', 'on-going');
+    }
+
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', 'completed');
+    }
+
+    public function scopeTotal($query)
+    {
+        return $query->count();
     }
 }

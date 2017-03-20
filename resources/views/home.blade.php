@@ -17,77 +17,35 @@
                                 <th>Project Name</th>
                                 <th>Active Runs</th>
                                 <th>Achieved Target Hits</th>
-                                <th>Deployed Runs</th>
+                                <th>Completed Runs</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>
-                                    <strong>Creamsilk Hair Dare</strong>
-                                </td>
+                            @foreach ($projects as $project)
+                                <tr>
+                                    <td>
+                                        <strong>{{ $project->name }}</strong>
+                                    </td>
 
-                                <td>
-                                    0 / 100
-                                </td>
+                                    <td>
+                                        {{ $project->locations()->onGoing()->count() }} / {{ $project->locations()->total() }}
+                                    </td>
 
-                                <td>
-                                    2500 / 5000
-                                </td>
+                                    <td>
+                                        {{ get_total_hits_for_project($project->locations) }} / {{ $project->locations()->sum('target_hits') }}
+                                    </td>
 
-                                <td>
-                                    500 / 1000
-                                </td>
+                                    <td>
+                                        {{ $project->locations()->completed()->count() }} / {{ $project->locations()->total() }}
+                                    </td>
 
-                                <td>
-                                    Active
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <strong>Creamsilk Hair Dare</strong>
-                                </td>
-
-                                <td>
-                                    0 / 100
-                                </td>
-
-                                <td>
-                                    2500 / 5000
-                                </td>
-
-                                <td>
-                                    500 / 1000
-                                </td>
-
-                                <td>
-                                    Active
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <strong>Creamsilk Hair Dare</strong>
-                                </td>
-
-                                <td>
-                                    0 / 100
-                                </td>
-
-                                <td>
-                                    2500 / 5000
-                                </td>
-
-                                <td>
-                                    500 / 1000
-                                </td>
-
-                                <td>
-                                    Active
-                                </td>
-                            </tr>
+                                    <td>
+                                        {{ ucwords($project->status) }}
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
 
