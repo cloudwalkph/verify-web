@@ -30,3 +30,11 @@ table thead {
     background-color: #F5F5F5;
     border-top: 1px solid #D2D0DD;
 }
+
+table thead th {
+    font-size: 18px;
+}
+
+td {
+    font-size: 16px;
+}
