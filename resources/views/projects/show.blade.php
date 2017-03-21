@@ -3,7 +3,8 @@
 @section('content')
     <div class="info-section">
         <div class="info-title">
-            <h1 style="color: #fff"><a href="/home"><i class="glyphicon glyphicon-chevron-left"></i></a> {{ $project->name }}</h1>
+            <a href="/home" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            <h1 style="color: #fff">{{ $project->name }}</h1>
         </div>
 
         <div class="info-body">
@@ -29,7 +30,7 @@
 
                             <tbody>
                             @foreach ($locations as $location)
-                                <tr class="clickable" data-uri="/locations/{{ $location->id }}">
+                                <tr class="clickable" data-uri="/projects/{{ $location->project_id }}/locations/{{ $location->id }}">
                                     <td>
                                         <strong>{{ $location->name }}</strong>
                                     </td>
