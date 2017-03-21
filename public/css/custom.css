@@ -74,3 +74,51 @@ table thead th {
 td {
     font-size: 16px;
 }
+
+/* Content */
+.content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.content > .description {
+    display: flex;
+    flex: 1;
+}
+
+.content > .video-feed {
+    display: flex;
+    flex: 3;
+}
+
+.time-and-video {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.time-and-video > div {
+    min-height: 500px;
+}
+
+.other-graphs {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.other-graphs > div {
+    min-height: 500px;
+}
+
+.other-graphs > .graph {
+    width: 100%;
+    height: 500px;
+    background-color: #ff932e;
+}
+
+.time-and-video > .time-graph {
+    width: 100%;
+    background-color: #2e2e2e;
+}
