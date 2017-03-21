@@ -1,8 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="alert alert-primary" style="text-align: center">
-        <img src="{{ asset('images/ic_sms_failed_24px.png') }}" alt="info"> CLICK ON A PROJECT TO VIEW MORE DETAILS
+    <div class="info-section">
+        <div class="info-title">
+            <h1 style="color: #fff"><a href="/home"><i class="glyphicon glyphicon-chevron-left"></i></a> {{ $project->name }}</h1>
+        </div>
+
+        <div class="info-body">
+            <button class="btn btn-primary">Verify Audit Report</button>
+        </div>
     </div>
 
     <div class="container-fluid">

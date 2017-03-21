@@ -30,6 +30,8 @@ class ProjectsController extends Controller
         $locations = ProjectLocation::where('project_id', $projectId)
             ->get();
 
-        return view('projects.show', compact('locations'));
+        $project = Project::find($projectId);
+
+        return view('projects.show', compact('locations', 'project'));
     }
 }
