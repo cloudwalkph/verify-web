@@ -21,6 +21,8 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+
+    <script type="text/javascript" src="//www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
     <div id="app">
