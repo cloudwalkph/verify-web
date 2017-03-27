@@ -22,4 +22,5 @@ Route::group(['prefix' => 'v1',
     'namespace' => 'API'], function() {
 
     Route::get('/ba/events', 'BA\ProjectsController@self');
+    Route::post('/ba/events/{projectId}/locations/{locationId}', 'BA\HitsController@createHit');
 });
