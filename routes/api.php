@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'v1',
     'middleware' => 'auth:api',
-    'namespace' => 'Auth'], function() {
+    'namespace' => 'API'], function() {
 
-    Route::get('events', 'EventsController@self');
+    Route::get('/ba/events', 'BA\ProjectsController@self');
 });
