@@ -54,7 +54,7 @@
     <script>
         (function() {
             let player = jwplayer('player');
-            let liveUrl = "rtmp://54.238.155.160/{{ 'vod/raspi-1-24-Jan-17-06:31:03.flv' }}";
+            let liveUrl = "rtmp://54.238.155.160/{{ $location->assigned_raspberry }}";
 
             player.setup({
                 file: liveUrl,
@@ -79,6 +79,9 @@
 
     <script type="text/javascript">
         (function() {
+            let answers = JSON.parse('{!! json_encode($answers) !!}');
+            let hits = JSON.parse('{!! json_encode($hits) !!}');
+
             // Load the Visualization API and the corechart package.
             google.charts.load('current', {'packages':['corechart']});
 
@@ -91,15 +94,65 @@
                 drawBarChart();
             }
 
+            function createData(pollId, $tableHeader) {
+                let arr = [];
+                for (let answer of answers) {
+                    if (answer.poll_id != pollId) {
+                        continue;
+                    }
+
+                    arr.push([answer.value, 1]);
+                }
+
+                let dt = google.visualization.arrayToDataTable([
+                    $tableHeader,
+                    ...arr
+                ]);
+
+                return google.visualization.data.group(dt, [0], [
+                    {
+                        column: 1,
+                        aggregation: google.visualization.data.sum,
+                        type: 'number'
+                    }
+                ]);
+            }
+            function createDataForTimeline() {
+                let arr = [];
+                for (let hit of hits) {
+                    arr.push([new Date(hit.hit_timestamp), 1]);
+                }
+console.log(arr);
+                let dt = google.visualization.arrayToDataTable([
+                    ['Time', 'Hits'],
+                    ...arr
+                ]);
+
+                return google.visualization.data.group(dt, [0], [
+                    {
+                        column: 1,
+                        aggregation: google.visualization.data.sum,
+                        type: 'number'
+                    }
+                ]);
+            }
+
+            let channel = 'location.{{ $location->id }}';
+            Echo.private(channel)
+                .listen('NewHitCreated', (e) => {
+                    for (let answer of e.hit.answers) {
+                        answers.push(answer);
+                    }
+
+                    hits.push(e.hit);
+
+                    drawBarChart();
+                    drawPieChart();
+                    drawLineChart();
+                });
 
             function drawBarChart() {
-                let data = google.visualization.arrayToDataTable([
-                    ['City', 'Hits'],
-                    ['15 - 20', 8175000],
-                    ['21 - 25', 3792000],
-                    ['26 - 30', 2695000],
-                    ['31 - 35', 2099000],
-                ]);
+                let data = createData(1, ['Age Group', 'Hits']);
 
                 let options = {
                     title: 'Demographics',
@@ -117,19 +170,11 @@
                 };
 
                 let chart = new google.visualization.BarChart(document.getElementById('age-graph'));
-                chart.draw(data, options)
+                chart.draw(data, options);
             }
 
             function drawPieChart() {
-
-                // Create the data table.
-                let data = new google.visualization.DataTable();
-                data.addColumn('string', 'Gender');
-                data.addColumn('number', 'Hits');
-                data.addRows([
-                    ['Male', 3],
-                    ['Female', 3]
-                ]);
+                let data = createData(2, ['Gender', 'Hits']);
 
                 // Set chart options
                 let options = {
@@ -143,13 +188,7 @@
             }
 
             function drawLineChart() {
-                let data = google.visualization.arrayToDataTable([
-                    ['Year', 'Hits'],
-                    ['2004', 400],
-                    ['2005', 460],
-                    ['2006', 1120],
-                    ['2007', 540]
-                ]);
+                let data = createDataForTimeline();
 
                 let options = {
                     title: 'Timestamp',
@@ -163,6 +202,10 @@
                 };
 
                 let chart = new google.visualization.LineChart(document.getElementById('time-graph'));
+
+                let formatter = new google.visualization.DateFormat({formatType: 'long'});
+
+                formatter.format(data, 0);
 
                 chart.draw(data, options);
             }
