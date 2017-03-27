@@ -12148,7 +12148,9 @@ window.axios = __webpack_require__(12);
 window.Pusher = __webpack_require__(35);
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'pusher',
-  key: '560a948394287251a7a8'
+  key: '560a948394287251a7a8',
+  cluster: 'ap1',
+  encrypted: true
 });
 
 /**
