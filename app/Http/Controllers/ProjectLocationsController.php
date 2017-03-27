@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hit;
 use App\Models\Project;
 use App\Models\ProjectLocation;
 use Illuminate\Http\Request;
@@ -31,7 +32,24 @@ class ProjectLocationsController extends Controller
             ->first();
 
         $project = Project::find($projectId);
+        $hits = Hit::with('answers')
+            ->where('project_location_id', $locationId)
+            ->get();
 
-        return view('projects.locations.show', compact('location', 'project'));
+        $answers = $this->parseAnswers($hits->toArray());
+
+        return view('projects.locations.show', compact('location', 'project', 'hits', 'answers'));
+    }
+
+    private function parseAnswers($hits)
+    {
+        $result = [];
+        foreach ($hits as $hit) {
+            foreach ($hit['answers'] as $answer) {
+                $result[] = $answer;
+            }
+        }
+
+        return $result;
     }
 }
