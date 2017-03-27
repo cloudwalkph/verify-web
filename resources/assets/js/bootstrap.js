@@ -35,7 +35,9 @@ window.axios = require('axios');
 window.Pusher = require('pusher-js');
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: '560a948394287251a7a8'
+    key: '560a948394287251a7a8',
+    cluster: 'ap1',
+    encrypted: true
 });
 
 /**
