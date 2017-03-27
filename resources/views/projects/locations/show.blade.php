@@ -122,7 +122,7 @@
                 for (let hit of hits) {
                     arr.push([new Date(hit.hit_timestamp), 1]);
                 }
-console.log(arr);
+
                 let dt = google.visualization.arrayToDataTable([
                     ['Time', 'Hits'],
                     ...arr
