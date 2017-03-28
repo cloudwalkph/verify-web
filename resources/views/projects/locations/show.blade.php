@@ -54,7 +54,7 @@
     <script>
         (function() {
             let player = jwplayer('player');
-            let liveUrl = "http://streamer.medix.ph/{{ $location->assigned_raspberry }}/manifest.mpd";
+            let liveUrl = "http://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/manifest.mpd";
 
             player.setup({
                 file: liveUrl,
