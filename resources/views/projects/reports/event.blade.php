@@ -2,6 +2,16 @@
 
 @section('content')
 
+    <div class="info-section">
+        <div class="info-title">
+            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            <h1 style="color: #fff">
+                {{ $project->name }}
+                <p class="info-sub-title">{{ $location->name }}</p>
+            </h1>
+        </div>
+    </div>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
