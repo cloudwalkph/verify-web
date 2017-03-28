@@ -55,7 +55,7 @@
     <script>
         (function() {
             let player = jwplayer('player');
-            let liveUrl = "rtmp://54.238.155.160/{{ $location->assigned_raspberry }}";
+            let liveUrl = "rtmp://streamer.medix.ph/{{ $location->assigned_raspberry }}";
 
             player.setup({
                 file: liveUrl,
