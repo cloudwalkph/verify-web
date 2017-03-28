@@ -1,38 +1,64 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="info-section">
-        <div class="info-title">
-            <a href="/projects/{{ $project->id }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
-            <h1 style="color: #fff">
-                {{ $project->name }}
-                <p class="info-sub-title">{{ $location->name }}</p>
-            </h1>
-
-        </div>
-
-        <div class="info-body">
-            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports"
-               class="btn btn-primary">Verify Audit Report</a>
-        </div>
-    </div>
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-3">
+                <div class="panel panel-default" style="min-height: 1560px;">
+                    <div class="panel-body">
+                        <div class="content">
+                            <h3 style="margin: 30px 0;">Event Report</h3>
+                            <p style="margin-bottom: 30px; line-height: 30px">
+                                Lorem Khaled Ipsum is a major key to success. Stay
+                                focused. I’m up to something. Look at the sunset,
+                                life is amazing, life is beautiful,
+                            </p>
+                            <button type="button" class="btn btn-primary">Print Report</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
                 <div class="panel panel-default">
                     <div class="panel-body">
 
                         <div class="content">
-                            <h3>Event Analytics</h3>
-                            <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
-                            <p style="color: #FF7300;">Last updated: {{ $project->updated_at->toFormattedDateString() }}</p>
+                            <div class="image-container">
+                                <img src="{{ asset('images/verify_white.png') }}" alt="logo" style="height: 100px">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>{{ $project->name }}</h2>
+                                    <p>{{ $location->name }}</p>
+                                </div>
+                                <div class="col-md-2" style="margin-top: 15px">
+                                    <h5>Status:</h5>
+                                    <p class="text-primary">Completed</p>
+                                </div>
+                                <div class="col-md-2" style="margin-top: 15px">
+                                    <h5>Last Updated:</h5>
+                                    <p class="text-primary">{{ $project->updated_at->toFormattedDateString() }}</p>
+                                </div>
+                                <div class="col-md-2" style="margin-top: 15px">
+                                    <h5>Runs Completed:</h5>
+                                    <p class="text-primary">500 of 1000 (50%)</p>
+                                </div>
+                                <div class="col-md-2" style="margin-top: 15px">
+                                    <h5>Achieved Target Hits:</h5>
+                                    <p class="text-primary">500,000 of 1,000,000 (50%)</p>
+                                </div>
+                                <div class="col-md-12"><hr></div>
+
+                                <div class="col-md-12">
+                                    <h3>Event Analytics</h3>
+                                    <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
+                                </div>
+                            </div>
 
                             <div class="content-body">
                                 <div class="time-and-video">
                                     <div class="time-graph" id="time-graph"></div>
-                                    <div class="video-feed" id="player">
-                                    </div>
                                 </div>
 
                                 <div class="other-graphs">
@@ -41,6 +67,12 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <p class="text-center" style="color: #B4B4B4;line-height: 30px;margin: 40px;">
+                                Lorem Khaled Ipsum is a major key to success. Stay focused. I’m up to something. Look at the sunset, life is amazing, life is beautiful, life is what you make it.
+                                The key to success is to keep your head above the water, never give up. You see that bamboo behind me though, you see that bamboo? Ain’t nothin’ like bamboo.
+                                Bless up. They don’t want us to win. Eliptical talk. Celebrate success right, the only way, apple.
+                            </p>
                         </div>
 
                     </div>
@@ -52,31 +84,6 @@
 
 @section('scripts')
     <script src="//content.jwplatform.com/libraries/PotMeZLE.js"></script>
-    <script>
-        (function() {
-            let player = jwplayer('player');
-            let liveUrl = "rtmp://54.238.155.160/{{ $location->assigned_raspberry }}";
-
-            player.setup({
-                file: liveUrl,
-                image: "/images/logo-verify.png"
-            });
-
-            player.addButton(
-                //This portion is what designates the graphic used for the button
-                "//icons.jwplayer.com/icons/white/download.svg",
-                //This portion determines the text that appears as a tooltip
-                "Download Video",
-                //This portion designates the functionality of the button itself
-                function() {
-                    //With the below code, we're grabbing the file that's currently playing
-                    window.location.href = player.getPlaylistItem()['file'];
-                },
-                //And finally, here we set the unique ID of the button itself.
-                "download"
-            );
-        }())
-    </script>
 
     <script type="text/javascript">
         (function() {
