@@ -140,6 +140,7 @@
             let channel = 'location.{{ $location->id }}';
             Echo.private(channel)
                 .listen('NewHitCreated', (e) => {
+                    console.log(e);
                     for (let answer of e.hit.answers) {
                         answers.push(answer);
                     }
