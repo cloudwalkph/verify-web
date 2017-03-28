@@ -14,7 +14,9 @@
                                 focused. I’m up to something. Look at the sunset,
                                 life is amazing, life is beautiful,
                             </p>
-                            <button type="button" class="btn btn-primary">Print Report</button>
+                            <button type="button" class="btn btn-primary" style="margin-bottom: 20px">Print Report</button>
+                            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/audit-reports"
+                               class="btn btn-primary">Audit Report</a>
                         </div>
                     </div>
                 </div>
@@ -51,7 +53,7 @@
                                 <div class="col-md-12"><hr></div>
 
                                 <div class="col-md-12">
-                                    <h3>Event Analytics</h3>
+                                    <h2>Event Analytics</h2>
                                     <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
                                 </div>
                             </div>

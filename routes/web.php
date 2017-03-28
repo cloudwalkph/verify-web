@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index');
 Route::get('/projects/{projectId}', 'ProjectsController@show');
 Route::get('/projects/{projectId}/locations/{locationId}', 'ProjectLocationsController@show');
 Route::get('/projects/{projectId}/locations/{locationId}/event-reports', 'EventsReportController@show');
+Route::get('/projects/{projectId}/locations/{locationId}/audit-reports', 'AuditReportController@show');
