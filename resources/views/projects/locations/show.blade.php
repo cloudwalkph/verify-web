@@ -55,10 +55,23 @@
     <script>
         (function() {
             let player = jwplayer('player');
-            let liveUrl = "rtmp://streamer.medix.ph/{{ $location->assigned_raspberry }}";
-
+            let liveUrl = "http://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/playlist.m3u8";
+console.log(liveUrl);
             player.setup({
-                file: liveUrl,
+                sources: [
+                    {
+                        file: "http://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/playlist.m3u8"
+                    },
+                    {
+                        file: "rtmp://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}"
+                    },
+                    {
+                        file: "http://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/manifest.mpd"
+                    },
+                    {
+                        file: "rtsp://13.124.56.1:1935/{{ $location->assigned_raspberry }}"
+                    }
+                ],
                 image: "/images/logo-verify.png"
             });
 
