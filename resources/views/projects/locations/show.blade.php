@@ -12,7 +12,7 @@
         </div>
 
         <div class="info-body">
-            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/audit-reports"
+            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports"
                class="btn btn-primary">Verify Audit Report</a>
         </div>
     </div>
@@ -69,7 +69,7 @@ console.log(liveUrl);
                         file: "http://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/manifest.mpd"
                     },
                     {
-                        file: "rtsp://13.124.56.1:1935/{{ $location->assigned_raspberry }}"
+                        file: "rtsp://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}"
                     }
                 ],
                 image: "/images/logo-verify.png"
