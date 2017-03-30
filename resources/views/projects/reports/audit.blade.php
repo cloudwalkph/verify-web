@@ -2,10 +2,20 @@
 
 @section('content')
 
+    <div class="info-section">
+        <div class="info-title">
+            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            <h1 style="color: #fff">
+                {{ $project->name }}
+                <p class="info-sub-title">{{ $location->name }}</p>
+            </h1>
+        </div>
+    </div>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <div class="panel panel-default" style="min-height: 1560px;">
+                <div class="panel panel-default" style="min-height: 100vh;">
                     <div class="panel-body">
                         <div class="content">
                             <h3 style="margin: 30px 0;">Event Report</h3>
@@ -14,7 +24,9 @@
                                 focused. I’m up to something. Look at the sunset,
                                 life is amazing, life is beautiful,
                             </p>
-                            <button type="button" class="btn btn-primary">Print Report</button>
+                            <button type="button" class="btn btn-primary" style="margin-bottom: 20px">Print Report</button>
+                            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports"
+                               class="btn btn-primary">Event Report</a>
                         </div>
                     </div>
                 </div>
@@ -28,43 +40,57 @@
                                 <img src="{{ asset('images/verify_white.png') }}" alt="logo" style="height: 100px">
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
-                                    <h2>{{ $project->name }}</h2>
-                                    <p>{{ $location->name }}</p>
-                                </div>
-                                <div class="col-md-2" style="margin-top: 15px">
-                                    <h5>Status:</h5>
-                                    <p class="text-primary">Completed</p>
-                                </div>
-                                <div class="col-md-2" style="margin-top: 15px">
-                                    <h5>Last Updated:</h5>
-                                    <p class="text-primary">{{ $project->updated_at->toFormattedDateString() }}</p>
-                                </div>
-                                <div class="col-md-2" style="margin-top: 15px">
-                                    <h5>Runs Completed:</h5>
-                                    <p class="text-primary">500 of 1000 (50%)</p>
-                                </div>
-                                <div class="col-md-2" style="margin-top: 15px">
-                                    <h5>Achieved Target Hits:</h5>
-                                    <p class="text-primary">500,000 of 1,000,000 (50%)</p>
-                                </div>
-                                <div class="col-md-12"><hr></div>
 
                                 <div class="col-md-12">
-                                    <h3>Event Analytics</h3>
-                                    <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
+                                    <h1>Audit Report</h1>
+                                    <p>Lorem Khaled Ipsum is a major key to success. Stay focused. I’m up to something. Look at the sunset, life is amazing, life is beautiful, </p>
                                 </div>
                             </div>
 
-                            <div class="content-body">
-                                <div class="time-and-video">
-                                    <div class="time-graph" id="time-graph"></div>
-                                </div>
-
-                                <div class="other-graphs">
-                                    <div class="graph" id="gender-graph"></div>
-                                    <div class="graph" id="age-graph" style="background-color: #da7c29;"></div>
+                            <div class="row">
+                                <div class="col-md-6" style="margin: 50px 0">
+                                    <div class="col-md-6 text-center">
+                                        <img src="{{ asset('images/1.jpg') }}" height="150" width="150" class="img-circle" alt="">
                                     </div>
+                                    <div class="col-md-6">
+                                        <h3>90% Male</h3>
+                                        <h5 class="text-primary">20-30 Years Old</h5>
+                                        <p>Mar 28, 2017</p>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6" style="margin: 50px 0">
+                                    <div class="col-md-6 text-center">
+                                        <img src="{{ asset('images/2.jpg') }}" height="150" width="150" class="img-circle" alt="">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h3>90% Female</h3>
+                                        <h5 class="text-primary">20-30 Years Old</h5>
+                                        <p>Mar 28, 2017</p>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6" style="margin: 50px 0">
+                                    <div class="col-md-6 text-center">
+                                        <img src="{{ asset('images/3.jpg') }}" height="150" width="150" class="img-circle" alt="">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h3>90% Female</h3>
+                                        <h5 class="text-primary">20-30 Years Old</h5>
+                                        <p>Mar 28, 2017</p>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6" style="margin: 50px 0">
+                                    <div class="col-md-6 text-center">
+                                        <img src="{{ asset('images/4.jpg') }}" height="150" width="150" class="img-circle" alt="">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h3>90% Male</h3>
+                                        <h5 class="text-primary">20-30 Years Old</h5>
+                                        <p>Mar 28, 2017</p>
+                                    </div>
+
                                 </div>
                             </div>
 

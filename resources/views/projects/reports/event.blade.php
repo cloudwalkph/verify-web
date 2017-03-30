@@ -2,6 +2,16 @@
 
 @section('content')
 
+    <div class="info-section">
+        <div class="info-title">
+            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            <h1 style="color: #fff">
+                {{ $project->name }}
+                <p class="info-sub-title">{{ $location->name }}</p>
+            </h1>
+        </div>
+    </div>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
@@ -14,7 +24,9 @@
                                 focused. I’m up to something. Look at the sunset,
                                 life is amazing, life is beautiful,
                             </p>
-                            <button type="button" class="btn btn-primary">Print Report</button>
+                            <button type="button" class="btn btn-primary" style="margin-bottom: 20px">Print Report</button>
+                            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/audit-reports"
+                               class="btn btn-primary">Audit Report</a>
                         </div>
                     </div>
                 </div>
@@ -51,7 +63,7 @@
                                 <div class="col-md-12"><hr></div>
 
                                 <div class="col-md-12">
-                                    <h3>Event Analytics</h3>
+                                    <h2>Event Analytics</h2>
                                     <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
                                 </div>
                             </div>

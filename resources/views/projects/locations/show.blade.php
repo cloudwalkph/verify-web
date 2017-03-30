@@ -12,7 +12,7 @@
         </div>
 
         <div class="info-body">
-            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports"
+            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/audit-reports"
                class="btn btn-primary">Verify Audit Report</a>
         </div>
     </div>
