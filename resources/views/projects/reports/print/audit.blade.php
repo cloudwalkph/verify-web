@@ -68,12 +68,12 @@
 
             <div class="row">
                 @foreach($hits as $hit)
-                    <div class="col-md-6" style="margin: 50px 0">
-                        <div class="col-md-6 text-center">
-                            <img src="{{ asset('images/1.jpg') }}" height="150" width="150" class="img-circle" alt="">
+                    <div class="col-md-6 col-xs-6" style="margin: 50px 0">
+                        <div class="col-md-6 col-xs-6 text-center">
+                            <img src="{{ asset('images/1.jpg') }}" height="100" width="100" class="img-circle" alt="">
                         </div>
-                        <div class="col-md-6">
-                            <h3>{{ $hit->name }}</h3>
+                        <div class="col-md-6 col-xs-6">
+                            <h4>{{ $hit->name }}</h4>
                             <p>{{ $hit->email }}</p>
                             <p>{{ $hit->contact_number }}</p>
                             <p>{{ $hit->created_at->toFormattedDateString() }}</p>
