@@ -73,10 +73,14 @@
                             <img src="{{ asset('images/1.jpg') }}" height="100" width="100" class="img-circle" alt="">
                         </div>
                         <div class="col-md-6 col-xs-6">
-                            <h4>{{ $hit->name }}</h4>
-                            <p>{{ $hit->email }}</p>
-                            <p>{{ $hit->contact_number }}</p>
-                            <p>{{ $hit->created_at->toFormattedDateString() }}</p>
+                            <ul style="list-style: none; padding: 0">
+                                <li>{{ $hit->name }}</li>
+                                <li>{{ $hit->email }}</li>
+                                <li>{{ $hit->contact_number }}</li>
+                                @foreach($hit->answers as $answer)
+                                    <li>{{$answer->value}}</li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                 @endforeach

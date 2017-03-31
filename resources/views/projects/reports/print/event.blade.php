@@ -74,7 +74,7 @@
                     <div class="graph" id="gender-graph"></div>
                 </div>
                 <div class="col-xs-12">
-                    <div class="graph" id="age-graph" style="background-color: #da7c29;"></div>
+                    <div class="graph" id="age-graph"></div>
                 </div>
             </div>
         </div>
@@ -173,7 +173,7 @@
 
                 let options = {
                     title: 'Demographics',
-                    chartArea: {width: '50%'},
+                    chartArea: {width: '90%'},
                     colors: ['#FF7300', '#383A38', '#FFC799'],
                     hAxis: {
                         title: 'Age Groups',
