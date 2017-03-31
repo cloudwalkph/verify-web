@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <div class="panel panel-default" style="min-height: 1560px;">
+                <div class="panel panel-default" style="min-height: 1400px;">
                     <div class="panel-body">
                         <div class="content">
                             <h3 style="margin: 30px 0;">Event Report</h3>
@@ -78,11 +78,6 @@
                                 </div>
                             </div>
 
-                            <p class="text-center" style="color: #B4B4B4;line-height: 30px;margin: 40px;">
-                                Lorem Khaled Ipsum is a major key to success. Stay focused. I’m up to something. Look at the sunset, life is amazing, life is beautiful, life is what you make it.
-                                The key to success is to keep your head above the water, never give up. You see that bamboo behind me though, you see that bamboo? Ain’t nothin’ like bamboo.
-                                Bless up. They don’t want us to win. Eliptical talk. Celebrate success right, the only way, apple.
-                            </p>
                         </div>
 
                     </div>
