@@ -18,11 +18,11 @@
                 <div class="panel panel-default" style="min-height: 100vh;">
                     <div class="panel-body">
                         <div class="content">
-                            <h3 style="margin: 30px 0;">Event Report</h3>
+                            <h3 style="margin: 30px 0;">Audit Report</h3>
                             <p style="margin-bottom: 30px; line-height: 30px">
                                 Shows all the complete data and information gathered and recorded during the running of this event or project.
                             </p>
-                            <button type="button" class="btn btn-primary" style="margin-bottom: 20px">Print Report</button>
+                            <button type="button" class="btn btn-primary" style="margin-bottom: 20px" onclick="frames['frameAudit'].print()">Print Report</button>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports"
                                class="btn btn-primary">Event Report</a>
                         </div>
@@ -46,50 +46,19 @@
                             </div>
 
                             <div class="row">
+                               @foreach($hits as $hit)
                                 <div class="col-md-6" style="margin: 50px 0">
                                     <div class="col-md-6 text-center">
                                         <img src="{{ asset('images/1.jpg') }}" height="150" width="150" class="img-circle" alt="">
                                     </div>
                                     <div class="col-md-6">
-                                        <h3>90% Male</h3>
-                                        <h5 class="text-primary">20-30 Years Old</h5>
-                                        <p>Mar 28, 2017</p>
+                                        <h3>{{ $hit->name }}</h3>
+                                        <p>{{ $hit->email }}</p>
+                                        <p>{{ $hit->contact_number }}</p>
+                                        <p>{{ $hit->created_at->toFormattedDateString() }}</p>
                                     </div>
-
                                 </div>
-                                <div class="col-md-6" style="margin: 50px 0">
-                                    <div class="col-md-6 text-center">
-                                        <img src="{{ asset('images/2.jpg') }}" height="150" width="150" class="img-circle" alt="">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h3>90% Female</h3>
-                                        <h5 class="text-primary">20-30 Years Old</h5>
-                                        <p>Mar 28, 2017</p>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-6" style="margin: 50px 0">
-                                    <div class="col-md-6 text-center">
-                                        <img src="{{ asset('images/3.jpg') }}" height="150" width="150" class="img-circle" alt="">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h3>90% Female</h3>
-                                        <h5 class="text-primary">20-30 Years Old</h5>
-                                        <p>Mar 28, 2017</p>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-6" style="margin: 50px 0">
-                                    <div class="col-md-6 text-center">
-                                        <img src="{{ asset('images/4.jpg') }}" height="150" width="150" class="img-circle" alt="">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h3>90% Male</h3>
-                                        <h5 class="text-primary">20-30 Years Old</h5>
-                                        <p>Mar 28, 2017</p>
-                                    </div>
-
-                                </div>
+                               @endforeach
                             </div>
 
                             <p class="text-center" style="color: #B4B4B4;line-height: 30px;margin: 40px;">
@@ -104,144 +73,5 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('scripts')
-    <script src="//content.jwplatform.com/libraries/PotMeZLE.js"></script>
-
-    <script type="text/javascript">
-        (function() {
-            let answers = JSON.parse('{!! json_encode($answers) !!}');
-            let hits = JSON.parse('{!! json_encode($hits) !!}');
-
-            // Load the Visualization API and the corechart package.
-            google.charts.load('current', {'packages':['corechart']});
-
-            // Set a callback to run when the Google Visualization API is loaded.
-            google.charts.setOnLoadCallback(drawCharts);
-
-            function drawCharts() {
-                drawLineChart();
-                drawPieChart();
-                drawBarChart();
-            }
-
-            function createData(pollId, $tableHeader) {
-                let arr = [];
-                for (let answer of answers) {
-                    if (answer.poll_id != pollId) {
-                        continue;
-                    }
-
-                    arr.push([answer.value, 1]);
-                }
-
-                let dt = google.visualization.arrayToDataTable([
-                    $tableHeader,
-                    ...arr
-                ]);
-
-                return google.visualization.data.group(dt, [0], [
-                    {
-                        column: 1,
-                        aggregation: google.visualization.data.sum,
-                        type: 'number'
-                    }
-                ]);
-            }
-            function createDataForTimeline() {
-                let arr = [];
-                for (let hit of hits) {
-                    arr.push([new Date(hit.hit_timestamp), 1]);
-                }
-
-                let dt = google.visualization.arrayToDataTable([
-                    ['Time', 'Hits'],
-                    ...arr
-                ]);
-
-                return google.visualization.data.group(dt, [0], [
-                    {
-                        column: 1,
-                        aggregation: google.visualization.data.sum,
-                        type: 'number'
-                    }
-                ]);
-            }
-
-            let channel = 'location.{{ $location->id }}';
-            Echo.private(channel)
-                .listen('NewHitCreated', (e) => {
-                    console.log(e);
-                    for (let answer of e.hit.answers) {
-                        answers.push(answer);
-                    }
-
-                    hits.push(e.hit);
-
-                    drawBarChart();
-                    drawPieChart();
-                    drawLineChart();
-                });
-
-            function drawBarChart() {
-                let data = createData(1, ['Age Group', 'Hits']);
-
-                let options = {
-                    title: 'Demographics',
-                    chartArea: {width: '50%'},
-                    colors: ['#FF7300', '#383A38', '#FFC799'],
-                    hAxis: {
-                        title: 'Age Groups',
-                        minValue: 0
-                    },
-                    vAxis: {
-                        title: 'Hits'
-                    },
-                    orientation: 'horizontal',
-                    legend: { position: 'none' }
-                };
-
-                let chart = new google.visualization.BarChart(document.getElementById('age-graph'));
-                chart.draw(data, options);
-            }
-
-            function drawPieChart() {
-                let data = createData(2, ['Gender', 'Hits']);
-
-                // Set chart options
-                let options = {
-                    title:'Gender',
-                    colors: ['#FF7300', '#383A38']
-                };
-
-                // Instantiate and draw our chart, passing in some options.
-                let chart = new google.visualization.PieChart(document.getElementById('gender-graph'));
-                chart.draw(data, options);
-            }
-
-            function drawLineChart() {
-                let data = createDataForTimeline();
-
-                let options = {
-                    title: 'Timestamp',
-                    curveType: 'function',
-                    legend: {position: 'none'},
-                    colors: ['#FF7300'],
-                    explorer: {
-                        axis: 'horizontal',
-                        actions: ['dragToZoom', 'rightClickToReset']
-                    }
-                };
-
-                let chart = new google.visualization.LineChart(document.getElementById('time-graph'));
-
-                let formatter = new google.visualization.DateFormat({formatType: 'long'});
-
-                formatter.format(data, 0);
-
-                chart.draw(data, options);
-            }
-        }())
-    </script>
+    <iframe src="/projects/{{ $project->id }}/locations/{{ $location->id }}/audit-reports/preview" name="frameAudit" style="width: 0; height: 0"></iframe>
 @endsection

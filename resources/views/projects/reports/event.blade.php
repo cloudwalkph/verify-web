@@ -20,11 +20,9 @@
                         <div class="content">
                             <h3 style="margin: 30px 0;">Event Report</h3>
                             <p style="margin-bottom: 30px; line-height: 30px">
-                                Lorem Khaled Ipsum is a major key to success. Stay
-                                focused. I’m up to something. Look at the sunset,
-                                life is amazing, life is beautiful,
+                                Shows all the complete data and information gathered and recorded during the running of this event or project.
                             </p>
-                            <button type="button" class="btn btn-primary" style="margin-bottom: 20px">Print Report</button>
+                            <button type="button" class="btn btn-primary" style="margin-bottom: 20px" onclick="frames['frameEvent'].print()">Print Report</button>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/audit-reports"
                                class="btn btn-primary">Audit Report</a>
                         </div>
@@ -91,7 +89,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    <iframe src="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports/preview" name="frameEvent" style="width: 0; height: 0"></iframe>
 @endsection
 
 @section('scripts')
