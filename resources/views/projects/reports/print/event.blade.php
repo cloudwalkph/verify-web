@@ -34,7 +34,7 @@
 
     <div class="col-md-12 col-xs-12 col-sm-12">
         <div class="content">
-            <div class="image-container">
+            <div class="image-container" style="margin-top: 50px">
                 <img src="{{ asset('images/verify_white.png') }}" alt="logo" style="height: 100px">
             </div>
             <div class="row">

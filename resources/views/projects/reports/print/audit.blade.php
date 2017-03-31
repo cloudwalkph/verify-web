@@ -34,7 +34,7 @@
 
     <div class="col-md-12 col-xs-12 col-sm-12">
         <div class="content">
-            <div class="image-container">
+            <div class="image-container" style="margin-top: 50px">
                 <img src="{{ asset('images/verify_white.png') }}" alt="logo" style="height: 100px">
             </div>
             <div class="row">
@@ -66,24 +66,31 @@
                 </div>
             </div>
 
-            <div class="row">
-                @foreach($hits as $hit)
-                    <div class="col-md-6 col-xs-6" style="margin: 50px 0">
-                        <div class="col-md-6 col-xs-6 text-center">
-                            <img src="{{ asset('images/1.jpg') }}" height="100" width="100" class="img-circle" alt="">
-                        </div>
-                        <div class="col-md-6 col-xs-6">
-                            <ul style="list-style: none; padding: 0">
-                                <li>{{ $hit->name }}</li>
-                                <li>{{ $hit->email }}</li>
-                                <li>{{ $hit->contact_number }}</li>
-                                @foreach($hit->answers as $answer)
-                                    <li>{{$answer->value}}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                @endforeach
+            <div class="col-md-12 col-xs-12">
+
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Email Address</th>
+                            <th>Contact Number</th>
+                            <th>Age Group</th>
+                            <th>Gender</th>
+                        </tr>
+                    @foreach($hits as $hit)
+                        <tr>
+                            <td><img src="{{ asset('images/1.jpg') }}" height="50" width="50" class="img-circle" alt=""></td>
+                            <td>{{ $hit->name }}</td>
+                            <td>{{ $hit->email }}</td>
+                            <td>{{ $hit->contact_number }}</td>
+                            @foreach($hit->answers as $answer)
+                                <td>{{ $answer->value }}</td>
+                            @endforeach
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
         
