@@ -62,7 +62,7 @@
 
                 <div class="col-md-12 col-xs-12">
                     <h1>Audit Report</h1>
-                    <p>Lorem Khaled Ipsum is a major key to success. Stay focused. I’m up to something. Look at the sunset, life is amazing, life is beautiful, </p>
+                    <p>Shows data and info from each individual hit.</p>
                 </div>
             </div>
 
