@@ -46,6 +46,11 @@ class User extends Authenticatable
         return $this->hasMany(Project::class);
     }
 
+    public function sharedProjects()
+    {
+        return $this->hasMany(ProjectShare::class);
+    }
+
     public function locations()
     {
         return $this->belongsToMany(Location::class, 'project_location_user');

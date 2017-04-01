@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\ProjectShare;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -29,6 +30,10 @@ class HomeController extends Controller
         $projects = Project::where('user_id', $user->id)
             ->get();
 
-        return view('home', compact('projects'));
+        $sharedProjects = ProjectShare::with('project')
+            ->where('user_id', $user->id)
+            ->get();
+
+        return view('home', compact('projects', 'sharedProjects'));
     }
 }

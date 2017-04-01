@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\ProjectShare;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,5 +26,10 @@ class Project extends Model
     public function locations()
     {
         return $this->hasMany(ProjectLocation::class);
+    }
+
+    public function sharedUsers()
+    {
+        return $this->belongsTo(ProjectShare::class);
     }
 }

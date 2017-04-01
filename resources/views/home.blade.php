@@ -49,6 +49,46 @@
                         </tbody>
                     </table>
 
+
+                    <legend>Shared Projects</legend>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Active Runs</th>
+                            <th>Achieved Target Hits</th>
+                            <th>Completed Runs</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        @foreach ($sharedProjects as $sharedProject)
+                            <tr class="clickable" data-uri="/projects/{{ $project->id }}">
+                                <td>
+                                    <strong>{{ $sharedProject->project->name }}</strong>
+                                </td>
+
+                                <td>
+                                    {{ $sharedProject->project->locations()->onGoing()->count() }} / {{ $sharedProject->project->locations()->total() }}
+                                </td>
+
+                                <td>
+                                    {{ get_total_hits_for_project($sharedProject->project->locations) }} / {{ $sharedProject->project->locations()->sum('target_hits') }}
+                                </td>
+
+                                <td>
+                                    {{ $sharedProject->project->locations()->completed()->count() }} / {{ $sharedProject->project->locations()->total() }}
+                                </td>
+
+                                <td>
+                                    {{ ucwords($sharedProject->project->status) }}
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>
