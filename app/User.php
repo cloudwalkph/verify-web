@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function sharedProjects()
     {
-        return $this->hasMany(ProjectShare::class);
+        return $this->hasMany(ProjectShare::class, 'user_id');
     }
 
     public function locations()

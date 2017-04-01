@@ -30,6 +30,6 @@ class Project extends Model
 
     public function sharedUsers()
     {
-        return $this->belongsTo(ProjectShare::class);
+        return $this->belongsTo(ProjectShare::class, 'project_id');
     }
 }
