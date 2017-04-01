@@ -52,4 +52,21 @@ class AuditReportController extends Controller
 
         return $result;
     }
+
+    public function preview(Request $request, $projectId, $locationId)
+    {
+//        $user = $request->user();
+
+        $location = ProjectLocation::where('id', $locationId)
+            ->first();
+
+        $project = Project::find($projectId);
+        $hits = Hit::with('answers')
+            ->where('project_location_id', $locationId)
+            ->get();
+
+        $answers = $this->parseAnswers($hits->toArray());
+
+        return view('projects.reports.print.audit', compact('location', 'project', 'hits', 'answers'));
+    }
 }

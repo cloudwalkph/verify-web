@@ -22,3 +22,5 @@ Route::get('/projects/{projectId}', 'ProjectsController@show');
 Route::get('/projects/{projectId}/locations/{locationId}', 'ProjectLocationsController@show');
 Route::get('/projects/{projectId}/locations/{locationId}/event-reports', 'EventsReportController@show');
 Route::get('/projects/{projectId}/locations/{locationId}/audit-reports', 'AuditReportController@show');
+Route::get('/projects/{projectId}/locations/{locationId}/audit-reports/preview', 'AuditReportController@preview');
+Route::get('/projects/{projectId}/locations/{locationId}/event-reports/preview', 'EventsReportController@preview');
