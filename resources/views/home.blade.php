@@ -64,7 +64,7 @@
 
                         <tbody>
                         @foreach ($sharedProjects as $sharedProject)
-                            <tr class="clickable" data-uri="/projects/{{ $project->id }}">
+                            <tr class="clickable" data-uri="/projects/{{ $sharedProject->project->id }}">
                                 <td>
                                     <strong>{{ $sharedProject->project->name }}</strong>
                                 </td>
