@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="col-md-2" style="margin-top: 15px">
                                     <h5>Last Updated:</h5>
-                                    <p class="text-primary">{{ $location->hits[count($location->hits) - 1]->created_at->toFormattedDateString() }}</p>
+                                    <p class="text-primary">{{ $location->hits ? $location->hits[count($location->hits) - 1]->created_at->toFormattedDateString() : 'N/A' }}</p>
                                 </div>
 
                                 <div class="col-md-2" style="margin-top: 15px">
