@@ -20,4 +20,10 @@ class Hit extends Model
     {
         return $this->hasMany(HitAnswer::class);
     }
+
+    public function scopeLastUpdated()
+    {
+        return $this->orderBy('created_at', 'DESC')
+            ->first();
+    }
 }
