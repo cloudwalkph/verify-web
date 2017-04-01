@@ -11,6 +11,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
 
+                    <legend>My Projects</legend>
                     <table class="table table-hover">
                         <thead>
                             <tr>
