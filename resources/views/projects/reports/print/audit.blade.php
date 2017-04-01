@@ -44,19 +44,16 @@
                 </div>
                 <div class="col-md-2 col-xs-6" style="margin-top: 15px">
                     <h5>Status:</h5>
-                    <p class="text-primary">Completed</p>
+                    <p class="text-primary">{{ $location->status }}</p>
                 </div>
                 <div class="col-md-2 col-xs-6" style="margin-top: 15px">
                     <h5>Last Updated:</h5>
                     <p class="text-primary">{{ $project->updated_at->toFormattedDateString() }}</p>
                 </div>
-                <div class="col-md-2 col-xs-6" style="margin-top: 15px">
-                    <h5>Runs Completed:</h5>
-                    <p class="text-primary">500 of 1000 (50%)</p>
-                </div>
+
                 <div class="col-md-2 col-xs-6" style="margin-top: 15px">
                     <h5>Achieved Target Hits:</h5>
-                    <p class="text-primary">500,000 of 1,000,000 (50%)</p>
+                    <p class="text-primary">{{ $location->hits()->count() }} / {{ $location->target_hits }}</p>
                 </div>
                 <div class="col-md-12 col-xs-12"><hr></div>
 
