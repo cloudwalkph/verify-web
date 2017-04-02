@@ -134,6 +134,7 @@ console.log(liveUrl);
             function createDataForTimeline() {
                 let arr = [];
                 for (let hit of hits) {
+                    console.log(new Date(hit.hit_timestamp));
                     arr.push([new Date(hit.hit_timestamp), 1]);
                 }
 
@@ -213,7 +214,8 @@ console.log(liveUrl);
                     explorer: {
                         axis: 'horizontal',
                         actions: ['dragToZoom', 'rightClickToReset']
-                    }
+                    },
+                    library: {hAxis: { format: "hh. mm." } }
                 };
 
                 let chart = new google.visualization.LineChart(document.getElementById('time-graph'));
