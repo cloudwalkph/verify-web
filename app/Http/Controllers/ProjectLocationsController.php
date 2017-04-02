@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Hit;
 use App\Models\Project;
 use App\Models\ProjectLocation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProjectLocationsController extends Controller
@@ -41,10 +42,13 @@ class ProjectLocationsController extends Controller
         return view('projects.locations.show', compact('location', 'project', 'hits', 'answers'));
     }
 
-    private function parseAnswers($hits)
+    private function parseAnswers(&$hits)
     {
         $result = [];
         foreach ($hits as $hit) {
+            $hit['hit_timestamp'] = Carbon::createFromTimestamp(strtotime($hit['hit_timestamp']))->minute(0)
+                ->toDateTimeString();
+
             foreach ($hit['answers'] as $answer) {
                 $result[] = $answer;
             }
