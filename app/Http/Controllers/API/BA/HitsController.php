@@ -41,4 +41,13 @@ class HitsController extends Controller {
 
         return response()->json($newHit, 200);
     }
+
+    public function getHitsByLocation($locationId)
+    {
+        $hits = Hit::with('answers')
+            ->where('project_location_id', $locationId)
+            ->get();
+
+        return response()->json($hits, 200);
+    }
 }
