@@ -39,10 +39,25 @@ class ProjectLocationsController extends Controller
 
         $answers = $this->parseAnswers($hits->toArray());
 
+        $hits = $this->parseHits($hits);
+
         return view('projects.locations.show', compact('location', 'project', 'hits', 'answers'));
     }
 
-    private function parseAnswers(&$hits)
+    private function parseHits($hits)
+    {
+        $result = [];
+        foreach ($hits as $hit) {
+            $hit['hit_timestamp'] = Carbon::createFromTimestamp(strtotime($hit['hit_timestamp']))->minute(0)
+                ->toDateTimeString();
+
+            $result[] = $hit;
+        }
+
+        return $result;
+    }
+
+    private function parseAnswers($hits)
     {
         $result = [];
         foreach ($hits as $hit) {
