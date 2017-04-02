@@ -48,7 +48,9 @@ class ProjectLocationsController extends Controller
     {
         $result = [];
         foreach ($hits as $hit) {
-            $hit['hit_timestamp'] = Carbon::createFromTimestamp(strtotime($hit['hit_timestamp']))->minute(0)
+            $hit['hit_timestamp'] = Carbon::createFromTimestamp(strtotime($hit['hit_timestamp']))
+                ->minute(0)
+                ->second(0)
                 ->toDateTimeString();
 
             $result[] = $hit;
