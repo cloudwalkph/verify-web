@@ -215,6 +215,10 @@ console.log(liveUrl);
                         axis: 'horizontal',
                         actions: ['dragToZoom', 'rightClickToReset']
                     },
+                    vAxis: {
+                        minValue: 0
+                    },
+                    gridlines: { count: -1},
                     library: {hAxis: { format: "hh. mm." } }
                 };
 
