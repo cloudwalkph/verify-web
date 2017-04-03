@@ -37,8 +37,24 @@ class EventsReportController extends Controller
             ->get();
 
         $answers = $this->parseAnswers($hits->toArray());
+        $hits = $this->parseHits($hits);
 
         return view('projects.reports.event', compact('location', 'project', 'hits', 'answers'));
+    }
+
+    private function parseHits($hits)
+    {
+        $result = [];
+        foreach ($hits as $hit) {
+            $hit['hit_timestamp'] = Carbon::createFromTimestamp(strtotime($hit['hit_timestamp']))
+                ->minute(0)
+                ->second(0)
+                ->toDateTimeString();
+
+            $result[] = $hit;
+        }
+
+        return $result;
     }
 
     private function parseAnswers($hits)
@@ -66,6 +82,7 @@ class EventsReportController extends Controller
             ->get();
 
         $answers = $this->parseAnswers($hits->toArray());
+        $hits = $this->parseHits($hits);
 
         return view('projects.reports.print.event', compact('location', 'project', 'hits', 'answers'));
     }
