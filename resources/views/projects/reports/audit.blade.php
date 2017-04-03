@@ -49,7 +49,7 @@
                                @foreach($hits as $hit)
                                 <div class="col-md-6" style="margin: 50px 0">
                                     <div class="col-md-6 text-center">
-                                        <img src="{{ asset('storage/'.$hit->image); }}" height="150" width="150" class="img-circle" alt="">
+                                        <img src="{{ asset('storage/'.$hit->image) }}" height="150" width="150" class="img-circle" alt="">
                                     </div>
                                     <div class="col-md-6">
                                         <h3>{{ $hit->name }}</h3>
