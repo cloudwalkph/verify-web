@@ -23,8 +23,7 @@ Route::group(['prefix' => 'v1',
 
     Route::get('/ba/events', 'BA\ProjectsController@self');
     Route::post('/ba/events/{projectId}/locations/{locationId}', 'BA\HitsController@createHit');
+    Route::put('/ba/hits/{hitId}', 'BA\HitsController@updateImage');
 
     Route::get('/ba/locations/{locationId}/hits', 'BA\HitsController@getHitsByLocation');
 });
-
-Route::put('/v1/ba/hits/{hitId}', 'BA\HitsController@updateImage');
