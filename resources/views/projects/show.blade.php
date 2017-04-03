@@ -40,7 +40,7 @@
                                     </td>
 
                                     <td>
-                                        {{ $location->hits()->count() }} / {{ $location->target_hits }}
+                                        {{ $location->hits()->count() > $location->target_hits ? $location->target_hits : $location->hits()->count() }} / {{ $location->target_hits }}
                                     </td>
 
                                     <td>
