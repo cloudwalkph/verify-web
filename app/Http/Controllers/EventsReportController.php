@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Hit;
 use App\Models\Project;
 use App\Models\ProjectLocation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventsReportController extends Controller
