@@ -52,7 +52,7 @@
                                 </div>
 
                                 <div class="col-md-2" style="margin-top: 15px">
-                                    <h5>Achieve Sampling Target Hitss:</h5>
+                                    <h5>Achieve Sampling Target Hits:</h5>
                                     <p class="text-primary">{{ $location->hits()->count() > $location->target_hits ? $location->target_hits : $location->hits()->count() }} / {{ $location->target_hits }}</p>
                                 </div>
                                 <div class="col-md-12"><hr></div>
