@@ -50,7 +50,7 @@ class HitsController extends Controller {
             return response()->json('no image found', 400);
         }
 
-        $path = $request->file('image')->store('hit_images');
+        $path = $request->file('image')->store('public');
 
         $hit = Hit::where('id', $hitId)
             ->update([
