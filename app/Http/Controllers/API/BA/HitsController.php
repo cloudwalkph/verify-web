@@ -39,6 +39,7 @@ class HitsController extends Controller {
             event(new NewHitCreated($hit));
         }
 
+        $newHit['localImage'] = $newHit['image'];
         return response()->json($newHit, 200);
     }
 
