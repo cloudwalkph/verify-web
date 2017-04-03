@@ -42,6 +42,22 @@ class HitsController extends Controller {
         return response()->json($newHit, 200);
     }
 
+    public function updateImage(Request $request, $hitId)
+    {
+        if (! $request->hasFile('image')) {
+            return response()->json('no image found', 400);
+        }
+
+        $path = $request->file('image')->store('hit_images');
+
+        $hit = Hit::where('id', $hitId)
+            ->update([
+                'image' => $path
+            ]);
+
+        return response()->json($hit);
+    }
+
     public function getHitsByLocation($locationId)
     {
         $hits = Hit::with('answers')
