@@ -23,7 +23,7 @@
                             <tr>
                                 <th>Project Name</th>
                                 <th>Date</th>
-                                <th>Achieved Target Hits</th>
+                                <th>Achieve Sampling Target Hits</th>
                                 <th>Status</th>
                             </tr>
                             </thead>

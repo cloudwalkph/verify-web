@@ -17,7 +17,7 @@
                             <tr>
                                 <th>Project Name</th>
                                 <th>Active Runs</th>
-                                <th>Achieved Target Hits</th>
+                                <th>Achieve Sampling Target Hits</th>
                                 <th>Completed Runs</th>
                                 <th>Status</th>
                             </tr>
