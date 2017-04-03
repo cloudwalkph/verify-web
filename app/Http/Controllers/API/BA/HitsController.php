@@ -51,7 +51,7 @@ class HitsController extends Controller {
         }
 
         $filename = uniqid().'.jpeg';
-        $path = $request->file('image')->storeAs('public', uniqid());
+        $path = $request->file('image')->storeAs('public', $filename);
 
         $hit = Hit::where('id', $hitId)
             ->update([
