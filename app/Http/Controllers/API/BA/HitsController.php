@@ -44,6 +44,7 @@ class HitsController extends Controller {
 
     public function updateImage(Request $request, $hitId)
     {
+        \Log::info($request);
         \Log::info($request->all());
         if (! $request->hasFile('image')) {
             return response()->json('no image found', 400);
