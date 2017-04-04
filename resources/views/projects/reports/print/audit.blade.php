@@ -68,7 +68,7 @@
                 <table class="table table-hover">
                     <tbody>
                         <tr>
-                            <th>Image</th>
+                            <th class="hide">Image</th>
                             <th>Name</th>
                             <th>Email Address</th>
                             <th>Contact Number</th>
@@ -77,7 +77,7 @@
                         </tr>
                     @foreach($hits as $hit)
                         <tr>
-                            <td><img src="{{ asset('storage/'.$hit->image) }}" height="50" width="50" class="img-circle" alt=""></td>
+                            <td class="hide"><img src="{{ asset('storage/'.$hit->image) }}" height="50" width="50" class="img-circle" alt=""></td>
                             <td>{{ $hit->name }}</td>
                             <td>{{ $hit->email }}</td>
                             <td>{{ $hit->contact_number }}</td>
