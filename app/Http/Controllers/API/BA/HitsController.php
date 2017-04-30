@@ -35,7 +35,7 @@ class HitsController extends Controller {
 
         $newHit = Hit::create($hit);
 
-        foreach ($input['answers'] as $answer) {
+        foreach (json_decode($input['answers']) as $answer) {
             $hit['answers'] = $input['answers'];
             $newHit->answers()->create([
                 'poll_id'   => $answer['poll_id'],
