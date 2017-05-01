@@ -12,10 +12,6 @@ class HitsController extends Controller {
 
     public function createHit(Request $request, $projectId, $locationId)
     {
-        if (! $request->hasFile('image')) {
-            return response()->json('no image found', 400);
-        }
-
         $input = $request->all();
 
         // Save Image
@@ -29,7 +25,7 @@ class HitsController extends Controller {
             'name'                  => isset($input['name']) ? $input['name'] : '',
             'email'                 => isset($input['email']) ? $input['email'] : '',
             'contact_number'        => isset($input['contact_number']) ? $input['contact_number'] : '',
-            'image'                 => $filename,
+            'image'                 => $input['image'],
             'location'              => isset($input['location']) ? json_encode($input['location']) : null
         ];
 
