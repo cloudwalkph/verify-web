@@ -36,10 +36,10 @@ class HitsController extends Controller {
         $newHit = Hit::create($hit);
 
         foreach ($input['answers'] as $answer) {
-            $hit['answers'] = $answer;
+            $hit['answers'] = $input['answers'];
             $newHit->answers()->create([
-                'poll_id'   => $answer->poll_id,
-                'value'     => $answer->value
+                'poll_id'   => $answer['poll_id'],
+                'value'     => $answer['value']
             ]);
         }
 
