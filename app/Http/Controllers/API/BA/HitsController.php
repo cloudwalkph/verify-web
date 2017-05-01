@@ -14,10 +14,6 @@ class HitsController extends Controller {
     {
         $input = $request->all();
 
-        // Save Image
-        $filename = uniqid().'.jpeg';
-        $path = $request->file('image')->storeAs('public', $filename);
-
         $hit = [
             'user_id'               => $request->user()->id,
             'project_location_id'   => $locationId,
