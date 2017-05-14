@@ -27,4 +27,11 @@ Route::get('/projects/{projectId}/locations/{locationId}/event-reports/preview',
 
 Route::group(['prefix' => 'management', 'namespace' => 'Management'], function() {
     Route::get('/', 'ProjectsController@index');
+
+    Route::group(['prefix' => 'projects'], function () {
+        Route::get('/create', 'ProjectsController@create');
+        Route::post('/create', 'ProjectsController@store');
+        Route::get('/update/{id}', 'ProjectsController@edit');
+        Route::post('/update/{id}', 'ProjectsController@update');
+    });
 });
