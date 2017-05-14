@@ -13,7 +13,8 @@
                         <h1 class="agency-title">Activations Advertising Inc</h1>
                         <h4>Monitor all the data from consumer engagement activities</h4>
 
-                        <legend>My Projects</legend>
+                        <a href="" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Add New Project</a>
+                        <hr>
                         <table class="table table-hover">
                             <thead>
                             <tr>
