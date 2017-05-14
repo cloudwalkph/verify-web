@@ -24,3 +24,7 @@ Route::get('/projects/{projectId}/locations/{locationId}/event-reports', 'Events
 Route::get('/projects/{projectId}/locations/{locationId}/audit-reports', 'AuditReportController@show');
 Route::get('/projects/{projectId}/locations/{locationId}/audit-reports/preview', 'AuditReportController@preview');
 Route::get('/projects/{projectId}/locations/{locationId}/event-reports/preview', 'EventsReportController@preview');
+
+Route::group(['prefix' => 'management', 'namespace' => 'Management'], function() {
+    Route::get('/', 'ProjectsController@index');
+});
