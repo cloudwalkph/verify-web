@@ -20,6 +20,9 @@
             </ul>
         </div>
     </div>
+    <div class="alert alert-primary" style="text-align: center">
+        <img src="{{ asset('images/ic_sms_failed_24px.png') }}" alt="info"> CLICK ON THE TABLE TO EDIT DATA
+    </div>
 
     <div class="container-fluid">
         <div class="row">

@@ -19,30 +19,25 @@
                             <thead>
                             <tr>
                                 <th>Project Name</th>
-                                <th>Active Runs</th>
-                                <th>Achieve Sampling Target Hits</th>
-                                <th>Completed Runs</th>
+                                <th class="text-center">Client Name</th>
+                                <th class="text-center">Achieve Sampling Target Hits</th>
                                 <th>Status</th>
                             </tr>
                             </thead>
 
                             <tbody>
                             @foreach ($projects as $project)
-                                <tr class="clickable" data-uri="/projects/{{ $project->id }}">
+                                <tr class="clickable" data-uri="/management/projects/update/{{ $project->id }}">
                                     <td>
                                         <strong>{{ $project->name }}</strong>
                                     </td>
 
-                                    <td>
-                                        {{ $project->locations()->onGoing()->count() }} / {{ $project->locations()->total() }}
+                                    <td class="text-center">
+                                        {{ $project->user->profile->full_name }}
                                     </td>
 
-                                    <td>
-                                        {{ get_total_hits_for_project($project->locations) > $project->locations()->sum('target_hits') ? $project->locations()->sum('target_hits') : get_total_hits_for_project($project->locations) }} / {{ $project->locations()->sum('target_hits') }}
-                                    </td>
-
-                                    <td>
-                                        {{ $project->locations()->completed()->count() }} / {{ $project->locations()->total() }}
+                                    <td class="text-center">
+                                        {{ $project->locations()->sum('target_hits') }}
                                     </td>
 
                                     <td>

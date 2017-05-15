@@ -3,7 +3,10 @@ namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\User;
+
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateProjectRequest;
 
 class ProjectsController extends Controller
 {
@@ -16,37 +19,46 @@ class ProjectsController extends Controller
 
     public function create()
     {
-        return view('management.projects.create');
+        $clients = User::where('user_group_id', 2)->get();
+
+        return view('management.projects.create', compact('clients'));
     }
 
-    public function store(Request $request)
+    public function store(CreateProjectRequest $request)
     {
         $input = $request->all();
 
-        $name = strtolower($input['name']);
-        $input['slug'] = str_replace(' ', '-', $name);
+        $locations = $input['location'];
+        $locations['status'] = 'pending';
+        $input['status'] = 'active';
+        unset($input['location']);
 
-        $category = Project::create($input);
+        $project = Project::create($input);
+        $project->locations()->create($locations);
 
-        return redirect('/management');
+        return redirect()->back()->with('status', 'Successfully created new project');
     }
 
     public function edit($id)
     {
-        $projects = Project::where('id', $id)->first();
+        $project = Project::find($id);
+        $clients = User::where('user_group_id', 2)->get();
 
-        return view('management.projects.update', compact('projects'));
+        return view('management.projects.update', compact('clients', 'project'));
     }
 
-    public function update(Request $request, $id)
+    public function update(CreateProjectRequest $request)
     {
         $input = $request->all();
 
-        $name = strtolower($input['name']);
-        $input['slug'] = str_replace(' ', '-', $name);
+        $locations = $input['location'];
+        $locations['status'] = 'pending';
+        $input['status'] = 'active';
+        unset($input['location']);
 
-        $category = Category::find($id)->update($input);
+        $project = Project::create($input);
+        $project->locations()->create($locations);
 
-        return redirect('/management');
+        return redirect()->back()->with('status', 'Successfully updated project');
     }
 }
