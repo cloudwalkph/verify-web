@@ -47,7 +47,7 @@ class ProjectsController extends Controller
         return view('management.projects.update', compact('clients', 'project'));
     }
 
-    public function update(CreateProjectRequest $request)
+    public function update(CreateProjectRequest $request, $id)
     {
         $input = $request->all();
 
@@ -56,8 +56,10 @@ class ProjectsController extends Controller
         $input['status'] = 'active';
         unset($input['location']);
 
-        $project = Project::create($input);
-        $project->locations()->create($locations);
+        $project = Project::where('id', $id)->first();
+
+        $project->update($input);
+        $project->locations()->update($locations);
 
         return redirect()->back()->with('status', 'Successfully updated project');
     }
