@@ -37,7 +37,7 @@
                                     </td>
 
                                     <td class="text-center">
-                                        {{ $project->locations()->sum('target_hits') }}
+                                        {{ $project->locations()->sum('target_hits') != 0 ? get_total_hits_for_project($project->locations) > $project->locations()->sum('target_hits') ? $project->locations()->sum('target_hits') : get_total_hits_for_project($project->locations) ." / ". $project->locations()->sum('target_hits') : 'NA' }}
                                     </td>
 
                                     <td>

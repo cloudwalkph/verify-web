@@ -39,7 +39,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ url('/home') }}">
                         {{--{{ config('app.name', 'Laravel') }}--}}
                         <img src="{{ asset('images/v-logo.png') }}" alt="logo">
                     </a>
