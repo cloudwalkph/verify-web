@@ -31,7 +31,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function group()
+    public function userGroup()
     {
         return $this->belongsTo(UserGroup::class);
     }

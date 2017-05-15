@@ -34,4 +34,30 @@ Route::group(['prefix' => 'management', 'namespace' => 'Management'], function()
         Route::get('/update/{id}', 'ProjectsController@edit');
         Route::post('/update/{id}', 'ProjectsController@update');
     });
+
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('/', 'ProfileController@index');
+        Route::post('/', 'ProfileController@update');
+    });
+
+    Route::group(['prefix' => 'brands'], function () {
+        Route::get('/', 'BrandsController@index');
+        Route::post('/', 'BrandsController@store');
+        Route::get('/update/{id}', 'BrandsController@edit');
+        Route::post('/update/{id}', 'BrandsController@update');
+    });
+
+    Route::group(['prefix' => 'user-groups'], function () {
+        Route::get('/', 'UserGroupsController@index');
+        Route::post('/', 'UserGroupsController@store');
+        Route::get('/update/{id}', 'UserGroupsController@edit');
+        Route::post('/update/{id}', 'UserGroupsController@update');
+    });
+
+    Route::group(['prefix' => 'accounts'], function () {
+        Route::get('/', 'AccountsController@index');
+        Route::post('/', 'AccountsController@store');
+        Route::get('/update/{id}', 'AccountsController@edit');
+        Route::post('/update/{id}', 'AccountsController@update');
+    });
 });
