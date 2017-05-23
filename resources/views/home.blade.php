@@ -23,31 +23,31 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            @foreach ($projects as $project)
-                                <tr class="clickable" data-uri="/projects/{{ $project->id }}">
-                                    <td>
-                                        <strong>{{ $project->name }}</strong>
-                                    </td>
+                        {{--<tbody>--}}
+                            {{--@foreach ($projects as $project)--}}
+                                {{--<tr class="clickable" data-uri="/projects/{{ $project->id }}">--}}
+                                    {{--<td>--}}
+                                        {{--<strong>{{ $project->name }}</strong>--}}
+                                    {{--</td>--}}
 
-                                    <td>
-                                        {{ $project->locations()->onGoing()->count() }} / {{ $project->locations()->total() }}
-                                    </td>
+                                    {{--<td>--}}
+                                        {{--{{ $project->locations()->onGoing()->count() }} / {{ $project->locations()->total() }}--}}
+                                    {{--</td>--}}
 
-                                    <td>
-                                        {{ get_total_hits_for_project($project->locations) > $project->locations()->sum('target_hits') ? $project->locations()->sum('target_hits') : get_total_hits_for_project($project->locations) }} / {{ $project->locations()->sum('target_hits') }}
-                                    </td>
+                                    {{--<td>--}}
+                                        {{--{{ get_total_hits_for_project($project->locations) > $project->locations()->sum('target_hits') ? $project->locations()->sum('target_hits') : get_total_hits_for_project($project->locations) }} / {{ $project->locations()->sum('target_hits') }}--}}
+                                    {{--</td>--}}
 
-                                    <td>
-                                        {{ $project->locations()->completed()->count() }} / {{ $project->locations()->total() }}
-                                    </td>
+                                    {{--<td>--}}
+                                        {{--{{ $project->locations()->completed()->count() }} / {{ $project->locations()->total() }}--}}
+                                    {{--</td>--}}
 
-                                    <td>
-                                        {{ ucwords($project->status) }}
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
+                                    {{--<td>--}}
+                                        {{--{{ ucwords($project->status) }}--}}
+                                    {{--</td>--}}
+                                {{--</tr>--}}
+                            {{--@endforeach--}}
+                        {{--</tbody>--}}
                     </table>
 
 
