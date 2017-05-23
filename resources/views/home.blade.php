@@ -30,21 +30,21 @@
                                         <strong>{{ $project->name }}</strong>
                                     </td>
 
+                                    {{--<td>--}}
+                                        {{--{{ $project->locations()->onGoing()->count() }} / {{ $project->locations()->total() }}--}}
+                                    {{--</td>--}}
+
                                     <td>
-                                        {{ $project->locations()->onGoing()->count() }} / {{ $project->locations()->total() }}
+                                        {{ get_total_hits_for_project($project->locations) > $project->locations()->sum('target_hits') ? $project->locations()->sum('target_hits') : get_total_hits_for_project($project->locations) }} / {{ $project->locations()->sum('target_hits') }}
                                     </td>
 
-                                    {{--<td>--}}
-                                        {{--{{ get_total_hits_for_project($project->locations) > $project->locations()->sum('target_hits') ? $project->locations()->sum('target_hits') : get_total_hits_for_project($project->locations) }} / {{ $project->locations()->sum('target_hits') }}--}}
-                                    {{--</td>--}}
+                                    <td>
+                                        {{ $project->locations()->completed()->count() }} / {{ $project->locations()->total() }}
+                                    </td>
 
-                                    {{--<td>--}}
-                                        {{--{{ $project->locations()->completed()->count() }} / {{ $project->locations()->total() }}--}}
-                                    {{--</td>--}}
-
-                                    {{--<td>--}}
-                                        {{--{{ ucwords($project->status) }}--}}
-                                    {{--</td>--}}
+                                    <td>
+                                        {{ ucwords($project->status) }}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
