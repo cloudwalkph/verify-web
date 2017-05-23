@@ -31,7 +31,7 @@
                                     </td>
 
                                     <td>
-                                        {{ $project->locations()->onGoing()->count() }} / {{ $project->locations()->total() }}
+                                        {{ $project->locations()->onGoing()->count() }} / 0
                                     </td>
 
                                     {{--<td>--}}
