@@ -30,9 +30,9 @@
                                         <strong>{{ $project->name }}</strong>
                                     </td>
 
-                                    {{--<td>--}}
-                                        {{--{{ $project->locations()->onGoing()->count() }} / {{ $project->locations()->total() }}--}}
-                                    {{--</td>--}}
+                                    <td>
+                                        {{ $project->locations()->onGoing()->count() }} / {{ $project->locations()->total() }}
+                                    </td>
 
                                     {{--<td>--}}
                                         {{--{{ get_total_hits_for_project($project->locations) > $project->locations()->sum('target_hits') ? $project->locations()->sum('target_hits') : get_total_hits_for_project($project->locations) }} / {{ $project->locations()->sum('target_hits') }}--}}
