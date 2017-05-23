@@ -63,31 +63,31 @@
                         </tr>
                         </thead>
 
-                        <tbody>
-                        @foreach ($sharedProjects as $sharedProject)
-                            <tr class="clickable" data-uri="/projects/{{ $sharedProject->project->id }}">
-                                <td>
-                                    <strong>{{ $sharedProject->project->name }}</strong>
-                                </td>
+                        {{--<tbody>--}}
+                        {{--@foreach ($sharedProjects as $sharedProject)--}}
+                            {{--<tr class="clickable" data-uri="/projects/{{ $sharedProject->project->id }}">--}}
+                                {{--<td>--}}
+                                    {{--<strong>{{ $sharedProject->project->name }}</strong>--}}
+                                {{--</td>--}}
 
-                                <td>
-                                    {{ $sharedProject->project->locations()->onGoing()->count() }} / {{ $sharedProject->project->locations()->total() }}
-                                </td>
+                                {{--<td>--}}
+                                    {{--{{ $sharedProject->project->locations()->onGoing()->count() }} / {{ $sharedProject->project->locations()->total() }}--}}
+                                {{--</td>--}}
 
-                                <td>
-                                    {{ get_total_hits_for_project($sharedProject->project->locations) }} / {{ $sharedProject->project->locations()->sum('target_hits') }}
-                                </td>
+                                {{--<td>--}}
+                                    {{--{{ get_total_hits_for_project($sharedProject->project->locations) }} / {{ $sharedProject->project->locations()->sum('target_hits') }}--}}
+                                {{--</td>--}}
 
-                                <td>
-                                    {{ $sharedProject->project->locations()->completed()->count() }} / {{ $sharedProject->project->locations()->total() }}
-                                </td>
+                                {{--<td>--}}
+                                    {{--{{ $sharedProject->project->locations()->completed()->count() }} / {{ $sharedProject->project->locations()->total() }}--}}
+                                {{--</td>--}}
 
-                                <td>
-                                    {{ ucwords($sharedProject->project->status) }}
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
+                                {{--<td>--}}
+                                    {{--{{ ucwords($sharedProject->project->status) }}--}}
+                                {{--</td>--}}
+                            {{--</tr>--}}
+                        {{--@endforeach--}}
+                        {{--</tbody>--}}
                     </table>
 
                 </div>
