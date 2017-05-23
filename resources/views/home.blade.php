@@ -26,9 +26,9 @@
                         <tbody>
                             @foreach ($projects as $project)
                                 <tr class="clickable" data-uri="/projects/{{ $project->id }}">
-                                    <td>
-                                        <strong>{{ $project->name }}</strong>
-                                    </td>
+                                    {{--<td>--}}
+                                        {{--<strong>{{ $project->name }}</strong>--}}
+                                    {{--</td>--}}
 
                                     {{--<td>--}}
                                         {{--{{ $project->locations()->onGoing()->count() }} / {{ $project->locations()->total() }}--}}
