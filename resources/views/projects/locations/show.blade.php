@@ -28,19 +28,41 @@
                             <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
                             <p style="color: #FF7300;">Last updated: {{ $project->updated_at->toFormattedDateString() }}</p>
 
-                            <div class="content-body">
-                                <div class="time-and-video">
-                                    <div class="time-graph" id="time-graph"></div>
-                                    <div class="video-feed" id="player">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#event-analytics" data-toggle="tab">Event Analytics</a></li>
+                                <li class="hide"><a href="#automatic-data" data-toggle="tab">Automatic Data</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="event-analytics">
+                                    <div class="content-body">
+                                        <div class="time-and-video">
+                                            <div class="time-graph" id="time-graph"></div>
+                                            <div class="video-feed" id="player"></div>
+                                        </div>
+
+                                        <div class="other-graphs">
+                                            <div class="graph" id="gender-graph"></div>
+                                            <div class="graph" id="age-graph" style="background-color: #da7c29;"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="tab-pane hide" id="automatic-data">
+                                    <div class="content-body">
+                                        <div class="time-and-video">
+                                            <div class="time-graph" id="time-graph"></div>
+                                        </div>
 
-                                <div class="other-graphs">
-                                    <div class="graph" id="gender-graph"></div>
-                                    <div class="graph" id="age-graph" style="background-color: #da7c29;"></div>
+                                        <div class="other-graphs">
+                                            <div class="graph" id="gender-graph"></div>
+                                            <div class="graph" id="age-graph" style="background-color: #da7c29;"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                           
                         </div>
 
                     </div>
@@ -88,6 +110,7 @@ console.log(liveUrl);
                 //And finally, here we set the unique ID of the button itself.
                 "download"
             );
+            $("#player").parent().append('<select class="form-control" id="video-selection"><option>Video 1</option><option>Video 2</option><option>Video 3</option></select>');
         }())
     </script>
 

@@ -2,6 +2,17 @@
     padding: 0;
 }
 
+.jw-title {
+    position: absolute !important;
+    top: 35px !important;
+}
+#video-selection {
+    position: absolute !important;
+    z-index: 1000 !important;    
+    width: 48%;
+    right: 2%;
+}
+
 .navbar-brand img {
     width: 100%;
     height: 100%;
@@ -118,6 +129,7 @@ td {
 
 .time-and-video > div {
     min-height: 500px;
+    margin-top: 40px;
 }
 
 .other-graphs {
