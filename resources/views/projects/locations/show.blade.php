@@ -60,10 +60,10 @@ console.log(liveUrl);
             player.setup({
                 sources: [
                     {
-                        file: "http://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/playlist.m3u8"
+                        file: "rtmp://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}"
                     },
                     {
-                        file: "rtmp://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}"
+                        file: "http://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/playlist.m3u8"
                     },
                     {
                         file: "http://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/manifest.mpd"
