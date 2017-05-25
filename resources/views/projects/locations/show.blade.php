@@ -83,15 +83,6 @@ console.log(liveUrl);
                 sources: [
                     {
                         file: "rtmp://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}"
-                    },
-                    {
-                        file: "http://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/playlist.m3u8"
-                    },
-                    {
-                        file: "http://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/manifest.mpd"
-                    },
-                    {
-                        file: "rtsp://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}"
                     }
                 ],
                 image: "/images/logo-verify.png"
