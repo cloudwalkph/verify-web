@@ -111,9 +111,10 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="location[assigned_raspberry]">Services</label> <br>
-                <label><input type="checkbox" name="services"> Test 1</label>
-                <label><input type="checkbox" name="services"> Test 2</label>
-                <label><input type="checkbox" name="services"> Test 3</label>
+                <label><input type="checkbox" name="services[]"> Manual V-App</label>
+                <label><input type="checkbox" name="services[]"> Automatic V-App</label>
+                <label><input type="checkbox" name="services[]"> Live Streaming</label>
+                <label><input type="checkbox" name="services[]"> GPS Tracker</label>
             </div>
         </div>
     </div>
