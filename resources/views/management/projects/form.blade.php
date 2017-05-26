@@ -92,8 +92,11 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="location[assigned_raspberry]">Assigned Raspberry</label>
-                <input type="text" class="form-control" name="location[assigned_raspberry]" id="assigned_raspberry" 
-                    value='{{ isset( $project->locations[0]->assigned_raspberry ) ? $project->locations[0]->assigned_raspberry : "" }}'placeholder="Assigned Raspberry">
+                <select class="form-control" name="location[assigned_raspberry]" id="assigned_raspberry" >
+                    @for($i = 1; $i <= 25; $i++)
+                        <option value="raspi-{{$i}}">Raspberrypi {{$i}}</option>
+                    @endfor
+                </select>
             </div>
         </div>
         <div class="col-md-6">
@@ -101,6 +104,16 @@
                 <label for="location[date]">Date</label>
                 <input type="date" class="form-control" name="location[date]" id="target_hits" placeholder="Date"
                     value='{{ isset( $project->locations[0]->date ) ? $project->locations[0]->date : "" }}'>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="location[assigned_raspberry]">Services</label> <br>
+                <label><input type="checkbox" name="services"> Test 1</label>
+                <label><input type="checkbox" name="services"> Test 2</label>
+                <label><input type="checkbox" name="services"> Test 3</label>
             </div>
         </div>
     </div>
