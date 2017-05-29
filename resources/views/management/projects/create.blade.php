@@ -6,16 +6,28 @@
             let $locations = $('.locations');
 
             $locations.on('click', '.add-location', function() {
+                // Get the parent location-item
                 let $parent = $(this).parent()
                     .parent().parent()
                     .find('.location-item:last').clone();
 
+                // Update the button
                 $(this).removeClass('add-location')
                     .removeClass('btn-primary')
                     .addClass('btn-danger')
                     .addClass('remove-location')
                     .html('Remove Location');
 
+                // Update input elements
+                let inputs = $parent.find('.input-field');
+                inputs.val('');
+
+                console.log();
+
+                $(this).parent()
+                    .parent().find('.checkbox-filed').prop('checked', false);
+
+                // Append the new location-item
                 $locations.append($parent);
 
                 $parent = null;

@@ -24,18 +24,23 @@ class CreateProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'location.name'         => 'required',
-            'location.target_hits'  => 'required',
-            'name'                  => 'required',
-            'user_id'               => 'required',
+            'location.*.name'           => 'required',
+            'location.*.target_hits'    => 'required',
+            'location.*.date'           => 'required',
+            'name'                      => 'required',
+            'user_id'                   => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'location.name.required'        => 'Area field is required',
-            'location.target_hits.required' => 'Target hits field is required',
+            'location.*.name'   => [
+                'required'        => 'Area field is required'
+            ],
+            'location.*.target_hits'    => [
+                'required' => 'Target hits field is required'
+            ],
             'name.required'                 => 'Project name field is required',
             'user_id.required'              => 'Client field is required',
         ];
