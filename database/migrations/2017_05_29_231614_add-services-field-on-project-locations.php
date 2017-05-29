@@ -14,7 +14,7 @@ class AddServicesFieldOnProjectLocations extends Migration
     public function up()
     {
         Schema::table('project_locations', function(Blueprint $table) {
-            $table->json('services');
+            $table->json('services')->nullable();
         });
     }
 
