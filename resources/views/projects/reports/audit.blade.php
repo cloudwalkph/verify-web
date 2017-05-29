@@ -24,7 +24,9 @@
                             </p>
                             <button type="button" class="btn btn-primary" style="margin-bottom: 20px" onclick="frames['frameAudit'].print()">Print Report</button>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports"
-                               class="btn btn-primary">Event Report</a>
+                               class="btn btn-primary">Event Report</a> <br>
+                            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/gps-reports"
+                               class="btn btn-primary">GPS Report</a>
                         </div>
                     </div>
                 </div>
