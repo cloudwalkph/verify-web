@@ -28,13 +28,16 @@ class ProjectsController extends Controller
     {
         $input = $request->all();
 
-        $locations = $input['location'];
-        $locations['status'] = 'pending';
+        $locations = $input['locations'];
         $input['status'] = 'active';
-        unset($input['location']);
+        unset($input['locations']);
 
         $project = Project::create($input);
-        $project->locations()->create($locations);
+
+        foreach ($locations as $location) {
+            $location['status'] = 'pending';
+            $project->locations()->create($location);
+        }
 
         return redirect()->back()->with('status', 'Successfully created new project');
     }

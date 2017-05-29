@@ -54,8 +54,9 @@
             <div class="col-md-12">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="location[assigned_raspberry]">Assigned Raspberry</label>
+                        <label for="location[assigned_raspberry]">Assigned VBox (For livestreaming)</label>
                         <select class="form-control input-field" name="locations[0][assigned_raspberry]" id="assigned_raspberry" >
+                            <option value="0" selected>No livestreaming</option>
                             @for($i = 1; $i <= 25; $i++)
                                 <option value="raspi-{{$i}}">V-BOX {{$i}}</option>
                             @endfor
@@ -76,7 +77,6 @@
                         <label>Services</label> <br>
                         <label><input type="checkbox" value="manual" class="checkbox-input" name="locations[0][services][]"> Manual V-App</label>
                         <label><input type="checkbox" value="automatic" class="checkbox-input" name="locations[0][services][]"> Automatic V-App</label>
-                        <label><input type="checkbox" value="live-stream" class="checkbox-input" name="locations[0][services][]"> Live Streaming</label>
                         <label><input type="checkbox" value="gps" class="checkbox-input" name="locations[0][services][]"> GPS Tracker</label>
                     </div>
                 </div>
