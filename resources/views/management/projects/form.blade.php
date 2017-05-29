@@ -67,63 +67,69 @@
     </div>
 
     <div class="col-md-12">
-        <hr>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="location[name]">Areas</label>
-                <input type="text" class="form-control" name="location[name]" id="name" placeholder="Areas"
-                    value='{{ isset( $project->locations[0]->name ) ? $project->locations[0]->name : "" }}'>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="location[target_hits]">Target Hits</label>
-                <input type="text" class="form-control" name="location[target_hits]" id="target_hits" placeholder="Target Hits"
-                    value='{{ isset( $project->locations[0]->target_hits ) ? $project->locations[0]->target_hits : "" }}'>
-            </div>
-        </div>
-        <div class="col-md-4 hide" style="margin-top: 25px">
-            <div class="form-group">
-                <button id="addLocation" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Add Area</button>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="location[assigned_raspberry]">Assigned Raspberry</label>
-                <select class="form-control" name="location[assigned_raspberry]" id="assigned_raspberry" >
-                    @for($i = 1; $i <= 25; $i++)
-                        <option value="raspi-{{$i}}">Raspberrypi {{$i}}</option>
-                    @endfor
-                </select>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="location[date]">Date</label>
-                <input type="date" class="form-control" name="location[date]" id="target_hits" placeholder="Date"
-                    value='{{ isset( $project->locations[0]->date ) ? $project->locations[0]->date : "" }}'>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="location[assigned_raspberry]">Services</label> <br>
-                <label><input type="checkbox" name="services[]"> Manual V-App</label>
-                <label><input type="checkbox" name="services[]"> Automatic V-App</label>
-                <label><input type="checkbox" name="services[]"> Live Streaming</label>
-                <label><input type="checkbox" name="services[]"> GPS Tracker</label>
-            </div>
-        </div>
+        <legend>Locations</legend>
     </div>
 
-    <div class="col-md-12">
-        <div class="col-md-4 hide">
-            <div class="form-group">
-                <label for="total_runs">Total Runs</label>
-                <input type="text" class="form-control" id="total_runs" placeholder="Total Runs">
+    <div class="locations col-md-12">
+        <div class="location-item col-md-12">
+            <div class="col-md-12">
+                <button class="btn btn-primary pull-right add-location" type="button">Add Location</button>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="location[name]">Location</label>
+                        <input type="text" class="form-control" name="location[name]" id="name" placeholder="Location"
+                               value='{{ isset( $project->locations[0]->name ) ? $project->locations[0]->name : "" }}'>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="location[target_hits]">Target Hits</label>
+                        <input type="text" class="form-control" name="location[target_hits]" id="target_hits" placeholder="Target Hits"
+                               value='{{ isset( $project->locations[0]->target_hits ) ? $project->locations[0]->target_hits : "" }}'>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="location[assigned_raspberry]">Assigned Raspberry</label>
+                        <select class="form-control" name="location[assigned_raspberry]" id="assigned_raspberry" >
+                            @for($i = 1; $i <= 25; $i++)
+                                <option value="raspi-{{$i}}">Raspberrypi {{$i}}</option>
+                            @endfor
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="location[date]">Date</label>
+                        <input type="date" class="form-control" name="location[date]" id="target_hits" placeholder="Date"
+                               value='{{ isset( $project->locations[0]->date ) ? $project->locations[0]->date : "" }}'>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="location[assigned_raspberry]">Services</label> <br>
+                        <label><input type="checkbox" name="services[]"> Manual V-App</label>
+                        <label><input type="checkbox" name="services[]"> Automatic V-App</label>
+                        <label><input type="checkbox" name="services[]"> Live Streaming</label>
+                        <label><input type="checkbox" name="services[]"> GPS Tracker</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-4 hide">
+                    <div class="form-group">
+                        <label for="total_runs">Total Runs</label>
+                        <input type="text" class="form-control" id="total_runs" placeholder="Total Runs">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
