@@ -36,6 +36,7 @@ class ProjectsController extends Controller
 
         foreach ($locations as $location) {
             $location['status'] = 'pending';
+            $location['services'] = json_encode($location['services']);
             $project->locations()->create($location);
         }
 
