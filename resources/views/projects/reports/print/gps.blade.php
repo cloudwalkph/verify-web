@@ -64,33 +64,33 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr style="background-color: #FF7300; color: white;">
-                                <th>Tracker ID</th>
+                                <th class="hide">Tracker ID</th>
                                 <th>Date</th>
                                 <th>Brand Ambassador</th>
-                                <th>Login Time</th>
+                                <th>Time</th>
                                 <th>Location</th>
-                                <th>Time Duration</th>
-                                <th>Logout Time</th>
+                                <th class="hide">Time Duration</th>
+                                <th class="hide">Logout Time</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Verify 001</td>
+                                <td class="hide">Verify 001</td>
                                 <td>05/09/17</td>
                                 <td>Juan dela Cruz</td>
                                 <td>05/09/17 07:24:20 AM</td>
                                 <td>SMX Convention Center</td>
-                                <td>05:08:03</td>
-                                <td>05/09/17 05:25:03 PM</td>
+                                <td class="hide">05:08:03</td>
+                                <td class="hide">05/09/17 05:25:03 PM</td>
                             </tr>
                             <tr>
-                                <td>Verify 001</td>
+                                <td class="hide">Verify 001</td>
                                 <td>05/09/17</td>
                                 <td>Juan dela Cruz</td>
                                 <td>05/09/17 07:24:20 AM</td>
                                 <td>SMX Convention Center</td>
-                                <td>05:08:03</td>
-                                <td>05/09/17 05:25:03 PM</td>
+                                <td class="hide">05:08:03</td>
+                                <td class="hide">05/09/17 05:25:03 PM</td>
                             </tr>
                         </tbody>
                         
