@@ -28,7 +28,7 @@
                             <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
                             <p style="color: #FF7300;">Last updated: {{ $project->updated_at->toFormattedDateString() }}</p>
 
-                            <ul class="nav nav-tabs">
+                            <ul class="nav nav-tabs" id="serviceTabs">
                                 <li class="active"><a href="#event-analytics" data-toggle="tab">Event Analytics</a></li>
                                 <li><a href="#automatic-data" data-toggle="tab">Face Recognition Data</a></li>
                                 <li><a href="#gps-data" data-toggle="tab">GPS Data</a></li>
@@ -251,20 +251,38 @@ console.log(liveUrl);
         }())
     </script>
 
-    <script>
-        let map;
-
-        function initMap() {
-            // Create the map with no initial style specified.
-            // It therefore has default styling.
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: -33.86, lng: 151.209},
-                zoom: 13,
-                mapTypeControl: false
-            });
-        }
-    </script>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpj9D7dDRll2Cj-sTXzPEVwoCwx7LOjXw&callback=initMap"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpj9D7dDRll2Cj-sTXzPEVwoCwx7LOjXw"
             async defer></script>
+
+    <script>
+        $(function() {
+            let map;
+
+            function initMap() {
+                // Create the map with no initial style specified.
+                // It therefore has default styling.
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: 14.6334979, lng: 121.0561233},
+                    zoom: 19,
+                    mapTypeControl: false
+                });
+
+                let image = '/images/marker.png';
+                let activations = new google.maps.Marker({
+                    position: {lat: 14.6334577, lng: 121.05641},
+                    map: map,
+                    icon: image,
+                    animation: google.maps.Animation.DROP,
+                });
+            }
+
+            $('#serviceTabs a').click(function (e) {
+                e.preventDefault();
+
+                if (! map) {
+                    initMap();
+                }
+            })
+        })
+    </script>
 @endsection
