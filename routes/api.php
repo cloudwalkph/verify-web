@@ -26,4 +26,7 @@ Route::group(['prefix' => 'v1',
     Route::post('/ba/hits/{hitId}', 'BA\HitsController@updateImage');
 
     Route::get('/ba/locations/{locationId}/hits', 'BA\HitsController@getHitsByLocation');
+
+    Route::get('/ba/user-locations/{locationId}', 'BA\UserLocationController@self');
+    Route::post('/ba/user-locations/{locationId}', 'BA\UserLocationController@saveLocation');
 });
