@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="location[assigned_raspberry]">Assigned VBox (For livestreaming)</label>
                         <select class="form-control input-field" name="locations[0][assigned_raspberry]" id="assigned_raspberry" >
@@ -63,7 +63,14 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="location[video_name]">Video Name</label>
+                        <input type="text" class="form-control input-field" id="video_name" placeholder="Video Name"
+                               value='{{ isset( $project->locations[0]->video_name ) ? $project->locations[0]->video_name : "" }}'>
+                    </div>
+                </div>
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="location[date]">Date</label>
                         <input type="date" class="form-control input-field" name="locations[0][date]" id="target_hits" placeholder="Date"
