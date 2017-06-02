@@ -51,12 +51,12 @@
                                 <div class="tab-pane" id="automatic-data">
                                     <div class="content-body">
                                         <div class="time-and-video">
-                                            <div class="time-graph" id="time-graph"></div>
+                                            <div class="time-graph" id="recog-time-graph"></div>
                                         </div>
 
                                         <div class="other-graphs">
-                                            <div class="graph" id="gender-graph"></div>
-                                            <div class="graph" id="age-graph" style="background-color: #da7c29;"></div>
+                                            <div class="graph" id="recog-gender-graph"></div>
+                                            <div class="graph" id="recog-age-graph" style="background-color: #da7c29;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -124,6 +124,9 @@ console.log(liveUrl);
                 drawLineChart();
                 drawPieChart();
                 drawBarChart();
+                recogDrawLineChart();
+                recogDrawPieChart();
+                recogDrawBarChart();
             }
 
             function createData(pollId, $tableHeader) {
@@ -241,6 +244,76 @@ console.log(liveUrl);
                 };
 
                 let chart = new google.visualization.LineChart(document.getElementById('time-graph'));
+
+                let formatter = new google.visualization.DateFormat({formatType: 'long'});
+
+                formatter.format(data, 0);
+
+                chart.draw(data, options);
+            }
+
+            function recogDrawBarChart() {
+                let data = createData(1, ['Age Group', 'Hits']);
+
+                let options = {
+                    title: 'Demographics',
+                    width: '810',
+                    height: '500',
+                    chartArea: {width: '50%'},
+                    colors: ['#FF7300', '#383A38', '#FFC799'],
+                    hAxis: {
+                        title: 'Age Groups',
+                        minValue: 0
+                    },
+                    vAxis: {
+                        title: 'Hits'
+                    },
+                    orientation: 'horizontal',
+                    legend: { position: 'none' }
+                };
+
+                let chart = new google.visualization.BarChart(document.getElementById('recog-age-graph'));
+                chart.draw(data, options);
+            }
+
+            function recogDrawPieChart() {
+                let data = createData(2, ['Gender', 'Hits']);
+
+                // Set chart options
+                let options = {
+                    title:'Gender',
+                    width: '810',
+                    height: '500',
+                    colors: ['#FF7300', '#383A38']
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                let chart = new google.visualization.PieChart(document.getElementById('recog-gender-graph'));
+                chart.draw(data, options);
+            }
+
+            function recogDrawLineChart() {
+                let data = createDataForTimeline();
+
+                let options = {
+                    title: 'Timestamp',
+                    curveType: 'function',
+                    width: '1618',
+                    height: '500',
+                    legend: {position: 'none'},
+                    colors: ['#FF7300'],
+                    explorer: {
+                        axis: 'horizontal',
+                        actions: ['dragToZoom', 'rightClickToReset']
+                    },
+                    vAxis: {
+                        minValue: 0
+                    },
+                    gridlines: { count: -1},
+                    library: {hAxis: { format: "hh. mm." } }
+                };
+
+                let chart = new google.visualization.LineChart(document.getElementById('recog-time-graph'));
 
                 let formatter = new google.visualization.DateFormat({formatType: 'long'});
 
