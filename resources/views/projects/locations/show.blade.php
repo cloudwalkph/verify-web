@@ -59,6 +59,32 @@
                                             <div class="graph" id="recog-age-graph" style="background-color: #da7c29;"></div>
                                         </div>
                                     </div>
+                                    <div class="col-md-12 col-xs-12">
+
+                                        <table class="table table-hover">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Image</th>
+                                                    <th>Name</th>
+                                                    <th>Email Address</th>
+                                                    <th>Contact Number</th>
+                                                    <th>Age Group</th>
+                                                    <th>Gender</th>
+                                                </tr>
+                                            @foreach($hits as $hit)
+                                                <tr>
+                                                    <td><img src="{{ asset('storage/'.$hit->image) }}" height="50" width="50" class="img-circle" alt=""></td>
+                                                    <td>{{ $hit->name }}</td>
+                                                    <td>{{ $hit->email }}</td>
+                                                    <td>{{ $hit->contact_number }}</td>
+                                                    @foreach($hit->answers as $answer)
+                                                        <td>{{ $answer->value }}</td>
+                                                    @endforeach
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
 
                                 <div class="tab-pane" id="gps-data">
