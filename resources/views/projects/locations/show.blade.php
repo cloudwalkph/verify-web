@@ -116,8 +116,8 @@
         let conf = {
             key:       "58b50672-0aa2-4dd2-982c-412d99df04c4",
             source: {
-                dash:        "//streamer.medix.ph:1935/vods3/_definst_/mp4:amazons3/verify-bucket/playback/cartedor-day-2-raspi-9_2017-05-23-05.01.45.124-UTC_0.mp4/manifest.mpd",
-                hls:         "//streamer.medix.ph:1935/vods3/_definst_/mp4:amazons3/verify-bucket/playback/cartedor-day-2-raspi-9_2017-05-23-05.01.45.124-UTC_0.mp4/playlist.m3u8",
+                dash:        "//streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/manifest.mpd",
+                hls:         "//streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/playlist.m3u8",
                 poster:      "/images/logo-verify.png"
             }
         };
