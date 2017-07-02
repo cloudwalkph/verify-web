@@ -17,6 +17,8 @@ class CreateVideosTable extends Migration
             $table->increments('id');
             $table->integer('project_location_id')->unsigned();
             $table->string('name');
+            $table->string('alias');
+            $table->enum('status', ['live', 'playback', 'pending']);
             $table->timestamps();
             $table->softDeletes();
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Hit;
 use App\Models\Project;
 use App\Models\ProjectLocation;
+use App\Models\Video;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,10 @@ class ProjectLocationsController extends Controller
 
         $hits = $this->parseHits($hits);
 
-        return view('projects.locations.show', compact('location', 'project', 'hits', 'answers'));
+        $videos = Video::where('project_location_id', $locationId)
+            ->get();
+
+        return view('projects.locations.show', compact('location', 'project', 'hits', 'answers', 'videos'));
     }
 
     private function parseHits($hits)

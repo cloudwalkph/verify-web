@@ -38,8 +38,15 @@
                                 <div class="tab-pane active" id="event-analytics">
                                     <div class="content-body">
                                         <div class="time-and-video">
+                                            <select name="videos" id="video-selection" class="form-control">
+                                                @foreach ($videos as $video)
+                                                    <option value="{{ $video->name }}" data-status="{{ $video->status }}">{{ $video->alias }}</option>
+                                                @endforeach
+                                            </select>
+
                                             <div class="time-graph" id="time-graph"></div>
-                                            <div class="video-feed" id="player"></div>
+                                            <div class="video-feed bmpui-flexbox" id="player">
+                                            </div>
                                         </div>
 
                                         <div class="other-graphs">
@@ -103,37 +110,136 @@
 @endsection
 
 @section('scripts')
-    <script src="//content.jwplatform.com/libraries/PotMeZLE.js"></script>
+    {{--<script src="//content.jwplatform.com/libraries/PotMeZLE.js"></script>--}}
+    <script type="text/javascript" src="//bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
     <script>
-        (function() {
-            let player = jwplayer('player');
-            let liveUrl = "http://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/playlist.m3u8";
-console.log(liveUrl);
-            player.setup({
-                sources: [
-                    {
-                        file: "rtmp://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}"
-                    }
-                ],
-                image: "/images/logo-verify.png"
-            });
+        let conf = {
+            key:       "58b50672-0aa2-4dd2-982c-412d99df04c4",
+            source: {
+                dash:        "//streamer.medix.ph:1935/vods3/_definst_/mp4:amazons3/verify-bucket/playback/cartedor-day-2-raspi-9_2017-05-23-05.01.45.124-UTC_0.mp4/manifest.mpd",
+                hls:         "//streamer.medix.ph:1935/vods3/_definst_/mp4:amazons3/verify-bucket/playback/cartedor-day-2-raspi-9_2017-05-23-05.01.45.124-UTC_0.mp4/playlist.m3u8",
+                poster:      "/images/logo-verify.png"
+            }
+        };
 
-            player.addButton(
-                //This portion is what designates the graphic used for the button
-                "//icons.jwplayer.com/icons/white/download.svg",
-                //This portion determines the text that appears as a tooltip
-                "Download Video",
-                //This portion designates the functionality of the button itself
-                function() {
-                    //With the below code, we're grabbing the file that's currently playing
-                    window.location.href = player.getPlaylistItem()['file'];
-                },
-                //And finally, here we set the unique ID of the button itself.
-                "download"
-            );
-            $("#player").parent().append('<select class="form-control" id="video-selection"><option>SM North Edsa 1st Floor</option><option>SM North Edsa 2nd Floor</option><option>SM North Edsa 3rd Floor</option></select>');
-        }())
+        let player = bitmovin.player("player");
+        player.setup(conf).then(function(value) {
+            // Success
+            console.log("Successfully created bitmovin player instance");
+        }, function(reason) {
+            // Error!
+            console.log("Error while creating bitmovin player instance");
+        });
+
+        $('#video-selection').on('change', function() {
+            let status = $(this).find(':selected').data('status');
+            let value = $(this).val();
+
+            loadMPD(true, status, value);
+        });
+
+        function loadMPD(a, status, file) {
+            let videoUrl = '';
+
+            switch (status) {
+                case "live":
+                    videoUrl = `//streamer.medix.ph:1935/live/${file}`;
+                    break;
+                case "playback":
+                    videoUrl = `//streamer.medix.ph:1935/vods3/_definst_/mp4:amazons3/verify-bucket/playback/${file}`;
+                    break;
+                default:
+                    videoUrl = '';
+            }
+
+            let source = {
+                dash:        `${videoUrl}/manifest.mpd`,
+                hls:         `${videoUrl}/playlist.m3u8`,
+                poster:      "/images/logo-verify.png"
+            };
+
+            console.log('current video', videoUrl);
+
+            player.load(source);
+        }
     </script>
+    {{--<script>--}}
+        {{--(function() {--}}
+            {{--let player = jwplayer('player');--}}
+            {{--let liveUrl = "http://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/playlist.m3u8";--}}
+{{--console.log(liveUrl);--}}
+
+{{--//            $('#video-selection').on('change', function() {--}}
+{{--//                let status = $(this).find(':selected').data('status');--}}
+{{--//                let value = $(this).val();--}}
+{{--//--}}
+{{--//                loadMPD(true, status, value);--}}
+{{--//            });--}}
+{{--//--}}
+{{--//            let currentStatus = $('#video-selection').find(':selected').data('status');--}}
+{{--//            let currentValue = $('#video-selection').val();--}}
+
+            {{--player.setup({--}}
+{{--//                file: "http://streamer.medix.ph:1935/vods3/_definst_/mp4:amazons3/verify-bucket/playback/cartedor-day-2-raspi-9_2017-05-23-05.01.45.124-UTC_0.mp4/manifest.mpd",--}}
+{{--//                file: "https://wowzaec2demo.streamlock.net/vod-multitrack/_definst_/smil:ElephantsDream/ElephantsDream.smil/manifest.mpd",--}}
+{{--//                image: "/images/logo-verify.png",--}}
+{{--//                type:"dash",--}}
+{{--//                dash: 'shaka'--}}
+                {{--playlist:[{--}}
+                    {{--file:"https://wowzaec2demo.streamlock.net/vod-multitrack/_definst_/smil:ElephantsDream/ElephantsDream.smil/manifest.mpd",--}}
+                    {{--title:"Sintel",--}}
+                    {{--description:"This is a DASH stream!",--}}
+                    {{--type:"dash"--}}
+                {{--}],--}}
+                {{--dash: 'shaka',--}}
+                {{--autostart: true--}}
+            {{--});--}}
+
+            {{--player.addButton(--}}
+                {{--//This portion is what designates the graphic used for the button--}}
+                {{--"//icons.jwplayer.com/icons/white/download.svg",--}}
+                {{--//This portion determines the text that appears as a tooltip--}}
+                {{--"Download Video",--}}
+                {{--//This portion designates the functionality of the button itself--}}
+                {{--function() {--}}
+                    {{--//With the below code, we're grabbing the file that's currently playing--}}
+                    {{--window.location.href = player.getPlaylistItem()['file'];--}}
+                {{--},--}}
+                {{--//And finally, here we set the unique ID of the button itself.--}}
+                {{--"download"--}}
+            {{--);--}}
+
+{{--//            loadMPD(true, currentStatus, currentValue);--}}
+
+
+            {{--function loadMPD(a, status, file) {--}}
+                {{--let videoUrl = '';--}}
+
+                {{--switch (status) {--}}
+                    {{--case "live":--}}
+                        {{--videoUrl = `http://streamer.medix.ph:1935/live/${file}/playlist.m3u8`;--}}
+                        {{--break;--}}
+                    {{--case "playback":--}}
+                        {{--videoUrl = `rtmp://streamer.medix.ph:1935/vods3/_definst_/mp4:amazons3/verify-bucket/playback/${file}`;--}}
+                        {{--break;--}}
+                    {{--default:--}}
+                        {{--videoUrl = '';--}}
+                {{--}--}}
+                {{--console.log('current video', videoUrl);--}}
+
+                {{--let o = {--}}
+{{--//                    type: 'hls',--}}
+                    {{--autostart: a--}}
+                {{--};--}}
+
+                {{--let f = videoUrl;--}}
+                {{--if(f) o.file = f;--}}
+                {{--player.setup(o);--}}
+            {{--}--}}
+
+{{--//            $("#player").parent().append('<select class="form-control" id="video-selection"><option>SM North Edsa 1st Floor</option><option>SM North Edsa 2nd Floor</option><option>SM North Edsa 3rd Floor</option></select>');--}}
+        {{--}())--}}
+    {{--</script>--}}
 
     <script type="text/javascript">
         (function() {

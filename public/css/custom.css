@@ -153,6 +153,10 @@ td {
     background-color: #2e2e2e;
 }
 
+.time-and-video > .video-feed {
+    width: 100%;
+}
+
 .agency-title {
     font-weight: bold;
     color: #000;
@@ -307,4 +311,10 @@ p.bottom-desc {
     background-color: #eeeeee;
     border-top: 1px solid #cacaca;
     border-bottom: 1px solid #cacaca;
+}
+
+.bmpui-ui-watermark {
+    background-image: url(http://localhost:8000/images/logo-verify.png) !important;
+    background-size: contain !important;
+    width: 11em !important;
 }
