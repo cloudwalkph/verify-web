@@ -158,7 +158,7 @@
                 poster:      "/images/logo-verify.png"
             };
 
-            console.log('current video', videoUrl);
+            console.log('current video', source);
 
             player.load(source);
         }
