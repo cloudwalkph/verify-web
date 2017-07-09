@@ -8,7 +8,7 @@
             $locations.on('click', '.add-location', function() {
                 // Get the parent location-item
                 let $parent = $(this).parent()
-                    .parent().parent()
+                    .parent().parent().parent().parent()
                     .find('.location-item:last').clone();
 
                 // Update the button
@@ -35,7 +35,7 @@
 
             $locations.on('click', '.remove-location', function() {
                 $(this).parent()
-                    .parent().remove();
+                    .parent().parent().parent().remove();
             });
         })();
     </script>

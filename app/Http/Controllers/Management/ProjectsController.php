@@ -36,11 +36,13 @@ class ProjectsController extends Controller
 
         foreach ($locations as $location) {
             $location['status'] = 'pending';
-            $location['services'] = json_encode($location['services']);
+            $location['services'] = isset($location['services']) ? json_encode($location['services']) : json_encode([]);
+            $location['target_hits'] = isset($location['target_hits']) ? $location['target_hits'] : 0;
+
             $project->locations()->create($location);
         }
 
-        return redirect()->back()->with('status', 'Successfully created new project');
+        return redirect()->to('/management')->with('status', 'Successfully created new project');
     }
 
     public function edit($id)

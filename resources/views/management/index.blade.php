@@ -15,6 +15,11 @@
 
                         <a href="/management/projects/create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Add New Project</a>
                         <hr>
+
+                        <div class="col-md-12">
+                            @include('components.success')
+                        </div>
+
                         <table class="table table-hover">
                             <thead>
                             <tr>

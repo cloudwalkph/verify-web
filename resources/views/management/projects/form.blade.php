@@ -1,7 +1,6 @@
 <div class="row">
     <div class="col-md-12">
         @include('components.errors')
-        @include('components.success')
     </div>
 
     <div class="col-md-12">
@@ -9,20 +8,21 @@
             <div class="form-group">
                 <label for="name">Project Name</label>
                 <input type="text" class="form-control" name="name" id="name" placeholder="Project Name"
-                    value='{{ isset( $project->name ) ? $project->name : "" }}'>
+                       value='{{ isset( $project->name ) ? $project->name : old('name') }}'>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="user_id">Client Name</label>
-                <select class="form-control" name="user_id">
+                <select class="form-control" id="user_id" name="user_id">
                     @foreach($clients as $client)
-                        <option value="{{ $client->id }}">{{ $client->profile->full_name }}</option>
+                        <option value="{{ $client->id }}" {{ old('user_id') == $client->id ? 'selected' : '' }}>
+                            {{ $client->profile->full_name }}
+                        </option>
                     @endforeach
                 </select>
             </div>
         </div>
-
     </div>
 
     <div class="col-md-12">
@@ -30,9 +30,14 @@
     </div>
 
     <div class="locations col-md-12">
-        <div class="location-item col-md-12">
+        <div class="location-item row">
             <div class="col-md-12">
-                <button class="btn btn-primary pull-right add-location" type="button">Add Location</button>
+                <div class="col-md-6 col-md-offset-6">
+                    <div class="form-group">
+                        <button class="btn btn-default add-location pull-right" type="button">
+                            <i class="glyphicon glyphicon-plus"></i> Add Location</button>
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-12">
@@ -54,8 +59,8 @@
             <div class="col-md-12">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="location[assigned_raspberry]">Assigned VBox (For livestreaming)</label>
-                        <select class="form-control input-field" name="locations[0][assigned_raspberry]" id="assigned_raspberry" >
+                        <label for="assigned_raspberry">Assigned VBox (For livestreaming)</label>
+                        <select class="form-control input-field" id="assigned_raspberry" name="locations[0][assigned_raspberry]" id="assigned_raspberry" >
                             <option value="0" selected>No livestreaming</option>
                             @for($i = 1; $i <= 25; $i++)
                                 <option value="raspi-{{$i}}">V-BOX {{$i}}</option>
@@ -70,11 +75,21 @@
                                value='{{ isset( $project->locations[0]->video_name ) ? $project->locations[0]->video_name : "" }}'>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="location[date]">Date</label>
                         <input type="date" class="form-control input-field" name="locations[0][date]" id="target_hits" placeholder="Date"
                                value='{{ isset( $project->locations[0]->date ) ? $project->locations[0]->date : "" }}'>
+                    </div>
+                </div>
+
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label for="test">&nbsp;</label>
+                        <button type="button"
+                                class="btn btn-default btn-block add-video">
+                            <i class="glyphicon glyphicon-plus"></i> Add Video
+                        </button>
                     </div>
                 </div>
             </div>
@@ -94,7 +109,7 @@
 
     <div class="col-sm-12" style="text-align: right;">
         <a href="/management" class="btn btn-danger" style="width: 200px">Cancel</a>
-        <button type="submit" class="btn btn-success" style="width: 200px">Save</button>
+        <button type="submit" class="btn btn-primary" style="width: 200px">Save</button>
     </div>
 
 </div>

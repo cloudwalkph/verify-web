@@ -25,7 +25,6 @@ class CreateProjectRequest extends FormRequest
     {
         return [
             'locations.*.name'           => 'required',
-            'locations.*.target_hits'    => 'required',
             'locations.*.date'           => 'required',
             'name'                      => 'required',
             'user_id'                   => 'required',
