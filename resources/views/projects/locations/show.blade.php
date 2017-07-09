@@ -116,8 +116,8 @@
         let conf = {
             key:       "58b50672-0aa2-4dd2-982c-412d99df04c4",
             source: {
-                dash:        "//streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/manifest.mpd",
-                hls:         "//streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/playlist.m3u8",
+                dash:        "//streamer.medix.ph/{{ $location->assigned_raspberry }}/manifest.mpd",
+                hls:         "//streamer.medix.ph/{{ $location->assigned_raspberry }}/playlist.m3u8",
                 poster:      "/images/logo-verify.png"
             }
         };
@@ -143,10 +143,10 @@
 
             switch (status) {
                 case "live":
-                    videoUrl = `//streamer.medix.ph:1935/live/${file}`;
+                    videoUrl = `//streamer.medix.ph/live/${file}`;
                     break;
                 case "playback":
-                    videoUrl = `//streamer.medix.ph:1935/vods3/_definst_/mp4:amazons3/verify-bucket/playback/${file}`;
+                    videoUrl = `//streamer.medix.ph/vods3/_definst_/mp4:amazons3/verify-bucket/playback/${file}`;
                     break;
                 default:
                     videoUrl = '';
@@ -166,7 +166,7 @@
     {{--<script>--}}
         {{--(function() {--}}
             {{--let player = jwplayer('player');--}}
-            {{--let liveUrl = "http://streamer.medix.ph:1935/{{ $location->assigned_raspberry }}/playlist.m3u8";--}}
+            {{--let liveUrl = "http://streamer.medix.ph/{{ $location->assigned_raspberry }}/playlist.m3u8";--}}
 {{--console.log(liveUrl);--}}
 
 {{--//            $('#video-selection').on('change', function() {--}}
@@ -180,7 +180,7 @@
 {{--//            let currentValue = $('#video-selection').val();--}}
 
             {{--player.setup({--}}
-{{--//                file: "http://streamer.medix.ph:1935/vods3/_definst_/mp4:amazons3/verify-bucket/playback/cartedor-day-2-raspi-9_2017-05-23-05.01.45.124-UTC_0.mp4/manifest.mpd",--}}
+{{--//                file: "http://streamer.medix.ph/vods3/_definst_/mp4:amazons3/verify-bucket/playback/cartedor-day-2-raspi-9_2017-05-23-05.01.45.124-UTC_0.mp4/manifest.mpd",--}}
 {{--//                file: "https://wowzaec2demo.streamlock.net/vod-multitrack/_definst_/smil:ElephantsDream/ElephantsDream.smil/manifest.mpd",--}}
 {{--//                image: "/images/logo-verify.png",--}}
 {{--//                type:"dash",--}}
@@ -217,10 +217,10 @@
 
                 {{--switch (status) {--}}
                     {{--case "live":--}}
-                        {{--videoUrl = `http://streamer.medix.ph:1935/live/${file}/playlist.m3u8`;--}}
+                        {{--videoUrl = `http://streamer.medix.ph/live/${file}/playlist.m3u8`;--}}
                         {{--break;--}}
                     {{--case "playback":--}}
-                        {{--videoUrl = `rtmp://streamer.medix.ph:1935/vods3/_definst_/mp4:amazons3/verify-bucket/playback/${file}`;--}}
+                        {{--videoUrl = `rtmp://streamer.medix.ph/vods3/_definst_/mp4:amazons3/verify-bucket/playback/${file}`;--}}
                         {{--break;--}}
                     {{--default:--}}
                         {{--videoUrl = '';--}}
