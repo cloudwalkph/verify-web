@@ -71,29 +71,27 @@
                                         <table class="table table-hover">
                                             <tbody>
                                                 <tr>
+                                                    <th>Timestamp</th>
                                                     <th>Image</th>
-                                                    <th>Name</th>
-                                                    <th>Email Address</th>
-                                                    <th>Contact Number</th>
-                                                    <th>Age Group</th>
                                                     <th>Gender</th>
+                                                    <th>Demographics</th>
                                                 </tr>
                                             @foreach($hits as $hit)
+                                                @if ($hit->auto)
                                                 <tr>
+                                                    <td>{{ \Carbon\Carbon::createFromTimestamp(strtotime($hit->hit_timestamp))->toDateTimeString() }}</td>
                                                     <td><img src="{{ asset('storage/'.$hit->image) }}" height="50" width="50" class="img-circle" alt=""></td>
-                                                    <td>{{ $hit->name }}</td>
-                                                    <td>{{ $hit->email }}</td>
                                                     <td>{{ $hit->contact_number }}</td>
                                                     @foreach($hit->answers as $answer)
                                                         <td>{{ $answer->value }}</td>
                                                     @endforeach
                                                 </tr>
+                                                @endif
                                             @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-
                                 <div class="tab-pane" id="gps-data">
                                     <div class="content-body">
                                         <div id="map"></div>
