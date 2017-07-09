@@ -94,6 +94,30 @@
                                 </div>
                                 <div class="tab-pane" id="gps-data">
                                     <div class="content-body">
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <label for="ba">&nbsp;&nbsp;</label>
+                                                    <select name="ba" id="ba" class="form-control">
+                                                        <option value="0" selected>Select person involved in project</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <label for="">&nbsp;</label>
+                                                    <button class="btn btn-primary">Show History</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <label for="">&nbsp;</label>
+                                                    <button class="btn btn-default">Show Current Location</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div id="map"></div>
                                     </div>
                                 </div>
@@ -110,6 +134,9 @@
 @section('scripts')
     {{--<script src="//content.jwplatform.com/libraries/PotMeZLE.js"></script>--}}
     <script type="text/javascript" src="//bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpj9D7dDRll2Cj-sTXzPEVwoCwx7LOjXw"
+            async defer></script>
+
     <script>
         let conf = {
             key:       "58b50672-0aa2-4dd2-982c-412d99df04c4",
@@ -161,7 +188,6 @@
             player.load(source);
         }
     </script>
-
     <script type="text/javascript">
         (function() {
             let answers = JSON.parse('{!! json_encode($answers) !!}');
@@ -376,10 +402,6 @@
             }
         }())
     </script>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpj9D7dDRll2Cj-sTXzPEVwoCwx7LOjXw"
-            async defer></script>
-
     <script>
         $(function() {
             let map, activations;
