@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('styles')
+    <link rel="stylesheet" href="/dropzone/basic.css">
+    <link rel="stylesheet" href="/dropzone/dropzone.css">
+@endsection
+
 @section('content')
     <div class="info-section">
         <div class="info-title">
@@ -10,6 +15,35 @@
             </h1>
 
         </div>
+
+        @if ($services && in_array('automatic', $services))
+            <div class="info-body">
+                <a href="#"
+                   data-toggle="modal"
+                   data-target="#uploadImages"
+                   class="btn btn-primary">Upload Images Manually</a>
+            </div>
+
+            <div class="modal fade" id="uploadImages" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Upload Face Images</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="dropzone" id="myDropzone" action="/projects/{{ $project->id }}/locations/{{ $location->id }}/faces" method="POST">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        @endif
 
         <div class="info-body">
             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports"
@@ -73,15 +107,14 @@
                                                 <tr>
                                                     <th>Timestamp</th>
                                                     <th>Image</th>
-                                                    <th>Gender</th>
                                                     <th>Demographics</th>
+                                                    <th>Gender</th>
                                                 </tr>
                                             @foreach($hits as $hit)
                                                 @if ($hit->auto)
                                                 <tr>
                                                     <td>{{ \Carbon\Carbon::createFromTimestamp(strtotime($hit->hit_timestamp))->toDateTimeString() }}</td>
-                                                    <td><img src="{{ asset('storage/'.$hit->image) }}" height="50" width="50" class="img-circle" alt=""></td>
-                                                    <td>{{ $hit->contact_number }}</td>
+                                                    <td><img src="{{ Storage::drive('s3')->url($hit->image) }}" height="50" width="50" class="img-circle" alt=""></td>
                                                     @foreach($hit->answers as $answer)
                                                         <td>{{ $answer->value }}</td>
                                                     @endforeach
@@ -133,6 +166,7 @@
 
 @section('scripts')
     {{--<script src="//content.jwplatform.com/libraries/PotMeZLE.js"></script>--}}
+    <script src="/dropzone/dropzone.js"></script>
     <script type="text/javascript" src="//bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpj9D7dDRll2Cj-sTXzPEVwoCwx7LOjXw"
             async defer></script>
@@ -571,5 +605,24 @@
                 }
             })
         })
+    </script>
+    <script>
+        Dropzone.options.myDropzone = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            acceptedFiles: 'image/*',
+            accept: function(file, done) {
+                if (file.name == "justinbieber.jpg") {
+                    done("Naha, you don't.");
+                }
+
+                else { done(); }
+            },
+            init: function() {
+                this.on('sending', function(file, xhr, formData) {
+                    formData.append('_token', window.Laravel.csrfToken);
+                })
+            }
+        };
     </script>
 @endsection
