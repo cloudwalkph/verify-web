@@ -36,7 +36,6 @@ class ProjectLocationsController extends Controller
 
         $project = Project::find($projectId);
         $hits = Hit::with('answers')
-            ->where('auto', 0)
             ->where('project_location_id', $locationId)
             ->get();
 
