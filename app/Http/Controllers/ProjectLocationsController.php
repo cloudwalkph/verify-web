@@ -36,11 +36,16 @@ class ProjectLocationsController extends Controller
 
         $project = Project::find($projectId);
         $hits = Hit::with('answers')
+            ->where('auto', 0)
             ->where('project_location_id', $locationId)
             ->get();
 
-        $answers = $this->parseAnswers($hits->toArray());
+        $auto = Hit::with('answers')
+            ->where('auto', 1)
+            ->where('project_location_id', $locationId)
+            ->paginate(20);
 
+        $answers = $this->parseAnswers($hits->toArray());
         $hits = $this->parseHits($hits);
 
         $videos = Video::where('project_location_id', $locationId)
@@ -49,7 +54,8 @@ class ProjectLocationsController extends Controller
         $services = $location->services ? json_decode($location->services) : [];
 
         return view('projects.locations.show',
-            compact('location', 'project', 'hits', 'answers', 'videos', 'services'));
+            compact('location', 'project', 'hits',
+                'answers', 'videos', 'services', 'auto'));
     }
 
     public function faceUpload(Request $request, $projectId, $locationId)
