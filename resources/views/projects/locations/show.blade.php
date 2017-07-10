@@ -110,8 +110,7 @@
                                                     <th>Demographics</th>
                                                     <th>Gender</th>
                                                 </tr>
-                                            @foreach($hits as $hit)
-                                                @if ($hit->auto)
+                                            @foreach($auto as $hit)
                                                 <tr>
                                                     <td>{{ \Carbon\Carbon::createFromTimestamp(strtotime($hit->hit_timestamp))->toDateTimeString() }}</td>
                                                     <td><img src="{{ Storage::drive('s3')->url($hit->image) }}" height="50" width="50" class="img-circle" alt=""></td>
@@ -119,10 +118,11 @@
                                                         <td>{{ $answer->value }}</td>
                                                     @endforeach
                                                 </tr>
-                                                @endif
                                             @endforeach
                                             </tbody>
                                         </table>
+
+                                        {{ $auto->links() }}
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="gps-data">
