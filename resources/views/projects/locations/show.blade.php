@@ -229,9 +229,6 @@
             let answers = JSON.parse('{!! json_encode($answers) !!}');
             let hits = JSON.parse('{!! json_encode($hits) !!}');
 
-            let answersAuto = JSON.parse('{!! json_encode($answersAuto) !!}');
-            let hitsAuto = JSON.parse('{!! json_encode($hitsAuto) !!}');
-
             // Load the Visualization API and the corechart package.
             google.charts.load('current', {'packages':['corechart']});
 
