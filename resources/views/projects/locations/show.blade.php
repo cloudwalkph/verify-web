@@ -122,7 +122,9 @@
                                             </tbody>
                                         </table>
 
-                                        {{ $auto->links() }}
+                                        <div class="pull-right">
+                                            {{ $auto->links() }}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="gps-data">
