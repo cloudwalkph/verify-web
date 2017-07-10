@@ -87,6 +87,9 @@ class ProjectLocationsController extends Controller
         ]);
 
         $faceDetails = $result->get('FaceDetails');
+        if ($result->count() <= 0) {
+            return;
+        }
         $firstFace = $faceDetails[0];
         $ageRange = $firstFace['AgeRange'];
         $gender = $firstFace['Gender'];
