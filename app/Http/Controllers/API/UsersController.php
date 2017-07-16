@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 
-class UsersController extends Controllers {
+class UsersController extends Controller {
     public function profile(Request $request)
     {
         $user = $request->user();
