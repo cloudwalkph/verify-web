@@ -7,6 +7,7 @@ use App\Models\Hit;
 use App\Models\Project;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Events\NewFaceUploaded;
 
 class HitsController extends Controller {
 
@@ -88,5 +89,26 @@ class HitsController extends Controller {
             ->get();
 
         return response()->json($hits, 200);
+    }
+
+    public function faceUpload(Request $request, $locationId)
+    {
+        $user = $request->user();
+
+        if ($request->hasFile('file')) {
+
+            $file = $request->file('file');
+
+            $filename = uniqid() . '-' . $locationId . '-' . $file->getClientOriginalName();
+            $path = \Storage::drive('s3')->putFileAs('faces/'.$locationId, $file, $filename, 'public');
+            $timestamp = $request->has('hit_timestamp') ? $request->get('hit_timestamp') : Carbon::today()->toDateTimeString();
+
+            // Queue the image processing
+            event(new NewFaceUploaded($path, $locationId, $timestamp, $user->id));
+
+            return response()->json('success', 200);
+        }
+
+        return response()->json('error', 400);
     }
 }
