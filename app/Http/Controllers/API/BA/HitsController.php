@@ -106,9 +106,9 @@ class HitsController extends Controller {
             // Queue the image processing
             event(new NewFaceUploaded($path, $locationId, $timestamp, $user->id));
 
-            return response()->json('success', 200);
+            return response()->json(['success'], 201);
         }
 
-        return response()->json('error', 400);
+        return response()->json(['error'], 400);
     }
 }
