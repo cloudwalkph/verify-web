@@ -1,10 +1,40 @@
-@extends('layouts.app')
+@extends('layouts.management')
+
+@section('styles')
+    <style>
+        #statistics {
+            margin: 0;
+            padding: 0;
+        }
+
+        #statistics .item {
+            min-height: 200px;
+            padding-top: 30px;
+            text-align: center;
+        }
+
+        #statistics .item .title {
+            font-size: 20px;
+            color: #fff;
+        }
+
+        #statistics .item .content {
+            font-size: 100px;
+            color: #fff;
+            line-height: 80px;
+        }
+
+        .bg-success {
+            background-color: #FF7300 !important;
+        }
+
+        .bg-info {
+            background-color: #FF9D4C;
+        }
+    </style>
+@endsection
 
 @section('content')
-    <div class="alert alert-primary" style="text-align: center">
-        <img src="{{ asset('images/ic_sms_failed_24px.png') }}" alt="info"> CLICK ON A PROJECT TO VIEW MORE DETAILS
-    </div>
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -13,45 +43,44 @@
                         <h1 class="agency-title">Activations Advertising Inc</h1>
                         <h4>Monitor all the data from consumer engagement activities</h4>
 
-                        <a href="/management/projects/create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Add New Project</a>
                         <hr>
 
-                        <div class="col-md-12">
-                            @include('components.success')
+                        <!-- Some statistics -->
+                        
+                        <div class="row" id="statistics">
+                            <!-- Active Projects -->
+                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                <div class="col-xs-12 col-sm-12 col-md-12 item bg-primary">
+                                    <div class="title">Active Projects</div>
+                                    <div class="content">10</div>
+                                </div>
+                            </div>
+
+                            <!-- Active Locations -->
+                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                <div class="col-xs-12 col-sm-12 col-md-12 item bg-success">
+                                    <div class="title">Active Locations</div>
+                                    <div class="content">10</div>
+                                </div>
+                            </div>
+                            <!-- Livestreaming Count -->
+                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                <div class="col-xs-12 col-sm-12 col-md-12 item bg-info">
+                                    <div class="title">Active Livestream</div>
+                                    <div class="content">10</div>
+                                </div>
+                            </div>
+                            <!-- Number of clients -->
+                            <div class="col-xs-12 col-sm-6 col-md-3">
+                                <div class="col-xs-12 col-sm-12 col-md-12 item bg-info">
+                                    <div class="title"># of Clients</div>
+                                    <div class="content">10</div>
+                                </div>
+                            </div>
                         </div>
 
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>Project Name</th>
-                                <th class="text-center">Client Name</th>
-                                <th class="text-center">Achieve Sampling Target Hits</th>
-                                <th>Status</th>
-                            </tr>
-                            </thead>
 
-                            <tbody>
-                            @foreach ($projects as $project)
-                                <tr class="clickable" data-uri="/management/projects/update/{{ $project->id }}">
-                                    <td>
-                                        <strong>{{ $project->name }}</strong>
-                                    </td>
-
-                                    <td class="text-center">
-                                        {{ $project->user->profile->full_name }}
-                                    </td>
-
-                                    <td class="text-center">
-                                        {{ $project->locations()->sum('target_hits') != 0 ? get_total_hits_for_project($project->locations) > $project->locations()->sum('target_hits') ? $project->locations()->sum('target_hits') : get_total_hits_for_project($project->locations) ." / ". $project->locations()->sum('target_hits') : 'NA' }}
-                                    </td>
-
-                                    <td>
-                                        {{ ucwords($project->status) }}
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                        <!-- Some listing of maybe top 10 of something -->
 
                     </div>
                 </div>

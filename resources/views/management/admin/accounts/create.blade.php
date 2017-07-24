@@ -4,7 +4,7 @@
 
     <div class="info-section">
         <div class="info-title">
-            <a href="/management/profile" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            <a href="/management/users" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
             <h2 style="color: #fff">
                 Add New Account
             </h2>

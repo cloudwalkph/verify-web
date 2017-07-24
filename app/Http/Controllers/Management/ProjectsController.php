@@ -14,7 +14,7 @@ class ProjectsController extends Controller
     {
         $projects = Project::all();
 
-        return view('management.index', compact('projects'));
+        return view('management.projects.index', compact('projects'));
     }
 
     public function create()

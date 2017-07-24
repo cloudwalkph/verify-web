@@ -11,6 +11,13 @@ class AccountsController extends Controller
 {
     public function index()
     {
+        $users = User::all();
+
+        return view('management.admin.accounts.index', compact('users'));
+    }
+
+    public function create()
+    {
     	$groups = UserGroup::all();
 
         return view('management.admin.accounts.create', compact('groups'));
@@ -56,5 +63,34 @@ class AccountsController extends Controller
         $user->profile()->update($profile);
 
         return redirect()->back()->with('status', 'Successfully updated account details');
+    }
+
+    public function importGPSData(Request $request)
+    {
+        if (! $request->hasFile('gps_file')) {
+            $request->session()->flash('error', 'No file to upload');
+            return redirect()->back();
+        }
+        
+        $results = [];
+        \Excel::load($request->file('gps_file'), function($reader) use (&$results, $request) {
+            // reader methods
+            $sheets = $reader->all();
+            foreach ($sheets->toArray() as $sheet) {
+                foreach ($sheet as $location) {
+                    $latlng = explode(',', $location['llc']);
+                    $data = [
+                        'user_id'   => $request->get('user_id'),
+                        'lat'   => $latlng[0],
+                        'lng'   => $latlng[1],
+                        'created_at' => Carbon::createFromTimestamp(strtotime($location['time']))->toDateTimeString()
+                    ];
+                    $results[] = $data;
+                    // Create Data
+                    UserLocation::create($data);
+                }
+            }
+        });
+        return redirect()->back();
     }
 }
