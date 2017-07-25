@@ -45,7 +45,7 @@
 
     <div class="info-section">
         <div class="info-title">
-            <a href="/management" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            <a href="/management/projects" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
             <h2 style="color: #fff">
                 Add New Project
             </h2>
