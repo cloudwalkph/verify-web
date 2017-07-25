@@ -31,7 +31,9 @@
                                 <h4>Manage all users</h4>
                             </div>
                             <div class="col-md-6">
-                                <a href="/management/users/create" class="btn btn-primary pull-right" style="width: 200px; margin-top: 25px">Create New Account</a>
+                                <a href="/management/users/create"
+                                   class="btn btn-primary pull-right" style="width: 200px; margin-top: 25px">
+                                    <i class="glyphicon glyphicon-plus"></i> Create New Account</a>
                             </div>
                         </div>
 

@@ -18,10 +18,21 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h1 class="agency-title">Activations Advertising Inc</h1>
-                        <h4>Monitor all the data from consumer engagement activities</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h1 class="agency-title">Activations Advertising Inc</h1>
+                                <h4>Monitor all the data from consumer engagement activities</h4>
+                            </div>
 
-                        <a href="/management/projects/create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Add New Project</a>
+                            <div class="col-md-6">
+                                <a href="/management/projects/create"
+                                   style="margin-top: 30px;"
+                                   class="btn btn-primary pull-right">
+                                    <i class="glyphicon glyphicon-plus"></i> Add New Project</a>
+                            </div>
+                        </div>
+
+
                         <hr>
 
                         <div class="col-md-12">
