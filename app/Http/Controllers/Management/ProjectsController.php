@@ -28,21 +28,25 @@ class ProjectsController extends Controller
     {
         $input = $request->all();
 
-        $locations = $input['locations'];
-        $input['status'] = 'active';
-        unset($input['locations']);
+//        $locations = $input['locations'];
+        $input['status'] = 'pending';
+//        unset($input['locations']);
 
         $project = Project::create($input);
 
-        foreach ($locations as $location) {
-            $location['status'] = 'pending';
-            $location['services'] = isset($location['services']) ? json_encode($location['services']) : json_encode([]);
-            $location['target_hits'] = isset($location['target_hits']) ? $location['target_hits'] : 0;
+//        foreach ($locations as $location) {
+//            $location['status'] = 'pending';
+//            $location['services'] = isset($location['services']) ? json_encode($location['services']) : json_encode([]);
+//            $location['target_hits'] = isset($location['target_hits']) ? $location['target_hits'] : 0;
+//
+//            $project->locations()->create($location);
+//        }
 
-            $project->locations()->create($location);
+        if (! $project) {
+            return redirect()->to('/management/projects')->with('status', 'Failed to create a project');
         }
 
-        return redirect()->to('/management')->with('status', 'Successfully created new project');
+        return redirect()->to('/management/projects/update/'.$project->id)->with('status', 'Successfully created new project');
     }
 
     public function edit($id)
@@ -57,15 +61,8 @@ class ProjectsController extends Controller
     {
         $input = $request->all();
 
-        $locations = $input['location'];
-        $locations['status'] = 'pending';
-        $input['status'] = 'active';
-        unset($input['location']);
-
         $project = Project::where('id', $id)->first();
-
         $project->update($input);
-        $project->locations()->update($locations);
 
         return redirect()->back()->with('status', 'Successfully updated project');
     }
