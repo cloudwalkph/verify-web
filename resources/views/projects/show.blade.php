@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('scripts')
+    <script>
+        $(function() {
+            $('.locations-table').DataTable();
+        });
+    </script>
+@endsection
+
 @section('content')
     <div class="info-section">
         <div class="info-title">
@@ -18,33 +26,41 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
 
-                        <table class="table table-hover">
+                        <h1>Locations</h1>
+                        <hr>
+
+                        <table class="table table-hover locations-table">
                             <thead>
                             <tr>
-                                <th>Project Name</th>
+                                <th>Location Name</th>
                                 <th>Date</th>
-                                <th>Achieve Sampling Target Hits</th>
+                                <th>Reported Hits/th>
+                                <th>Audited Hits/th>
                                 <th>Status</th>
                             </tr>
                             </thead>
 
                             <tbody>
                             @foreach ($locations as $location)
-                                <tr class="clickable" data-uri="/projects/{{ $location->project_id }}/locations/{{ $location->id }}">
+                                <tr class="clickable" data-uri="/projects/{{ $location['project_id'] }}/locations/{{ $location['id'] }}">
                                     <td>
-                                        <strong>{{ $location->name }}</strong>
+                                        <strong>{{ $location['name'] }}</strong>
                                     </td>
 
                                     <td>
-                                        {{ $location->date }}
+                                        {{ $location['date'] }}
                                     </td>
 
                                     <td>
-                                        {{ $location->hits()->count() > $location->target_hits ? $location->target_hits : $location->hits()->count() }} / {{ $location->target_hits }}
+                                        {{ $location['reported_hits'] }}
                                     </td>
 
                                     <td>
-                                        {{ ucwords($location->status) }}
+                                        {{ $location['audited_hits'] }} ({{ $location['audit_percent'] }}%)
+                                    </td>
+
+                                    <td>
+                                        {{ ucwords($location['status']) }}
                                     </td>
                                 </tr>
                             @endforeach
