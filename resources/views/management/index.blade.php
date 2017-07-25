@@ -52,7 +52,7 @@
                             <div class="col-xs-12 col-sm-6 col-md-3">
                                 <div class="col-xs-12 col-sm-12 col-md-12 item bg-primary">
                                     <div class="title">Active Projects</div>
-                                    <div class="content">10</div>
+                                    <div class="content">{{ $stats['active_projects'] }}</div>
                                 </div>
                             </div>
 
@@ -60,21 +60,21 @@
                             <div class="col-xs-12 col-sm-6 col-md-3">
                                 <div class="col-xs-12 col-sm-12 col-md-12 item bg-success">
                                     <div class="title">Active Locations</div>
-                                    <div class="content">10</div>
+                                    <div class="content">{{ $stats['active_locations'] }}</div>
                                 </div>
                             </div>
                             <!-- Livestreaming Count -->
                             <div class="col-xs-12 col-sm-6 col-md-3">
                                 <div class="col-xs-12 col-sm-12 col-md-12 item bg-info">
-                                    <div class="title">Active Livestream</div>
-                                    <div class="content">10</div>
+                                    <div class="title">Active Livestreams</div>
+                                    <div class="content">{{ $stats['active_livestreams'] }}</div>
                                 </div>
                             </div>
                             <!-- Number of clients -->
                             <div class="col-xs-12 col-sm-6 col-md-3">
                                 <div class="col-xs-12 col-sm-12 col-md-12 item bg-info">
                                     <div class="title"># of Clients</div>
-                                    <div class="content">10</div>
+                                    <div class="content">{{ $stats['number_of_clients'] }}</div>
                                 </div>
                             </div>
                         </div>
