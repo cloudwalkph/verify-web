@@ -23,7 +23,7 @@
                         <div class="active tab-pane" id="profile">
                             <div class="content">
 
-                                <form action="/management/accounts/update/{{$user->id}}" method="POST">
+                                <form action="/management/users/update/{{$user->id}}" method="POST">
                                     {{ csrf_field() }}
                                     @include('management.admin.accounts.form')
                                 </form>
@@ -41,7 +41,7 @@
                 <div class="modal-header text-center">
                     <p>IMPORT GPS DATA</p>
                 </div>
-                <form action="/admin/users/import" method="POST" enctype="multipart/form-data">
+                <form action="/management/users/update/{{$user->id}}/import-gps" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         {{ csrf_field() }}
                         <input type="hidden" name="user_id" id="userId">
