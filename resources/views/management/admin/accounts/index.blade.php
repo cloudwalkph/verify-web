@@ -32,7 +32,7 @@
                                         <h1>Users</h1>
                                     </div>
                                     <div class="col-md-6">
-                                        <a href="/management/accounts" class="btn btn-primary pull-right" style="width: 200px; margin-top: 25px">Create New Account</a>
+                                        <a href="/management/users/create" class="btn btn-primary pull-right" style="width: 200px; margin-top: 25px">Create New Account</a>
                                     </div>
                                 </div>
 
@@ -45,7 +45,6 @@
                                         <th>User Group</th>
                                         <th>Email Address</th>
                                         <th>Date</th>
-                                        <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
