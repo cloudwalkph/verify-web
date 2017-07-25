@@ -52,7 +52,7 @@
                                     </td>
 
                                     <td>
-                                        {{ $project['audited_hits'] }} ({{ number_format($project['audit_percent'], 2) }}%)
+                                        {{ $project['audited_hits'] }} (<span class="text-primary">{{ number_format($project['audit_percent'], 2) }}%</span>)
                                     </td>
 
                                     <td>
