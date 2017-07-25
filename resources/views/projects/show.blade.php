@@ -56,7 +56,7 @@
                                     </td>
 
                                     <td>
-                                        {{ $location['audited_hits'] }} ({{ $location['audit_percent'] }}%)
+                                        {{ $location['audited_hits'] }} ({{ number_format($location['audit_percent'], 2) }}%)
                                     </td>
 
                                     <td>
