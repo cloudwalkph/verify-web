@@ -34,8 +34,8 @@
                             <tr>
                                 <th>Location Name</th>
                                 <th>Date</th>
-                                <th>Reported Hits/th>
-                                <th>Audited Hits/th>
+                                <th>Reported Hits</th>
+                                <th>Audited Hits</th>
                                 <th>Status</th>
                             </tr>
                             </thead>
