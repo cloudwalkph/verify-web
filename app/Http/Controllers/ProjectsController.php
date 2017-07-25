@@ -65,16 +65,4 @@ class ProjectsController extends Controller
         return $result;
     }
 
-    private function countRunsBaseOnStatus($locations, $status = 'on-going')
-    {
-        $count = 0;
-        foreach ($locations as $location) {
-            if ($location->status === $status) {
-                $count++;
-            }
-        }
-
-        return $count;
-    }
-
 }

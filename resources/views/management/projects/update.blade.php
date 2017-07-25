@@ -120,6 +120,7 @@
                             <table class="table table-bordered locations-table">
                                 <thead>
                                     <tr>
+                                        <th>Date</th>
                                         <th>Location Name</th>
                                         <th>Services</th>
                                         <th>Vbox Channel</th>
@@ -128,6 +129,20 @@
                                         <th>Status</th>
                                     </tr>
                                 </thead>
+
+                                <tbody>
+                                    @foreach ($locations as $location)
+                                        <tr>
+                                            <td>{{ $location['date'] }}</td>
+                                            <td>{{ $location['name'] }}</td>
+                                            <td>{{ $location['services'] }}</td>
+                                            <td>{{ $location['vboxes'] }}</td>
+                                            <td>{{ $location['reported_hits'] }}</td>
+                                            <td>{{ $location['audited_hits'] }} (<span class="text-primary">{{ $location['audited_percent'] }}</span>%)</td>
+                                            <td>{{ $location['status'] }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
                             </table>
                         </div>
 
