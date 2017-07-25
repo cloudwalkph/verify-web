@@ -32,7 +32,7 @@
                         <table class="table table-hover locations-table">
                             <thead>
                             <tr>
-                                <th class="hide">id</th>
+                                <th>Id</th>
                                 <th>Location Name</th>
                                 <th>Date</th>
                                 <th>Reported Hits</th>
@@ -44,7 +44,7 @@
                             <tbody>
                             @foreach ($locations as $location)
                                 <tr class="clickable" data-uri="/projects/{{ $location['project_id'] }}/locations/{{ $location['id'] }}">
-                                    <td class="hide">
+                                    <td>
                                         <strong>{{ $location['id'] }}</strong>
                                     </td>
 
