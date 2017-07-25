@@ -63,7 +63,7 @@ Route::group(['prefix' => 'management', 'namespace' => 'Management'], function()
         Route::get('/create', 'AccountsController@create');
         Route::post('/', 'AccountsController@store');
         Route::get('/update/{id}', 'AccountsController@edit');
-        Route::get('/update/{id}/import-gps', 'AccountsController@importGPSData');
+        Route::post('/update/{id}/import-gps', 'AccountsController@importGPSData');
         Route::post('/update/{id}', 'AccountsController@update');
     });
 });

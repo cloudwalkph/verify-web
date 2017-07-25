@@ -44,7 +44,7 @@
                 <form action="/management/users/update/{{$user->id}}/import-gps" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         {{ csrf_field() }}
-                        <input type="hidden" name="user_id" id="userId">
+                        <input type="hidden" name="user_id" id="userId" value="{{ $user->id }}">
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="file">Select excel file to import: </label>
