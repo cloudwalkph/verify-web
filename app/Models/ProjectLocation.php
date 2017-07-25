@@ -46,4 +46,9 @@ class ProjectLocation extends Model
     {
         return $query->count();
     }
+
+    public function scopeReportedHits($query)
+    {
+        return $query->sum('manual_hits');
+    }
 }

@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('scripts')
+    <script>
+        $(function() {
+            $('.projects-table').DataTable();
+        });
+    </script>
+@endsection
+
 @section('content')
 <div class="alert alert-primary" style="text-align: center">
     <img src="{{ asset('images/ic_sms_failed_24px.png') }}" alt="info"> CLICK ON A PROJECT TO VIEW MORE DETAILS
@@ -12,53 +20,70 @@
                 <div class="panel-body">
 
                     <legend>My Projects</legend>
-                    <table class="table table-hover">
+                    <table class="table table-hover projects-table">
                         <thead>
                             <tr>
                                 <th>Project Name</th>
                                 <th>Active Runs</th>
-                                <th>Achieve Sampling Target Hits</th>
                                 <th>Completed Runs</th>
+                                <th>Reported Hits</th>
+                                <th>Audited Hits</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             @foreach ($projects as $project)
-                                <tr class="clickable" data-uri="/projects/{{ $project->id }}">
+                                <tr class="clickable" data-uri="/projects/{{ $project['id'] }}">
                                     <td>
-                                        <strong>{{ $project->name }}</strong>
+                                        <strong>{{ $project['name'] }}</strong>
                                     </td>
 
                                     <td>
-                                        {{ $project->locations()->onGoing()->count() }} / {{ $project->locations()->count() }}
+                                        {{ $project['active_runs'] }} / {{ count($project['locations']) }}
                                     </td>
 
                                     <td>
-                                        {{ get_total_hits_for_project($project->locations) > $project->locations()->sum('target_hits') ? $project->locations()->sum('target_hits') : get_total_hits_for_project($project->locations) }} / {{ $project->locations()->sum('target_hits') }}
+                                        {{ $project['completed_runs'] }} / {{ count($project['locations']) }}
                                     </td>
 
                                     <td>
-                                        {{ $project->locations()->completed()->count() }} / {{ $project->locations()->count() }}
+                                        {{ $project['reported_hits']  }}
                                     </td>
 
                                     <td>
-                                        {{ ucwords($project->status) }}
+                                        {{ $project['audited_hits'] }} ({{ $project['audit_percent'] }}%)
+                                    </td>
+
+                                    <td>
+                                        {{ ucwords($project['status']) }}
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
 
                     <legend>Shared Projects</legend>
-                    <table class="table table-hover">
+                    <table class="table table-hover projects-table">
                         <thead>
                         <tr>
                             <th>Project Name</th>
                             <th>Active Runs</th>
-                            <th>Achieved Target Hits</th>
                             <th>Completed Runs</th>
+                            <th>Reported Hits</th>
+                            <th>Audited Hits</th>
                             <th>Status</th>
                         </tr>
                         </thead>
@@ -75,11 +100,15 @@
                                 </td>
 
                                 <td>
-                                    {{ get_total_hits_for_project($sharedProject->project->locations) }} / {{ $sharedProject->project->locations()->sum('target_hits') }}
+                                    {{ $sharedProject->project->locations()->completed()->count() }} / {{ $sharedProject->project->locations()->total() }}
                                 </td>
 
                                 <td>
-                                    {{ $sharedProject->project->locations()->completed()->count() }} / {{ $sharedProject->project->locations()->total() }}
+                                    Reported
+                                </td>
+
+                                <td>
+                                    Audited Hits
                                 </td>
 
                                 <td>
