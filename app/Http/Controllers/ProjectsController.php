@@ -55,6 +55,7 @@ class ProjectsController extends Controller
 
         $hits = Hit::with('answers')
             ->whereIn('project_location_id', $locationIds)
+            ->limit(5000)
             ->get();
 
 //        $answers = $this->parseAnswers($hits->toArray());
