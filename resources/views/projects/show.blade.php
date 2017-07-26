@@ -12,8 +12,8 @@
             axios.get(url).then((response) => {
                 console.log(response);
 
-                answers = response.body.answers;
-                hits = response.body.hits;
+                answers = response.data.answers;
+                hits = response.data.hits;
 
                 drawCharts();
             });
