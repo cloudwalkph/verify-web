@@ -100,7 +100,7 @@ class AccountsController extends Controller
     {
         $query = $request->get('q');
 
-        $users = User::with('profile')->where('user_group_id', 2)
+        $users = User::with('profile')->where('user_group_id', $request->get('group'))
             ->whereHas('profile', function($q) use ($query) {
                 $q->where('first_name', 'LIKE', '%'.$query.'%');
             })

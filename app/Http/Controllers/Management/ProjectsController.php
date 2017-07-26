@@ -21,28 +21,16 @@ class ProjectsController extends Controller
 
     public function create()
     {
-        $clients = User::where('user_group_id', 2)->get();
 
-        return view('management.projects.create', compact('clients'));
+        return view('management.projects.create');
     }
 
     public function store(CreateProjectRequest $request)
     {
         $input = $request->all();
-
-//        $locations = $input['locations'];
         $input['status'] = 'pending';
-//        unset($input['locations']);
 
         $project = Project::create($input);
-
-//        foreach ($locations as $location) {
-//            $location['status'] = 'pending';
-//            $location['services'] = isset($location['services']) ? json_encode($location['services']) : json_encode([]);
-//            $location['target_hits'] = isset($location['target_hits']) ? $location['target_hits'] : 0;
-//
-//            $project->locations()->create($location);
-//        }
 
         if (! $project) {
             return redirect()->to('/management/projects')->with('status', 'Failed to create a project');
@@ -54,11 +42,18 @@ class ProjectsController extends Controller
     public function edit($id)
     {
         $project = Project::find($id);
-        $clients = User::where('user_group_id', 2)->get();
+
         $locations = ProjectLocation::where('project_id', $project->id)->get();
         $locations = $this->parseLocations($locations);
+        $client = User::with('profile')->where('id', $project->user_id)
+            ->first();
 
-        return view('management.projects.update', compact('clients', 'project', 'locations'));
+        $client = [
+            'id'    => $client->id,
+            'name'  => $client->profile->full_name
+        ];
+
+        return view('management.projects.update', compact('client', 'project', 'locations'));
     }
 
     public function update(CreateProjectRequest $request, $id)

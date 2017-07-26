@@ -21,7 +21,7 @@
                 load: function(query, callback) {
                     if (!query.length) return callback();
 
-                    let url = '/management/users/json?q=' + encodeURIComponent(query);
+                    let url = '/management/users/json?group=2&q=' + encodeURIComponent(query);
 
                     axios.get(url).then((response) => {
                         callback(response.data);
