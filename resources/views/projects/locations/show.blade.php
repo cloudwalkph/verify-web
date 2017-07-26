@@ -63,13 +63,14 @@
                             <p style="color: #FF7300;">Last updated: {{ $project->updated_at->toFormattedDateString() }}</p>
 
                             <ul class="nav nav-tabs" id="serviceTabs">
-                                <li class="active"><a href="#event-analytics" data-toggle="tab">Event Analytics</a></li>
-                                <li class="{{ $services && in_array('automatic', $services) ? '' : 'hide' }}"><a href="#automatic-data" data-toggle="tab">Face Recognition Data</a></li>
-                                <li class="{{ $services && in_array('gps', $services) ? '' : 'hide' }}"><a href="#gps-data" data-toggle="tab">GPS Data</a></li>
+                                <li class="active"><a href="#video" data-toggle="tab">Video</a></li>
+                                <li><a href="#event-analytics" data-toggle="tab">Manual</a></li>
+                                <li class="{{ $services && in_array('automatic', $services) ? '' : 'hide' }}"><a href="#automatic-data" data-toggle="tab">Automated</a></li>
+                                <li class="{{ $services && in_array('gps', $services) ? '' : 'hide' }}"><a href="#gps-data" data-toggle="tab">GPS</a></li>
                             </ul>
 
                             <div class="tab-content">
-                                <div class="tab-pane active" id="event-analytics">
+                                <div class="tab-pane active" id="video">
                                     <div class="content-body">
                                         <div class="time-and-video">
                                             <select name="videos" id="video-selection" class="form-control">
@@ -78,8 +79,23 @@
                                                 @endforeach
                                             </select>
 
-                                            <div class="time-graph" id="time-graph"></div>
                                             <div class="video-feed bmpui-flexbox" id="player">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="event-analytics">
+                                    <div class="content-body">
+                                        <div class="time-and-video">
+                                            {{--<select name="videos" id="video-selection" class="form-control">--}}
+                                                {{--@foreach ($videos as $video)--}}
+                                                    {{--<option value="{{ $video->name }}" data-status="{{ $video->status }}">{{ $video->alias }}</option>--}}
+                                                {{--@endforeach--}}
+                                            {{--</select>--}}
+
+                                            <div class="time-graph" id="time-graph"></div>
+                                            {{--<div class="video-feed bmpui-flexbox" id="player">--}}
                                             </div>
                                         </div>
 
@@ -89,6 +105,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="tab-pane" id="automatic-data">
                                     <div class="content-body">
                                         <div class="time-and-video">
