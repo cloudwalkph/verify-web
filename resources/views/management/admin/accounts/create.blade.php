@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.management')
 
 @section('content')
 
@@ -19,7 +19,7 @@
                         <div class="active tab-pane" id="profile">
                             <div class="content">
 
-                                <form action="/management/accounts" method="POST">
+                                <form action="/management/users" method="POST">
                                     {{ csrf_field() }}
                                     @include('management.admin.accounts.form')
 
