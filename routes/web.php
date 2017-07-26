@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('/projects/{projectId}', 'ProjectsController@show');
 Route::get('/projects/{projectId}/locations', 'ProjectsController@showLocations');
+Route::get('/projects/{projectId}/locations/get-hits', 'ProjectsController@getHits');
 Route::get('/projects/{projectId}/locations/{locationId}', 'ProjectLocationsController@show');
 Route::post('/projects/{projectId}/locations/{locationId}/faces', 'ProjectLocationsController@faceUpload');
 Route::get('/projects/{projectId}/locations/{locationId}/event-reports', 'EventsReportController@show');

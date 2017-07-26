@@ -3,8 +3,20 @@
 @section('scripts')
     <script type="text/javascript">
         (function() {
-            let answers = JSON.parse('{!! json_encode($answers) !!}');
-            let hits = JSON.parse('{!! json_encode($hits) !!}');
+            let answers = [];
+            let hits = [];
+
+            let projectId = $('#projectId').val();
+            let url = `/projects/${projectId}/locations/get-hits`;
+
+            axios.get(url).then((response) => {
+                console.log(response);
+
+                answers = response.body.answers;
+                hits = response.body.hits;
+
+                drawCharts();
+            });
 
             // Load the Visualization API and the corechart package.
             google.charts.load('current', {'packages':['corechart']});
@@ -180,4 +192,5 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="projectId" value="{{ $project->id }}">
 @endsection

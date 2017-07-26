@@ -27,20 +27,6 @@ class ProjectsController extends Controller
      */
     public function show(Request $request, $projectId)
     {
-        $locations = ProjectLocation::where('project_id', $projectId)->get();
-
-        $locationIds = [];
-        foreach ($locations as $location) {
-            $locationIds[] = $location->id;
-        }
-
-        $hits = Hit::with('answers')
-            ->whereIn('project_location_id', $locationIds)
-            ->get();
-
-        $answers = $this->parseAnswers($hits->toArray());
-        $hits = $this->parseHits($hits);
-
         $project = Project::find($projectId);
 
         return view('projects.show', compact('locations', 'project', 'answers', 'hits'));
@@ -56,6 +42,28 @@ class ProjectsController extends Controller
         $project = Project::find($projectId);
 
         return view('projects.show-locations', compact('locations', 'project'));
+    }
+
+    public function getHits(Request $request, $projectId)
+    {
+        $locations = ProjectLocation::where('project_id', $projectId)->get();
+
+        $locationIds = [];
+        foreach ($locations as $location) {
+            $locationIds[] = $location->id;
+        }
+
+        $hits = Hit::with('answers')
+            ->whereIn('project_location_id', $locationIds)
+            ->get();
+
+        $answers = $this->parseAnswers($hits->toArray());
+        $hits = $this->parseHits($hits);
+
+        return response()->json([
+            'answers'   => $answers,
+            'hits'      => $hits
+        ], 200);
     }
 
     private function parseLocations($locations)
