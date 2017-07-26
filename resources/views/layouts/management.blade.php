@@ -51,10 +51,10 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav" style="margin-left: 5px;">
-                        <li class="active"><a href="/management">Dashboard <span class="sr-only">(current)</span></a></li>
-                        <li><a href="/management/projects">Projects</a></li>
-                        <li><a href="/management/users">Users Management</a></li>
-                        <li class="dropdown">
+                        <li class="{{ Request::is('management') ? 'active' : '' }}"  ><a href="/management">Dashboard <span class="sr-only">(current)</span></a></li>
+                        <li class="{{ Request::is('management/projects*') ? 'active' : '' }}"><a href="/management/projects">Projects</a></li>
+                        <li class="{{ Request::is('management/users*') ? 'active' : '' }}"><a href="/management/users">Users Management</a></li>
+                        <li class="{{ Request::is('management/maintenance*') ? 'active dropdown' : 'dropdown' }}" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Maintenance <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Project Categories</a></li>
@@ -62,7 +62,7 @@
                                 <li><a href="#">User Roles</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Reports</a></li>
+                        <li class="{{ Request::is('management/reports*') ? 'active' : '' }}"><a href="#">Reports</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
