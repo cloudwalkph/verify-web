@@ -89,6 +89,10 @@ class ProjectsController extends Controller
             if (isset($input['assigned_raspberries']) && count($input['assigned_raspberries']) > 0) {
 
                 foreach ($input['assigned_raspberries'] as $key => $video) {
+                    if (! $video) {
+                        continue;
+                    }
+
                     $videoData = [
                         'name'      => $video ? $video : '',
                         'alias'     => isset($input['video_names'][$key]) ? $input['video_names'][$key] : '',
