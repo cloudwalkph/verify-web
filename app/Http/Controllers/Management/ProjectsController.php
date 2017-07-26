@@ -75,7 +75,7 @@ class ProjectsController extends Controller
             $data = [
                 'project_id'    => $id,
                 'name'          => $input['name'],
-                'target_hits'   => $input['target_hits'],
+                'target_hits'   => isset($input['target_hits']) ? $input['target_hits'] : 0,
                 'date'          => Carbon::createFromTimestamp(strtotime($input['date']))->toDateString(),
                 'services'      => json_encode($input['services']),
                 'assigned_raspberry'    => '',
