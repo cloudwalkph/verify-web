@@ -138,7 +138,7 @@
                                             <td>{{ $location['services'] }}</td>
                                             <td>{{ $location['vboxes'] }}</td>
                                             <td>{{ $location['reported_hits'] }}</td>
-                                            <td>{{ $location['audited_hits'] }} (<span class="text-primary">{{ $location['audit_percent'] }}</span>%)</td>
+                                            <td>{{ $location['audited_hits'] }} (<span class="text-primary">{{ number_format($location['audit_percent'], 2) }}</span>%)</td>
                                             <td>{{ $location['status'] }}</td>
                                         </tr>
                                     @endforeach
