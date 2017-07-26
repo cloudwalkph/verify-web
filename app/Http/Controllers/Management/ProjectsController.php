@@ -97,8 +97,10 @@ class ProjectsController extends Controller
             }
 
             // Users
-            $users = explode(',', $input['bas']);
-            $location->users()->attach($users);
+            if (isset($input['bas'])) {
+                $users = explode(',', $input['bas']);
+                $location->users()->attach($users);
+            }
 
             $result = [
                 'location'  => $location,
