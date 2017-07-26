@@ -134,7 +134,7 @@
                                     @foreach ($locations as $location)
                                         <tr>
                                             <td>{{ $location['date'] }}</td>
-                                            <td style="max-width: 150px">{{ $location['name'] }}</td>
+                                            <td style="max-width: 250px">{{ $location['name'] }}</td>
                                             <td>{{ $location['services'] }}</td>
                                             <td>{{ $location['vboxes'] }}</td>
                                             <td>{{ $location['reported_hits'] }}</td>
