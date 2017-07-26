@@ -58,10 +58,13 @@ class ProjectsController extends Controller
             ->limit(5000)
             ->get();
 
-//        $answers = $this->parseAnswers($hits->toArray());
-//        $hits = $this->parseHits($hits);
+        $answers = $this->parseAnswers($hits->toArray());
+        $hits = $this->parseHits($hits);
 
-        return response()->json($hits, 200);
+        return response()->json([
+            'answers'   => $answers,
+            'hits'      => $hits
+        ], 200);
     }
 
     private function parseLocations($locations)
