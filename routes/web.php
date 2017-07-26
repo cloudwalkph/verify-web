@@ -39,6 +39,7 @@ Route::group(['prefix' => 'management', 'namespace' => 'Management'], function()
         Route::post('/create', 'ProjectsController@store');
         Route::get('/update/{id}', 'ProjectsController@edit');
         Route::post('/update/{id}', 'ProjectsController@update');
+        Route::post('/update/{id}/locations', 'ProjectsController@createLocations');
     });
 
     Route::group(['prefix' => 'profile'], function () {
@@ -62,8 +63,8 @@ Route::group(['prefix' => 'management', 'namespace' => 'Management'], function()
 
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'AccountsController@index');
-        Route::get('/json', 'AccountsController@getClients');
         Route::get('/create', 'AccountsController@create');
+        Route::get('/json/', 'AccountsController@getClients');
         Route::post('/', 'AccountsController@store');
         Route::get('/update/{id}', 'AccountsController@edit');
         Route::post('/update/{id}/import-gps', 'AccountsController@importGPSData');

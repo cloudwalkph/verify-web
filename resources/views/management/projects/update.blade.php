@@ -4,8 +4,92 @@
     <script>
         $(function() {
             $('.locations-table').DataTable();
+
+            // clients selectize
+            $('#user_id').selectize({
+                placeholder: 'Select a client user',
+                valueField: 'id',
+                labelField: 'name',
+                searchField: 'name',
+                create: false,
+                render: {
+                    option: function(item, escape) {
+                        return '<div>' +
+                            '<span class="title">' +
+                            '<span>' + escape(item.name) + '</span>' +
+                            '</span>' +
+                            '</div>';
+                    }
+                },
+                load: function(query, callback) {
+                    if (!query.length) return callback();
+
+                    let url = '/management/users/json?group=2&q=' + encodeURIComponent(query);
+
+                    axios.get(url).then((response) => {
+                        callback(response.data);
+                    }).catch((err) => {
+                        callback();
+                    });
+
+                }
+            });
+
+            // brand ambassadors selectize
+            $('#bas').selectize({
+                placeholder: 'Select brand ambassadors',
+                valueField: 'id',
+                labelField: 'name',
+                searchField: 'name',
+                plugins: ['remove_button'],
+                create: false,
+                render: {
+                    option: function(item, escape) {
+                        return '<div>' +
+                            '<span class="title">' +
+                            '<span>' + escape(item.name) + '</span>' +
+                            '</span>' +
+                            '</div>';
+                    }
+                },
+                load: function(query, callback) {
+                    if (!query.length) return callback();
+
+                    let url = '/management/users/json?group=3&q=' + encodeURIComponent(query);
+
+                    axios.get(url).then((response) => {
+                        callback(response.data);
+                    }).catch((err) => {
+                        callback();
+                    });
+
+                }
+            });
+
+            // Add Multiple videos
+            $(document).on('click', '.add-video', function() {
+                let $el = $(this).parent()
+                    .parent()
+                    .parent()
+                    .clone();
+
+                $el.find('.input-field').val('');
+
+                let $parent = $(this).parent()
+                    .parent()
+                    .parent()
+                    .parent();
+
+                $parent.append($el);
+
+                $(this).html('<i class="glyphicon glyphicon-remove"></i>')
+                    .removeClass('btn-default')
+                    .addClass('btn-danger');
+            });
         });
     </script>
+
+
 @endsection
 
 @section('content')
@@ -53,11 +137,9 @@
                                            <div class="form-group">
                                                <label for="user_id">Client Name</label>
                                                <select class="form-control" id="user_id" name="user_id">
-                                                   @foreach($clients as $client)
-                                                       <option value="{{ $client->id }}" {{ old('user_id') == $client->id ? 'selected' : '' }}>
-                                                           {{ $client->profile->full_name }}
-                                                       </option>
-                                                   @endforeach
+                                                   <option value="{{ $client['id'] }}" selected>
+                                                       {{ $client['name'] }}
+                                                   </option>
                                                </select>
                                            </div>
                                        </div>

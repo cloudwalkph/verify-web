@@ -66,6 +66,58 @@ class ProjectsController extends Controller
         return redirect()->back()->with('status', 'Successfully updated project');
     }
 
+    public function createLocations(Request $request, $id)
+    {
+        $input = $request->all();
+        $result = null;
+
+        \DB::transaction(function() use ($input, $id, &$result) {
+            $data = [
+                'project_id'    => $id,
+                'name'          => $input['name'],
+                'target_hits'   => $input['target_hits'],
+                'date'          => Carbon::createFromTimestamp(strtotime($input['date']))->toDateString(),
+                'services'      => json_encode($input['services']),
+                'assigned_raspberry'    => '',
+                'status'        => 'pending',
+                'category_id'   => 0
+            ];
+
+            $location = ProjectLocation::create($data);
+
+            // Videos
+            foreach ($input['assigned_raspberries'] as $key => $video) {
+                $videoData = [
+                    'name'      => $video,
+                    'alias'     => $input['video_names'][$key],
+                    'status'    => 'pending'
+                ];
+
+                $location->videos()->create($videoData);
+            }
+
+            // Users
+            $users = explode(',', $input['bas']);
+            $location->users()->attach($users);
+
+            $result = [
+                'location'  => $location,
+                'user'      => $location->user,
+                'videos'    => $location->videos,
+            ];
+
+        });
+
+
+        if (! $result) {
+            return redirect()->back()->with('errors', ['Failed to create a location']);
+        }
+
+        $request->session()->flash('status', 'Successfully attached a location');
+
+        return redirect()->back();
+    }
+
     private function parseLocations($locations)
     {
         $result = [];

@@ -41,52 +41,51 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="bas">Brand Ambassadors</label>
-                                    <select id="bas" name="bas[]" class="form-control">
-                                        <option value="0" selected disabled>Select brand ambassadors</option>
-                                        {{--<option value="0">Select brand ambassadors</option>--}}
-                                        {{--<option value="0">Select brand ambassadors</option>--}}
-                                    </select>
+                                    <input type="text" id="bas" name="bas" class="form-control" />
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-12">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="assigned_raspberry">Assigned VBox (For livestreaming)</label>
-                                    <select class="form-control input-field" id="assigned_raspberry" name="assigned_raspberries[]" id="assigned_raspberry" >
-                                        <option value="0" selected>No livestreaming</option>
-                                        @for($i = 1; $i <= 25; $i++)
-                                            <option value="raspi-{{$i}}">V-BOX {{$i}}</option>
-                                        @endfor
-                                    </select>
+                        <div class="col-md-12 videos">
+                            <div class="video-item">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="assigned_raspberry">Assigned VBox (For livestreaming)</label>
+                                        <select class="form-control input-field" id="assigned_raspberry" name="assigned_raspberries[]" id="assigned_raspberry" >
+                                            <option value="" selected>No livestreaming</option>
+                                            @for($i = 1; $i <= 25; $i++)
+                                                <option value="raspi-{{$i}}">V-BOX {{$i}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="video_name">Video Name</label>
-                                    <input type="text" class="form-control input-field" id="video_name" name="video_names[]" placeholder="Video Name"
-                                           value='{{ isset( $project->locations[0]->video_name ) ? $project->locations[0]->video_name : "" }}'>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="video_name">Video Name</label>
+                                        <input type="text" class="form-control input-field" id="video_name" name="video_names[]" placeholder="Video Name"
+                                               value='{{ isset( $project->locations[0]->video_name ) ? $project->locations[0]->video_name : "" }}'>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="test">&nbsp;</label>
-                                    <button type="button"
-                                            class="btn btn-default btn-block add-video">
-                                        <i class="glyphicon glyphicon-plus"></i> Add Video
-                                    </button>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="test">&nbsp;</label>
+                                        <button type="button"
+                                                class="btn btn-default btn-block add-video">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-12">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Services</label> <br>
-                                    <label><input type="checkbox" value="manual" class="checkbox-input" name="locations[0][services][]"> Manual V-App</label>
-                                    <label><input type="checkbox" value="automatic" class="checkbox-input" name="locations[0][services][]"> Automatic V-App</label>
-                                    <label><input type="checkbox" value="gps" class="checkbox-input" name="locations[0][services][]"> GPS Tracker</label>
+                                    <label><input type="checkbox" value="manual" class="checkbox-input" name="services[]"> Manual V-App</label>
+                                    <label><input type="checkbox" value="automatic" class="checkbox-input" name="services[]"> Automatic V-App</label>
+                                    <label><input type="checkbox" value="gps" class="checkbox-input" name="services[]"> GPS Tracker</label>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +94,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success importBtn">Import</button>
+                    <button type="submit" class="btn btn-success importBtn">Save Location</button>
                 </div>
             </form>
         </div>
