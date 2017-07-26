@@ -86,14 +86,16 @@ class ProjectsController extends Controller
             $location = ProjectLocation::create($data);
 
             // Videos
-            foreach ($input['assigned_raspberries'] as $key => $video) {
-                $videoData = [
-                    'name'      => $video,
-                    'alias'     => isset($input['video_names'][$key]) ? $input['video_names'][$key] : '',
-                    'status'    => 'pending'
-                ];
+            if (isset($input['assigned_raspberries'])) {
+                foreach ($input['assigned_raspberries'] as $key => $video) {
+                    $videoData = [
+                        'name'      => $video,
+                        'alias'     => isset($input['video_names'][$key]) ? $input['video_names'][$key] : '',
+                        'status'    => 'pending'
+                    ];
 
-                $location->videos()->create($videoData);
+                    $location->videos()->create($videoData);
+                }
             }
 
             // Users
