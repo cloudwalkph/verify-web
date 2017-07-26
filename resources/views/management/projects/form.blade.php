@@ -12,14 +12,9 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="control-group">
                 <label for="user_id">Client Name</label>
                 <select class="form-control" id="user_id" name="user_id">
-                    @foreach($clients as $client)
-                        <option value="{{ $client->id }}" {{ old('user_id') == $client->id ? 'selected' : '' }}>
-                            {{ $client->profile->full_name }}
-                        </option>
-                    @endforeach
                 </select>
             </div>
         </div>

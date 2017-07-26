@@ -95,4 +95,26 @@ class AccountsController extends Controller
         });
         return redirect()->back();
     }
+
+    public function getClients(Request $request)
+    {
+        $query = $request->get('q');
+
+        $users = User::with('profile')->where('user_group_id', 2)
+            ->whereHas('profile', function($q) use ($query) {
+                $q->where('first_name', 'LIKE', '%'.$query.'%');
+            })
+            ->limit(10)
+            ->get();
+
+        $result = [];
+        foreach ($users as $user) {
+            $result[] = [
+                'id'    => $user->id,
+                'name'  => $user->profile->full_name
+            ];
+        }
+
+        return response()->json($result, 200);
+    }
 }

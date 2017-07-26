@@ -1,43 +1,37 @@
-@extends('layouts.app')
+@extends('layouts.management')
 
 @section('scripts')
     <script>
-        (function() {
-            let $locations = $('.locations');
+        $(function() {
+            $('#user_id').selectize({
+                placeholder: 'Select a client user',
+                valueField: 'id',
+                labelField: 'name',
+                searchField: 'name',
+                create: false,
+                render: {
+                    option: function(item, escape) {
+                        return '<div>' +
+                                '<span class="title">' +
+                                    '<span>' + escape(item.name) + '</span>' +
+                                '</span>' +
+                            '</div>';
+                    }
+                },
+                load: function(query, callback) {
+                    if (!query.length) return callback();
 
-            $locations.on('click', '.add-location', function() {
-                // Get the parent location-item
-                let $parent = $(this).parent()
-                    .parent().parent().parent().parent()
-                    .find('.location-item:last').clone();
+                    let url = '/management/users/json?q=' + encodeURIComponent(query);
 
-                // Update the button
-                $(this).removeClass('add-location')
-                    .removeClass('btn-primary')
-                    .addClass('btn-danger')
-                    .addClass('remove-location')
-                    .html('Remove Location');
+                    axios.get(url).then((response) => {
+                        callback(response.data);
+                    }).catch((err) => {
+                        callback();
+                    });
 
-                // Update input elements
-                let inputs = $parent.find('.input-field');
-                inputs.val('');
-
-                console.log();
-
-                $(this).parent()
-                    .parent().find('.checkbox-filed').prop('checked', false);
-
-                // Append the new location-item
-                $locations.append($parent);
-
-                $parent = null;
+                }
             });
-
-            $locations.on('click', '.remove-location', function() {
-                $(this).parent()
-                    .parent().parent().parent().remove();
-            });
-        })();
+        });
     </script>
 @endsection
 

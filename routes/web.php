@@ -62,6 +62,7 @@ Route::group(['prefix' => 'management', 'namespace' => 'Management'], function()
 
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'AccountsController@index');
+        Route::get('/json', 'AccountsController@getClients');
         Route::get('/create', 'AccountsController@create');
         Route::post('/', 'AccountsController@store');
         Route::get('/update/{id}', 'AccountsController@edit');
