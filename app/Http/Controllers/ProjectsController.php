@@ -60,10 +60,7 @@ class ProjectsController extends Controller
         $answers = $this->parseAnswers($hits->toArray());
         $hits = $this->parseHits($hits);
 
-        return response()->json([
-            'answers'   => $answers,
-            'hits'      => $hits
-        ], 200);
+        return response()->json($answers, 200);
     }
 
     private function parseLocations($locations)

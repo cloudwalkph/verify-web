@@ -13,7 +13,6 @@
                 console.log(response);
 
                 answers = response.body.answers;
-                hits = response.body.hits;
 
                 drawCharts();
             });
