@@ -110,7 +110,11 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <button class="btn btn-primary pull-right" style="margin-top: 30px;">
+                                    <button class="btn btn-primary pull-right"
+                                            type="button"
+                                            data-target="#addLocation"
+                                            data-toggle="modal"
+                                            style="margin-top: 30px;">
                                         <i class="glyphicon glyphicon-plus"></i> Add Location</button>
                                 </div>
                             </div>
@@ -151,4 +155,6 @@
             </div>
         </div>
     </div>
+
+    @include('management.projects.add-location')
 @endsection

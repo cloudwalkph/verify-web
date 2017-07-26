@@ -77,11 +77,15 @@ class ProjectsController extends Controller
         foreach ($locations as $location) {
             $reported = $location->manual_hits;
             $audited = $location->hits()->count();
+            $percentage = 0;
 
             if ($reported > 0) {
                 $percentage = ($audited / $reported) * 100;
-            } else {
-                $percentage = 0;
+            }
+
+            $services = '';
+            if (! $location->services) {
+                $services = implode(", ", json_decode($location->services));
             }
 
             $result[] = [
@@ -92,7 +96,7 @@ class ProjectsController extends Controller
                 'reported_hits'     => $reported,
                 'audited_hits'      => $audited,
                 'audit_percent'     => $percentage,
-                'services'          => implode(", ", json_decode($location->services)),
+                'services'          => $services,
                 'vboxes'            => implode(", ", array_map_assoc(function($k, $v){
                         return $v['name'];
                     }, $location->videos->toArray())),
