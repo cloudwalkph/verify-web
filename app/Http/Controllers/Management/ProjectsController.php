@@ -89,7 +89,7 @@ class ProjectsController extends Controller
             foreach ($input['assigned_raspberries'] as $key => $video) {
                 $videoData = [
                     'name'      => $video,
-                    'alias'     => $input['video_names'][$key],
+                    'alias'     => isset($input['video_names'][$key]) ? $input['video_names'][$key] : '',
                     'status'    => 'pending'
                 ];
 
