@@ -57,10 +57,10 @@ class ProjectsController extends Controller
             ->whereIn('project_location_id', $locationIds)
             ->get();
 
-        $answers = $this->parseAnswers($hits->toArray());
-        $hits = $this->parseHits($hits);
+//        $answers = $this->parseAnswers($hits->toArray());
+//        $hits = $this->parseHits($hits);
 
-        return response()->json($answers, 200);
+        return response()->json($hits, 200);
     }
 
     private function parseLocations($locations)
