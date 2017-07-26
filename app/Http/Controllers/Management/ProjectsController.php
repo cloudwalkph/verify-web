@@ -131,7 +131,7 @@ class ProjectsController extends Controller
             }
 
             $services = '';
-            if (! $location->services) {
+            if (! $location->services === 'null') {
                 $services = implode(", ", json_decode($location->services));
             }
 
