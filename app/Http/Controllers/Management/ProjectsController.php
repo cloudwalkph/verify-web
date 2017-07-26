@@ -86,7 +86,8 @@ class ProjectsController extends Controller
             $location = ProjectLocation::create($data);
 
             // Videos
-            if (isset($input['assigned_raspberries'])) {
+            if (isset($input['assigned_raspberries']) && count($input['assigned_raspberries']) > 0) {
+
                 foreach ($input['assigned_raspberries'] as $key => $video) {
                     $videoData = [
                         'name'      => $video,
