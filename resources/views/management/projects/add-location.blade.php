@@ -14,15 +14,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="name">Location</label>
-                                    <input type="text" class="form-control input-field" name="name" id="name" placeholder="Location"
-                                           value='{{ isset( $project->locations[0]->name ) ? $project->locations[0]->name : "" }}'>
+                                    <input type="text" class="form-control input-field" name="name" id="name" placeholder="Location">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="target_hits">Target Hits</label>
-                                    <input type="text" class="form-control input-field" name="target_hits" id="target_hits" placeholder="Target Hits"
-                                           value='{{ isset( $project->locations[0]->target_hits ) ? $project->locations[0]->target_hits : "" }}'>
+                                    <input type="text" class="form-control input-field" name="target_hits" id="target_hits" placeholder="Target Hits">
                                 </div>
                             </div>
                         </div>
@@ -31,8 +29,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="date">Date</label>
-                                    <input type="date" class="form-control input-field" name="date" id="date" placeholder="Date"
-                                           value='{{ isset( $project->locations[0]->date ) ? $project->locations[0]->date : "" }}'>
+                                    <input type="date" class="form-control input-field" name="date" id="date" placeholder="Date">
                                 </div>
                             </div>
                         </div>
@@ -62,8 +59,7 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="video_name">Video Name</label>
-                                        <input type="text" class="form-control input-field" id="video_name" name="video_names[]" placeholder="Video Name"
-                                               value='{{ isset( $project->locations[0]->video_name ) ? $project->locations[0]->video_name : "" }}'>
+                                        <input type="text" class="form-control input-field" id="video_name" name="video_names[]" placeholder="Video Name">
                                     </div>
                                 </div>
 
