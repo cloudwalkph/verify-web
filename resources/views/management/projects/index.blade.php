@@ -43,29 +43,39 @@
                             <thead>
                             <tr>
                                 <th>Project Name</th>
-                                <th class="text-center">Client Name</th>
-                                <th class="text-center">Achieve Sampling Target Hits</th>
+                                <th>Active Runs</th>
+                                <th>Completed Runs</th>
+                                <th>Reported Hits</th>
+                                <th>Audited Hits</th>
                                 <th>Status</th>
                             </tr>
                             </thead>
 
                             <tbody>
                             @foreach ($projects as $project)
-                                <tr class="clickable" data-uri="/management/projects/update/{{ $project->id }}">
+                                <tr class="clickable" data-uri="/management/projects/update/{{ $project['id'] }}">
                                     <td>
-                                        <strong>{{ $project->name }}</strong>
-                                    </td>
-
-                                    <td class="text-center">
-                                        {{ $project->user->profile->full_name }}
-                                    </td>
-
-                                    <td class="text-center">
-                                        {{ $project->locations()->sum('target_hits') != 0 ? get_total_hits_for_project($project->locations) > $project->locations()->sum('target_hits') ? $project->locations()->sum('target_hits') : get_total_hits_for_project($project->locations) ." / ". $project->locations()->sum('target_hits') : 'NA' }}
+                                        <strong>{{ $project['name'] }}</strong>
                                     </td>
 
                                     <td>
-                                        {{ ucwords($project->status) }}
+                                        {{ $project['active_runs'] }} / {{ count($project['locations']) }}
+                                    </td>
+
+                                    <td>
+                                        {{ $project['completed_runs'] }} / {{ count($project['locations']) }}
+                                    </td>
+
+                                    <td>
+                                        {{ $project['reported_hits']  }}
+                                    </td>
+
+                                    <td>
+                                        {{ $project['audited_hits'] }} (<span class="text-primary">{{ number_format($project['audit_percent'], 2) }}%</span>)
+                                    </td>
+
+                                    <td>
+                                        {{ ucwords($project['status']) }}
                                     </td>
                                 </tr>
                             @endforeach
