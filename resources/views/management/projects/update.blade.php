@@ -110,11 +110,14 @@
                     answers = answersRes.data;
 
 
-
+                    console.log(answers);
                     drawCharts();
 
                     $('.overlay').addClass('hide');
-                }));
+                })).catch((error) => {
+                    console.log(error);
+                    $('.overlay').addClass('hide');
+                });
 
             // Load the Visualization API and the corechart package.
             google.charts.load('current', {'packages':['corechart']});
