@@ -16,35 +16,6 @@
 
         </div>
 
-        @if ($services && in_array('automatic', $services))
-            <div class="info-body">
-                <a href="#"
-                   data-toggle="modal"
-                   data-target="#uploadImages"
-                   class="btn btn-primary">Upload Images Manually</a>
-            </div>
-
-            <div class="modal fade" id="uploadImages" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" style="width: 80%" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Upload Face Images</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form class="dropzone" id="myDropzone" action="/projects/{{ $project->id }}/locations/{{ $location->id }}/faces" method="POST">
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        @endif
-
         <div class="info-body">
             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports"
                class="btn btn-primary">Verify Audit Report</a>
@@ -59,14 +30,14 @@
 
                         <div class="content">
                             <h3>Event Analytics</h3>
-                            <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
+                            <p>Automated data analytics base from captured images</p>
 
                             <ul class="nav nav-tabs" id="serviceTabs">
-                                <li class="active">
+                                <li>
                                     <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}">Manual</a>
                                 </li>
 
-                                <li class="{{ $services && in_array('automatic', $services) ? '' : 'hide' }}">
+                                <li class="{{ $services && in_array('automatic', $services) ? '' : 'hide' }} active">
                                     <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/automated">Automated</a>
                                 </li>
 
@@ -87,7 +58,6 @@
                                     <div class="time-graph" id="time-graph"></div>
                                 </div>
                             </div>
-
                         </div>
 
                     </div>
@@ -98,12 +68,14 @@
 @endsection
 
 @section('scripts')
+    {{--<script src="//content.jwplatform.com/libraries/PotMeZLE.js"></script>--}}
     <script src="/dropzone/dropzone.js"></script>
+    <script type="text/javascript" src="//bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
 
     <script type="text/javascript">
         (function() {
-            let answers = JSON.parse('{!! json_encode($answers) !!}');
-            let hits = JSON.parse('{!! json_encode($hits) !!}');
+            let answers = [];
+            let hits = [];
 
             // Load the Visualization API and the corechart package.
             google.charts.load('current', {'packages':['corechart']});
@@ -115,6 +87,9 @@
                 drawLineChart();
                 drawPieChart();
                 drawBarChart();
+                recogDrawLineChart();
+                recogDrawPieChart();
+                recogDrawBarChart();
             }
 
             function createData(pollId, $tableHeader) {
@@ -239,26 +214,76 @@
 
                 chart.draw(data, options);
             }
-        }())
-    </script>
 
-    <script>
-        Dropzone.options.myDropzone = {
-            paramName: "file", // The name that will be used to transfer the file
-            maxFilesize: 2, // MB
-            acceptedFiles: 'image/*',
-            accept: function(file, done) {
-                if (file.name == "justinbieber.jpg") {
-                    done("Naha, you don't.");
-                }
+            function recogDrawBarChart() {
+                let data = createData(1, ['Age Group', 'Hits']);
 
-                else { done(); }
-            },
-            init: function() {
-                this.on('sending', function(file, xhr, formData) {
-                    formData.append('_token', window.Laravel.csrfToken);
-                })
+                let options = {
+                    title: 'Demographics',
+                    width: '810',
+                    height: '500',
+                    chartArea: {width: '50%'},
+                    colors: ['#FF7300', '#383A38', '#FFC799'],
+                    hAxis: {
+                        title: 'Age Groups',
+                        minValue: 0
+                    },
+                    vAxis: {
+                        title: 'Hits'
+                    },
+                    orientation: 'horizontal',
+                    legend: { position: 'none' }
+                };
+
+                let chart = new google.visualization.BarChart(document.getElementById('recog-age-graph'));
+                chart.draw(data, options);
             }
-        };
+
+            function recogDrawPieChart() {
+                let data = createData(2, ['Gender', 'Hits']);
+
+                // Set chart options
+                let options = {
+                    title:'Gender',
+                    width: '810',
+                    height: '500',
+                    colors: ['#FF7300', '#383A38']
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                let chart = new google.visualization.PieChart(document.getElementById('recog-gender-graph'));
+                chart.draw(data, options);
+            }
+
+            function recogDrawLineChart() {
+                let data = createDataForTimeline();
+
+                let options = {
+                    title: 'Timestamp',
+                    curveType: 'function',
+                    width: '1618',
+                    height: '500',
+                    legend: {position: 'none'},
+                    colors: ['#FF7300'],
+                    explorer: {
+                        axis: 'horizontal',
+                        actions: ['dragToZoom', 'rightClickToReset']
+                    },
+                    vAxis: {
+                        minValue: 0
+                    },
+                    gridlines: { count: -1},
+                    library: {hAxis: { format: "hh. mm." } }
+                };
+
+                let chart = new google.visualization.LineChart(document.getElementById('recog-time-graph'));
+
+                let formatter = new google.visualization.DateFormat({formatType: 'long'});
+
+                formatter.format(data, 0);
+
+                chart.draw(data, options);
+            }
+        }())
     </script>
 @endsection
