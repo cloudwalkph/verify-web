@@ -3,6 +3,24 @@
 @section('styles')
     <link rel="stylesheet" href="/dropzone/basic.css">
     <link rel="stylesheet" href="/dropzone/dropzone.css">
+    <style>
+        .black-description ul li {
+            list-style: none;
+            width: 50%;
+            float: left;
+        }
+        .black-description ul {
+            padding: 0;
+            width:50%;
+        }
+        .black-description {
+            color: #fff;
+            padding: 20px 30px 250px;
+        }
+        .black-description b {
+            color: #B4B4B4;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -51,7 +69,27 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="black-description">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <h4><b>Type:</b> Experiential Sampling </h4>
+            <h4><b>Target Hits:</b> 100 Hits </h4>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <h4><b>Run Date:</b> April 03, 2017 </h4>
+            <h4><b>Team Leader:</b> Jane Doe </h4>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <h4><b>Brand Ambassadors:</b> </h4>
+            <ul>
+                <li>Suzan</li>
+                <li>Jerry</li>
+                <li>Sandra</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="container-fluid" style="margin-top: -130px">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
