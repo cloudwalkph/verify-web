@@ -77,7 +77,7 @@
                         </tr>
                     @foreach($hits as $hit)
                         <tr>
-                            <td class="hide"><img src="{{ asset('storage/'.$hit->image) }}" height="50" width="50" class="img-circle" alt=""></td>
+                            <td><img src="{{ Storage::drive('s3')->url($hit->image) }}" height="50" width="50" class="img-circle" alt=""></td>
                             <td>{{ $hit->name }}</td>
                             <td>{{ $hit->email }}</td>
                             <td>{{ $hit->contact_number }}</td>
@@ -88,6 +88,7 @@
                     @endforeach
                     </tbody>
                 </table>
+
             </div>
         </div>
         
@@ -95,5 +96,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+
 </body>
 </html>

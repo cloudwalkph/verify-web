@@ -22,7 +22,7 @@
                             <p style="margin-bottom: 30px; line-height: 30px">
                                 Shows all the complete data and information gathered and recorded during the running of this event or project.
                             </p>
-                            <button type="button" class="btn btn-primary" style="margin-bottom: 20px" onclick="frames['frameEvent'].print()">Print Report</button>
+                            <button type="button" class="btn btn-primary" style="margin-bottom: 20px">Print Report</button>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/audit-reports"
                                class="btn btn-primary">Audit Report</a> <br>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/gps-reports"
@@ -66,15 +66,16 @@
                             </div>
 
                             <div class="content-body">
-                                <div class="time-and-video">
-                                    <div class="time-graph" id="time-graph"></div>
-                                </div>
 
                                 <div class="other-graphs">
                                     <div class="graph" id="gender-graph"></div>
                                     <div class="graph" id="age-graph" style="background-color: #da7c29;"></div>
-                                    </div>
                                 </div>
+                            </div>
+                                <div class="time-and-video">
+                                    <div class="time-graph" id="time-graph"></div>
+                                </div>
+
                             </div>
 
                         </div>
@@ -83,7 +84,6 @@
                 </div>
             </div>
         </div>
-    <iframe src="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports/preview" name="frameEvent" style="width: 0; height: 0"></iframe>
 @endsection
 
 @section('scripts')
@@ -223,5 +223,30 @@
                 chart.draw(data, options);
             }
         }())
+    </script>
+
+    <script>
+        $(function() {
+            function openPrintWindow() {
+
+                var printWindow = window.open(location.protocol + '//' + location.host + location.pathname+'/preview');
+
+                var printAndClose = function () {
+                    if (printWindow.document.readyState == 'complete') {
+                        clearInterval(sched);
+                        printWindow.print();
+                        printWindow.close();
+                    }
+                }
+
+                var sched = setInterval(printAndClose, 1000);
+            }
+            jQuery(document).ready(function ($) {
+                $("button").on("click", function (e) {
+                    e.preventDefault();
+                    openPrintWindow();
+                });
+            });
+        });
     </script>
 @endsection

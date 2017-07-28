@@ -63,7 +63,7 @@
                     <h3>ACTIVITY DETAIL REPORT:</h3>
                     <table class="table table-bordered">
                         <thead>
-                            <tr style="background-color: #FF7300; color: white;">
+                            <tr>
                                 <th class="hide">Tracker ID</th>
                                 <th>Date</th>
                                 <th>Brand Ambassador</th>

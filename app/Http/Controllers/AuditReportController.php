@@ -6,6 +6,7 @@ use App\Models\Hit;
 use App\Models\Project;
 use App\Models\ProjectLocation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AuditReportController extends Controller
 {
@@ -34,11 +35,9 @@ class AuditReportController extends Controller
         $project = Project::find($projectId);
         $hits = Hit::with('answers')
             ->where('project_location_id', $locationId)
-            ->get();
+            ->paginate(15);
 
-        $answers = $this->parseAnswers($hits->toArray());
-
-        return view('projects.reports.audit', compact('location', 'project', 'hits', 'answers'));
+        return view('projects.reports.audit', compact('location', 'project', 'hits'));
     }
 
     private function parseAnswers($hits)

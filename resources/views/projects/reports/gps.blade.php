@@ -15,14 +15,14 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <div class="panel panel-default" style="min-height: 1400px;">
+                <div class="panel panel-default" style="min-height: 900px;">
                     <div class="panel-body">
                         <div class="content">
                             <h3 style="margin: 30px 0;">GPS Report</h3>
                             <p style="margin-bottom: 30px; line-height: 30px">
                                 Shows all the complete data and information gathered and recorded during the running of this event or project.
                             </p>
-                            <button type="button" class="btn btn-primary" style="margin-bottom: 20px" onclick="frames['frameEvent'].print()">Print Report</button>
+                            <button type="button" class="btn btn-primary" style="margin-bottom: 20px">Print Report</button>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/audit-reports"
                                class="btn btn-primary">Audit Report</a> <br>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports"
@@ -177,5 +177,32 @@
                 </div>
             </div>
         </div>
-    <iframe src="/projects/{{ $project->id }}/locations/{{ $location->id }}/gps-reports/preview" name="frameEvent" style="width: 0; height: 0"></iframe>
+    </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(function() {
+            function openPrintWindow() {
+
+                var printWindow = window.open(location.protocol + '//' + location.host + location.pathname+'/preview');
+
+                var printAndClose = function () {
+                    if (printWindow.document.readyState == 'complete') {
+                        clearInterval(sched);
+                        printWindow.print();
+                        printWindow.close();
+                    }
+                }
+
+                var sched = setInterval(printAndClose, 1000);
+            }
+            jQuery(document).ready(function ($) {
+                $("button").on("click", function (e) {
+                    e.preventDefault();
+                    openPrintWindow();
+                });
+            });
+        });
+    </script>
 @endsection
