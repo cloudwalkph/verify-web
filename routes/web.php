@@ -18,11 +18,21 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+// Projects
 Route::get('/projects/{projectId}', 'ProjectsController@show');
 Route::get('/projects/{projectId}/locations', 'ProjectsController@showLocations');
 Route::get('/projects/{projectId}/locations/get-hits', 'ProjectsController@getHits');
+
+// Locations
 Route::get('/projects/{projectId}/locations/{locationId}', 'ProjectLocationsController@show');
+Route::get('/projects/{projectId}/locations/{locationId}/automated', 'ProjectLocationsController@showAutomated');
+Route::get('/projects/{projectId}/locations/{locationId}/gps', 'ProjectLocationsController@showGPS');
+Route::get('/projects/{projectId}/locations/{locationId}/videos', 'ProjectLocationsController@showVideos');
 Route::post('/projects/{projectId}/locations/{locationId}/faces', 'ProjectLocationsController@faceUpload');
+
+
+
 Route::get('/projects/{projectId}/locations/{locationId}/event-reports', 'EventsReportController@show');
 Route::get('/projects/{projectId}/locations/{locationId}/audit-reports', 'AuditReportController@show');
 Route::get('/projects/{projectId}/locations/{locationId}/gps-reports', 'GpsReportController@show');

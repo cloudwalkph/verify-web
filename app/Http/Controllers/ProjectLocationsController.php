@@ -24,11 +24,62 @@ class ProjectLocationsController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the application dashboard manual hits.
      *
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $projectId, $locationId)
+    {
+
+        $location = ProjectLocation::where('id', $locationId)
+            ->first();
+
+        $project = Project::find($projectId);
+        $hits = Hit::with('answers')
+            ->where('auto', 0)
+            ->where('project_location_id', $locationId)
+            ->get();
+
+
+        $answers = $this->parseAnswers($hits->toArray());
+        $hits = $this->parseHits($hits);
+
+        $services = $location->services ? json_decode($location->services) : [];
+
+        return view('projects.locations.show', compact('location',
+             'project', 'hits', 'answers', 'videos', 'services'));
+    }
+
+    /**
+     * Show the application dashboard for automated hits.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showAutomated(Request $request, $projectId, $locationId)
+    {
+
+        $location = ProjectLocation::where('id', $locationId)
+            ->first();
+
+        $project = Project::find($projectId);
+        $hits = Hit::with('answers')
+            ->where('auto', 1)
+            ->where('project_location_id', $locationId)
+            ->limit(10)
+            ->paginate();
+
+        $services = $location->services ? json_decode($location->services) : [];
+
+        return view('projects.locations.show-automated',
+            compact('location', 'project', 'hits', 'services'));
+    }
+
+    /**
+     * Show the application dashboard for videos.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showVideos(Request $request, $projectId, $locationId)
     {
 //        $user = $request->user();
 
@@ -36,24 +87,34 @@ class ProjectLocationsController extends Controller
             ->first();
 
         $project = Project::find($projectId);
-        $hits = Hit::with('answers')
-            ->where('project_location_id', $locationId)
-            ->get();
-
-        $auto = Hit::with('answers')
-            ->where('auto', 1)
-            ->where('project_location_id', $locationId)
-            ->paginate(20);
-
-        $answers = $this->parseAnswers($hits->toArray());
-        $hits = $this->parseHits($hits);
 
         $videos = Video::where('project_location_id', $locationId)
             ->get();
 
         $services = $location->services ? json_decode($location->services) : [];
 
-        return view('projects.locations.show',
+        return view('projects.locations.show-videos',
+            compact('location', 'project', 'hits',
+                'answers', 'videos', 'services', 'auto'));
+    }
+
+    /**
+     * Show the application dashboard for gps.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showGPS(Request $request, $projectId, $locationId)
+    {
+//        $user = $request->user();
+
+        $location = ProjectLocation::where('id', $locationId)
+            ->first();
+
+        $project = Project::find($projectId);
+
+        $services = $location->services ? json_decode($location->services) : [];
+
+        return view('projects.locations.show-gps',
             compact('location', 'project', 'hits',
                 'answers', 'videos', 'services', 'auto'));
     }

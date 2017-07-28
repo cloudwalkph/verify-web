@@ -7,10 +7,10 @@
     top: 35px !important;
 }
 #video-selection {
-    position: absolute !important;
-    z-index: 1000 !important;    
-    width: 48%;
-    right: 2%;
+    z-index: 1000 !important;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .navbar-brand img {
