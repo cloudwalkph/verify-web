@@ -12,9 +12,9 @@ class UserLocation extends Model
 
     protected $guarded = ['id'];
 
-    public function users()
+    public function user()
     {
-        return $this->hasMany(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function projectLocations()
