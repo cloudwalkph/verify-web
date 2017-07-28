@@ -28,8 +28,11 @@ class ProjectsController extends Controller
     public function show(Request $request, $projectId)
     {
         $project = Project::find($projectId);
+        $locations = $project->locations;
+        $reported = $this->getReportedHits($locations);
+        $completed = $this->countRunsBaseOnStatus($locations, 'completed');
 
-        return view('projects.show', compact('locations', 'project', 'answers', 'hits'));
+        return view('projects.show', compact('locations', 'project', 'answers', 'hits', 'completed', 'reported'));
     }
 
     public function showLocations(Request $request, $projectId)
@@ -37,11 +40,14 @@ class ProjectsController extends Controller
         $locations = ProjectLocation::where('project_id', $projectId)
             ->get();
 
+        $reported = $this->getReportedHits($locations);
+        $completed = $this->countRunsBaseOnStatus($locations, 'completed');
+
         $locations = $this->parseLocations($locations);
 
         $project = Project::find($projectId);
 
-        return view('projects.show-locations', compact('locations', 'project'));
+        return view('projects.show-locations', compact('locations', 'project', 'completed', 'reported'));
     }
 
     public function getHits(Request $request, $projectId)
@@ -135,5 +141,27 @@ class ProjectsController extends Controller
         }
 
         return $result;
+    }
+
+    private function countRunsBaseOnStatus($locations, $status = 'on-going')
+    {
+        $count = 0;
+        foreach ($locations as $location) {
+            if ($location->status === $status) {
+                $count++;
+            }
+        }
+
+        return $count;
+    }
+
+    private function getReportedHits($locations)
+    {
+        $count = 0;
+        foreach ($locations as $location) {
+            $count += $location->manual_hits;
+        }
+
+        return $count;
     }
 }

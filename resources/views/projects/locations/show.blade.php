@@ -26,7 +26,7 @@
 @section('content')
     <div class="info-section">
         <div class="info-title">
-            <div class="col-sm-6" style="display: inline-flex;">
+            <div class="col-sm-7" style="display: inline-flex;">
                 <a href="/projects/{{ $project->id }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
                 <h1 style="color: #fff">
                     {{ $project->name }}
@@ -35,7 +35,7 @@
             </div>
             <div class="col-sm-3">
                 <h5 style="color: #B4B4B4;"><b>Reported Hits:</b></h5>
-                <h5 class="text-primary">500,000 of 1,000,000 (50%)</h5>
+                <h5 class="text-primary">{{ $location->manual_hits }}</h5>
             </div>
         </div>
 
@@ -76,11 +76,11 @@
 
     <div class="black-description">
         <div class="col-md-4 col-sm-6 col-xs-12">
-            <h4><b>Type:</b> Experiential Sampling </h4>
-            <h4><b>Target Hits:</b> 100 Hits </h4>
+            <h4><b>Type:</b> {{ ($location->project_type) ? $location->project_type : 'NA' }} </h4>
+            <h4><b>Target Hits:</b> {{ ($location->target_hits > 0) ? $location->target_hits.' Hits' : 'No target hits' }} </h4>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">
-            <h4><b>Run Date:</b> April 03, 2017 </h4>
+            <h4><b>Run Date:</b> {{ $location->date }} </h4>
             <h4><b>Team Leader:</b> Jane Doe </h4>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-12">

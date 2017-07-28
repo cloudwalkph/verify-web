@@ -18,11 +18,11 @@
             </div>
             <div class="col-sm-3">
                 <h5 style="color: #B4B4B4;"><b>Runs Completed:</b></h5>
-                <h5 class="text-primary">500 of 1000 (50%)</h5>
+                <h5 class="text-primary">{{ $completed }} / {{ count($project['locations']) }} ({{ ($completed / count($project['locations'])) * 100 }}%)</h5>
             </div>
             <div class="col-sm-3">
                 <h5 style="color: #B4B4B4;"><b>Reported Hits:</b></h5>
-                <h5 class="text-primary">500,000 of 1,000,000 (50%)</h5>
+                <h5 class="text-primary">{{ $reported }}</h5>
             </div>
         </div>
 
