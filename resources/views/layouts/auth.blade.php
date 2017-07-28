@@ -12,8 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('css/paper.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
 
     <style>
@@ -57,6 +57,11 @@
 
         h5 {
             color: #fff;
+        }
+
+        input.form-control {
+            color: #fff !important;
+            font-size: 14px !important;
         }
 
         .logo-big {
