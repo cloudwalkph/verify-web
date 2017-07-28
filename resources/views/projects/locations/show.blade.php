@@ -2,21 +2,9 @@
 
 @section('styles')
     <style>
-        .black-description ul li {
-            list-style: none;
-            width: 50%;
-            float: left;
-        }
-        .black-description ul {
-            padding: 0;
-            width:50%;
-        }
         .black-description {
             color: #fff;
             padding: 20px 30px 250px;
-        }
-        .black-description b {
-            color: #B4B4B4;
         }
     </style>
 @endsection
@@ -24,7 +12,7 @@
 @section('content')
     <div class="info-section">
         <div class="info-title">
-            <div class="col-sm-7" style="display: inline-flex;">
+            <div class="col-sm-6" style="display: inline-flex;">
                 <a href="/projects/{{ $project->id }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
                 <h1 style="color: #fff">
                     {{ $project->name }}
@@ -43,7 +31,7 @@
         </div>
     </div>
 
-    <div class="black-description">
+    <div class="black-description project-location">
         <div class="col-md-4 col-sm-6 col-xs-12">
             <h4><b>Type:</b> {{ ($location->project_type) ? $location->project_type : 'NA' }} </h4>
             <h4><b>Target Hits:</b> {{ ($location->target_hits > 0) ? $location->target_hits.' Hits' : 'No target hits' }} </h4>
