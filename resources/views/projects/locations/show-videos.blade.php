@@ -95,7 +95,7 @@
                             <div class="content-body">
                                 <select name="videos" id="video-selection" class="form-control">
                                     @foreach ($videos as $video)
-                                        <option value="{{ $video->name }}" data-status="{{ $video->status }}">{{ $video->alias }}</option>
+                                        <option value="{{ $video->name }}" data-status="{{ $video->status }}" selected>{{ $video->alias }}</option>
                                     @endforeach
                                 </select>
 
