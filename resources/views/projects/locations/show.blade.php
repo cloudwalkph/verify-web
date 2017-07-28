@@ -26,12 +26,17 @@
 @section('content')
     <div class="info-section">
         <div class="info-title">
-            <a href="/projects/{{ $project->id }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
-            <h1 style="color: #fff">
-                {{ $project->name }}
-                <p class="info-sub-title">{{ $location->name }}</p>
-            </h1>
-
+            <div class="col-sm-6" style="display: inline-flex;">
+                <a href="/projects/{{ $project->id }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                <h1 style="color: #fff">
+                    {{ $project->name }}
+                    <p class="info-sub-title">{{ $location->name }}</p>
+                </h1>
+            </div>
+            <div class="col-sm-3">
+                <h5 style="color: #B4B4B4;"><b>Reported Hits:</b></h5>
+                <h5 class="text-primary">500,000 of 1,000,000 (50%)</h5>
+            </div>
         </div>
 
         @if ($services && in_array('automatic', $services))

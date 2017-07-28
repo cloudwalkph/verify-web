@@ -11,8 +11,19 @@
 @section('content')
     <div class="info-section">
         <div class="info-title">
-            <a href="/home" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
-            <h1 style="color: #fff">{{ $project->name }}</h1>
+            <div class="col-md-5 col-sm-6" style="display: inline-flex;">
+                <a href="/home" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                <h1 style="color: #fff">
+                    {{ $project->name }}</h1>
+            </div>
+            <div class="col-sm-3">
+                <h5 style="color: #B4B4B4;"><b>Runs Completed:</b></h5>
+                <h5 class="text-primary">500 of 1000 (50%)</h5>
+            </div>
+            <div class="col-sm-3">
+                <h5 style="color: #B4B4B4;"><b>Reported Hits:</b></h5>
+                <h5 class="text-primary">500,000 of 1,000,000 (50%)</h5>
+            </div>
         </div>
 
         <div class="info-body">
