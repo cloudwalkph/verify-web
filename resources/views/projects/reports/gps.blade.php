@@ -71,12 +71,12 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach ($locations as $location)
+                                        @foreach ($locations as $gps)
                                             <tr>
-                                                <td>{{ $location->created_at->toFormattedDateString() }}</td>
-                                                <td>{{ $location->user->profile->full_name }}</td>
-                                                <td>{{ $location->created_at }}</td>
-                                                <td>{{ $location->formatted_address }}</td>
+                                                <td>{{ $gps->created_at->toFormattedDateString() }}</td>
+                                                <td>{{ $gps->user->profile->full_name }}</td>
+                                                <td>{{ $gps->created_at }}</td>
+                                                <td>{{ $gps->formatted_address }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
