@@ -13,7 +13,13 @@
     <img src="{{ asset('images/ic_sms_failed_24px.png') }}" alt="info"> CLICK ON A PROJECT TO VIEW MORE DETAILS
 </div>
 
-<div class="container-fluid">
+<div class="white-description">
+    <h1>DASHBOARD</h1>
+    <h5>Monitor all the data from consumer engagements activities. </h5>
+</div>
+
+<div class="container-fluid" style="margin-top: -55px;">
+
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
