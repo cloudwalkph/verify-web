@@ -160,14 +160,14 @@
         </div>
     </div>
 
-    <div class="container-fluid" style="margin-bottom: 20px">
+    <div class="black-description">
         <ul class="nav nav-pills">
             <li role="presentation" class="active"><a href="/projects/{{ $project->id }}">Overview</a></li>
             <li role="presentation"><a href="/projects/{{ $project->id }}/locations">Locations</a></li>
         </ul>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top: -130px">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
