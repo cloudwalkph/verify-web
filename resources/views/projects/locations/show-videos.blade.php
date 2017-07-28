@@ -29,10 +29,19 @@
                             <p style="color: #FF7300;">Last updated: {{ $project->updated_at->toFormattedDateString() }}</p>
 
                             <ul class="nav nav-tabs" id="serviceTabs">
-                                <li><a href="#event-analytics" data-toggle="tab">Manual</a></li>
-                                <li class="{{ $services && in_array('automatic', $services) ? '' : 'hide' }}"><a href="#automatic-data" data-toggle="tab">Automated</a></li>
-                                <li class="{{ $services && in_array('gps', $services) ? '' : 'hide' }}"><a href="#gps-data" data-toggle="tab">GPS</a></li>
-                                <li class="active"><a href="#video" data-toggle="tab">Video</a></li>
+                                <li>
+                                    <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}">Manual</a>
+                                </li>
+
+                                <li class="{{ $services && in_array('automatic', $services) ? '' : 'hide' }}">
+                                    <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/automated">Automated</a>
+                                </li>
+
+                                <li class="{{ $services && in_array('gps', $services) ? '' : 'hide' }}">
+                                    <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/gps">GPS</a>
+                                </li>
+
+                                <li class="{{ count($videos) <= 0 ? 'hide' : '' }} active"><a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/videos">Video</a></li>
                             </ul>
 
                             <div class="content-body">

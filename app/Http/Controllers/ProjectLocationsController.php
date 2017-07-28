@@ -45,9 +45,11 @@ class ProjectLocationsController extends Controller
         $hits = $this->parseHits($hits);
 
         $services = $location->services ? json_decode($location->services) : [];
+        $videos = Video::where('project_location_id', $locationId)
+            ->get();
 
         return view('projects.locations.show', compact('location',
-             'project', 'hits', 'answers', 'videos', 'services'));
+             'project', 'hits', 'answers', 'videos', 'services', 'videos'));
     }
 
     /**
@@ -70,8 +72,11 @@ class ProjectLocationsController extends Controller
 
         $services = $location->services ? json_decode($location->services) : [];
 
+        $videos = Video::where('project_location_id', $locationId)
+            ->get();
+
         return view('projects.locations.show-automated',
-            compact('location', 'project', 'hits', 'services'));
+            compact('location', 'project', 'hits', 'services', 'videos'));
     }
 
     /**
@@ -113,10 +118,11 @@ class ProjectLocationsController extends Controller
         $project = Project::find($projectId);
 
         $services = $location->services ? json_decode($location->services) : [];
+        $videos = Video::where('project_location_id', $locationId)
+            ->get();
 
         return view('projects.locations.show-gps',
-            compact('location', 'project', 'hits',
-                'answers', 'videos', 'services', 'auto'));
+            compact('location', 'project', 'videos', 'services'));
     }
 
     public function faceUpload(Request $request, $projectId, $locationId)
