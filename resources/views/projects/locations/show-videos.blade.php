@@ -158,11 +158,11 @@
             console.log('current video', source);
 
             player.load(source);
-
-            let status = $('#video-selection').find(':selected').data('status');
-            let value  = $('#video-selection').val();
-
-            loadMPD(true, status, value);
         }
+
+        let status = $('#video-selection').find(':selected').data('status');
+        let value  = $('#video-selection').val();
+
+        loadMPD(true, status, value);
     </script>
 @endsection
