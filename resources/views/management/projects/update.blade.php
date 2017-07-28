@@ -89,7 +89,196 @@
         });
     </script>
 
+    <script type="text/javascript">
+        (function() {
+            let answers = [];
+            let hits = [];
 
+            let height = $('.panel-body').css('height');
+            $('.overlay').css('height', height);
+
+            let projectId = $('#projectId').val();
+            let url = `/projects/${projectId}/locations/get-hits`;
+            let demographicsUrl = `/projects/${projectId}/locations/get-demographics`;
+
+            let getHits = () => axios.get(url);
+            let getDemographics = () => axios.get(demographicsUrl);
+
+            axios.all([getHits(), getDemographics()]).then(
+                axios.spread(function (hitsRes, answersRes) {
+                    hits = hitsRes.data;
+                    answers = answersRes.data;
+
+
+
+                    drawCharts();
+
+                    $('.overlay').addClass('hide');
+                }));
+
+            // Load the Visualization API and the corechart package.
+            google.charts.load('current', {'packages':['corechart']});
+
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(drawCharts);
+
+            function drawCharts() {
+                recogDrawLineChart();
+                recogDrawPieChart();
+                recogDrawBarChart();
+            }
+
+            function createData(pollId, $tableHeader) {
+                let arr = [];
+                for (let answer of answers) {
+                    if (answer.poll_id != pollId) {
+                        continue;
+                    }
+
+                    arr.push([answer.value, 1]);
+                }
+
+                let dt = google.visualization.arrayToDataTable([
+                    $tableHeader,
+                    ...arr
+                ]);
+
+                return google.visualization.data.group(dt, [0], [
+                    {
+                        column: 1,
+                        aggregation: google.visualization.data.sum,
+                        type: 'number'
+                    }
+                ]);
+            }
+
+            function createDataForTimeline() {
+                let arr = [];
+                for (let hit of hits) {
+                    arr.push([new Date(hit.hit_timestamp), 1]);
+                }
+
+                let dt = google.visualization.arrayToDataTable([
+                    ['Time', 'Hits'],
+                    ...arr
+                ]);
+
+                return google.visualization.data.group(dt, [0], [
+                    {
+                        column: 1,
+                        aggregation: google.visualization.data.sum,
+                        type: 'number'
+                    }
+                ]);
+            }
+
+            function recogDrawBarChart() {
+                let data = createData(1, ['Age Group', 'Hits']);
+
+                let options = {
+                    title: 'Demographics',
+                    width: '810',
+                    height: '500',
+                    chartArea: {width: '50%'},
+                    colors: ['#FF7300', '#383A38', '#FFC799'],
+                    hAxis: {
+                        title: 'Age Groups',
+                        minValue: 0
+                    },
+                    vAxis: {
+                        title: 'Hits'
+                    },
+                    orientation: 'horizontal',
+                    legend: { position: 'none' }
+                };
+
+                let chart = new google.visualization.BarChart(document.getElementById('recog-age-graph'));
+                chart.draw(data, options);
+            }
+
+            function recogDrawPieChart() {
+                let data = createData(2, ['Gender', 'Hits']);
+
+                // Set chart options
+                let options = {
+                    title:'Gender',
+                    width: '810',
+                    height: '500',
+                    colors: ['#FF7300', '#383A38']
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                let chart = new google.visualization.PieChart(document.getElementById('recog-gender-graph'));
+                chart.draw(data, options);
+            }
+
+            function recogDrawLineChart() {
+                let data = createDataForTimeline();
+
+                let options = {
+                    title: 'Timestamp',
+                    curveType: 'function',
+                    width: '1618',
+                    height: '500',
+                    legend: {position: 'none'},
+                    colors: ['#FF7300'],
+                    explorer: {
+                        axis: 'horizontal',
+                        actions: ['dragToZoom', 'rightClickToReset']
+                    },
+                    vAxis: {
+                        minValue: 0
+                    },
+                    gridlines: { count: -1},
+                    library: {hAxis: { format: "hh. mm." } }
+                };
+
+                let chart = new google.visualization.LineChart(document.getElementById('recog-time-graph'));
+
+                let formatter = new google.visualization.DateFormat({formatType: 'long'});
+
+                formatter.format(data, 0);
+
+                chart.draw(data, options);
+            }
+        }())
+    </script>
+@endsection
+
+@section('styles')
+    <style>
+        .panel-body {
+            position: relative;
+        }
+
+        .panel {
+            border: none;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            height: 100%;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .overlay-content {
+            font-size: 20px;
+            color: #fff;
+            text-align: center;
+            position: inherit;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+
+        .overlay-content i {
+            font-size: 100px;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -101,6 +290,41 @@
                 Edit Project - {{ strtoupper($project->name) }}
             </h2>
         </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <i class="fa fa-pulse fa-spinner"></i> <br>
+                                Please wait while we create a visualization for your data. <br/>
+                                The speed of calculation will vary depending on the internet connection and amount of data.
+                            </div>
+                        </div>
+
+                        <h1>Project Overview</h1>
+                        <hr>
+
+                        <div class="content-body">
+                            <div class="other-graphs">
+                                <div class="graph" id="recog-gender-graph"></div>
+                                <div class="graph" id="recog-age-graph" style="background-color: #da7c29;"></div>
+                            </div>
+
+                            <div class="time-and-video">
+                                <div class="time-graph" id="recog-time-graph"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="projectId" value="{{ $project->id }}">
     </div>
 
     <div class="container-fluid">
