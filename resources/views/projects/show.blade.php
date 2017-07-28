@@ -6,17 +6,26 @@
             let answers = [];
             let hits = [];
 
+            let height = $('.panel-body').css('height');
+            console.log(height);
+            $('.overlay').css('height', height);
+
             let projectId = $('#projectId').val();
             let url = `/projects/${projectId}/locations/get-hits`;
+            let demographicsUrl = `/projects/${projectId}/locations/get-demographics`;
 
-            axios.get(url).then((response) => {
-                console.log(response);
+            let getHits = () => axios.get(url);
+            let getDemographics = () => axios.get(demographicsUrl);
 
-                answers = response.data.answers;
-                hits = response.data.hits;
+            axios.all([getHits(), getDemographics()]).then(
+                axios.spread(function (hitsRes, answersRes) {
+                    hits = hitsRes.data;
+                    answers = answersRes.data;
 
-                drawCharts();
-            });
+                    drawCharts();
+
+                    $('.overlay').addClass('hide');
+            }));
 
             // Load the Visualization API and the corechart package.
             google.charts.load('current', {'packages':['corechart']});
@@ -148,6 +157,42 @@
     </script>
 @endsection
 
+@section('styles')
+    <style>
+        .panel-body {
+            position: relative;
+        }
+
+        .panel {
+            border: none;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            height: 100%;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .overlay-content {
+            font-size: 20px;
+            color: #fff;
+            text-align: center;
+            position: inherit;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+
+        .overlay-content i {
+            font-size: 100px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="info-section">
         <div class="info-title">
@@ -172,6 +217,14 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
+
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <i class="fa fa-pulse fa-spinner"></i> <br>
+                                Please wait while we create a visualization for your data. <br/>
+                                The speed of calculation will vary depending on the internet connection and amount of data.
+                            </div>
+                        </div>
 
                         <h1>Project Overview</h1>
                         <hr>

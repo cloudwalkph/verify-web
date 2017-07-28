@@ -14,6 +14,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/v/bs/dt-1.10.15/r-2.1.1/se-1.2.2/datatables.min.css"/>
     @yield('styles')
 
