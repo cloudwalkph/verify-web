@@ -13,11 +13,13 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/paper.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toastr.css') }}">
 
     <style>
         body {
             background-color: #383A38;
+            background-image: url('/images/bg.png');
         }
 
         #app {
@@ -37,6 +39,7 @@
             -webkit-flex: 1;
             -moz-box-flex: 1;
             -ms-flex: 1;
+            border-radius: 10px;
             flex: 1;
             display: -webkit-box;
             display: -webkit-flex;
@@ -46,7 +49,14 @@
             height: 100%;
             flex-direction: column;
             justify-content: center;
-            margin-top: 200px;
+            margin-top: 120px;
+            margin-bottom: 50px;
+            background: rgba(41, 41, 41, 0.8);
+            padding: 50px 100px;
+        }
+
+        h5 {
+            color: #fff;
         }
 
         .logo-big {
@@ -61,7 +71,21 @@
             display: -ms-flexbox;
             display: flex;
             width: 100%;
+            padding: 20px 60px;
             align-self: center;
+        }
+        form {
+            padding: 20px 30px;
+        }
+
+        @media (max-width: 768px) {
+            .flex {
+                margin: 100px 40px 50px;
+                padding: 20px;
+            }
+            .logo-big {
+                padding: 20px;
+            }
         }
     </style>
 
