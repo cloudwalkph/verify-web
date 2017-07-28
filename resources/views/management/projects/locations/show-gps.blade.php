@@ -136,7 +136,23 @@
             async defer></script>
 
     <script>
-        let map, activations;
+        let map, activations, baPath, baCoordinates = [];
+        let gpsData = [];
+        let coordinates = [];
+
+
+        $(function() {
+            axios.get('/management/projects/{{ $project['id'] }}/locations/{{ $location['id'] }}/gps').then((res) => {
+                gpsData = res.data;
+
+                coordinates = [];
+                for (let data of gpsData) {
+                    coordinates.push([data.lat, data.lng]);
+                }
+
+                drawMapHistory();
+            });
+        });
 
         function initMap() {
             // Create the map with no initial style specified.
@@ -160,28 +176,7 @@
             });
 
 
-            let coordinates = [
-                [14.629355482536468, 121.04045122861862],
-                [14.629334720523334, 121.04066580533981],
-                [14.629223124669092, 121.04064166545868],
-                [14.62967210299344, 121.04227244853973],
-                [14.630416937841238, 121.04489028453827],
-                [14.630671271112796, 121.04571640491486],
-                [14.631247412739997, 121.04766100645065],
-                [14.631553649565866, 121.04902356863022],
-                [14.632340001491867, 121.05148583650589],
-                [14.633178254732638, 121.05436384677887],
-                [14.633808888961013, 121.0565310716629],
-                [14.63361165375927, 121.05664908885956],
-                [14.633546773719932, 121.05656325817108],
-                [14.6336324153678, 121.05653375387192],
-                [14.63363176656757, 121.05660617351532],
-                [14.63358764814696, 121.05660684406757]
-            ];
-
-            let baCoordinates = [];
-
-            let baPath = new google.maps.Polyline({
+            baPath = new google.maps.Polyline({
                 geodesic: true,
                 strokeColor: '#ff9e4a',
                 strokeOpacity: 0.9,
@@ -197,32 +192,11 @@
                     title: 'Test Project'
                 });
 
-                activations.addListener('click', function() {
-                    infowindow.open(map, activations);
-                    toggleBounce();
-                });
+//                activations.addListener('click', function() {
+//                    infowindow.open(map, activations);
+//                    toggleBounce();
+//                });
 
-                let step = 0;
-                let numSteps = coordinates.length - 1;
-                let timePerStep = 2000;
-                let interval = setInterval(function() {
-                    step += 1;
-
-                    if (step >= numSteps) {
-                        clearInterval(interval);
-                    } else {
-                        let coord = {
-                            lat: coordinates[step][0],
-                            lng: coordinates[step][1]
-                        };
-
-                        baCoordinates.push(coord);
-
-                        map.setCenter(coord);
-                        activations.setPosition(coord);
-                        baPath.setPath(baCoordinates);
-                    }
-                }, timePerStep);
             });
 
             baPath.setMap(map);
@@ -285,6 +259,30 @@
                     $(this).css({opacity: '1'});
                 });
             });
+        }
+
+        function drawMapHistory() {
+            let step = 0;
+            let numSteps = coordinates.length - 1;
+            let timePerStep = 2000;
+            let interval = setInterval(function() {
+                step += 1;
+
+                if (step >= numSteps) {
+                    clearInterval(interval);
+                } else {
+                    let coord = {
+                        lat: coordinates[step][0],
+                        lng: coordinates[step][1]
+                    };
+
+                    baCoordinates.push(coord);
+
+                    map.setCenter(coord);
+                    activations.setPosition(coord);
+                    baPath.setPath(baCoordinates);
+                }
+            }, timePerStep);
         }
 
         function toggleBounce() {

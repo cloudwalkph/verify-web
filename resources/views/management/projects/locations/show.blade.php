@@ -161,10 +161,20 @@
     </div>
 
     @include('management.projects.locations.modals.manage-team')
+    @include('management.projects.locations.modals.upload-gps')
 @endsection
 
 @section('scripts')
     <script src="/dropzone/dropzone.js"></script>
+
+    <script>
+        $(function () {
+            $('.btn-manage-team').on('click', function() {
+                let userId = $(this).data('user');
+                $('#userId').val(userId);
+            });
+        })
+    </script>
 
     <script type="text/javascript">
         (function() {

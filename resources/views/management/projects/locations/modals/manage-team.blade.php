@@ -22,7 +22,9 @@
                             <td>{{ $user->userGroup->name }}</td>
                             <td>
                                 <button class="btn btn-danger">X</button>
-                                <button class="btn btn-primary">Import GPS</button>
+                                <button class="btn btn-primary btn-manage-team" data-target="#importModal"
+                                        data-user="{{ $user->id }}"
+                                        data-toggle="modal">Import GPS</button>
                             </td>
                         </tr>
                     @endforeach

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Hit;
 use App\Models\Project;
 use App\Models\ProjectLocation;
+use App\Models\UserLocation;
 use App\Models\Video;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class ProjectLocationsController extends Controller
         $services = $location->services ? json_decode($location->services) : [];
         $videos = Video::where('project_location_id', $locationId)
             ->get();
-        
+
         return view('management.projects.locations.show', compact('location',
             'project', 'hits', 'answers', 'videos', 'services', 'videos'));
     }
@@ -112,7 +113,7 @@ class ProjectLocationsController extends Controller
         $videos = Video::where('project_location_id', $locationId)
             ->get();
 
-        return view('projects.locations.show-gps',
+        return view('management.projects.locations.show-gps',
             compact('location', 'project', 'videos', 'services'));
     }
 
@@ -135,6 +136,44 @@ class ProjectLocationsController extends Controller
         }
 
         return response()->json('error', 400);
+    }
+
+    public function importGPSData(Request $request, $projectId, $locationId)
+    {
+        if (! $request->hasFile('gps_file')) {
+            $request->session()->flash('error', 'No file to upload');
+            return redirect()->back();
+        }
+
+        $results = [];
+        \Excel::load($request->file('gps_file'), function($reader) use (&$results, $request, $locationId) {
+            // reader methods
+            $sheets = $reader->all();
+            foreach ($sheets->toArray() as $sheet) {
+                foreach ($sheet as $location) {
+                    $latlng = explode(',', $location['llc']);
+                    $data = [
+                        'user_id'   => $request->get('user_id'),
+                        'lat'   => $latlng[0],
+                        'lng'   => $latlng[1],
+                        'project_location_id'   => $locationId,
+                        'created_at' => Carbon::createFromTimestamp(strtotime($location['time']))->toDateTimeString()
+                    ];
+                    $results[] = $data;
+                    // Create Data
+                    UserLocation::create($data);
+                }
+            }
+        });
+        return redirect()->back();
+    }
+
+    public function getGPSData(Request $request, $projectId, $locationId)
+    {
+        $locations = UserLocation::where('project_location_id', $locationId)
+            ->get();
+
+        return response()->json($locations, 200);
     }
 
     private function parseHits($hits)
