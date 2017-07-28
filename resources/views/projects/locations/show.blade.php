@@ -186,7 +186,6 @@
             function createDataForTimeline() {
                 let arr = [];
                 for (let hit of hits) {
-                    console.log(new Date(hit.hit_timestamp));
                     arr.push([new Date(hit.hit_timestamp), 1]);
                 }
 
