@@ -63,111 +63,24 @@
                                     <h2>ACTIVITY DETAIL REPORT:</h2>
                                     <table class="table table-bordered">
                                         <thead>
-                                            <tr style="background-color: #FF7300; color: white;">
-                                                <th class="hide">Tracker ID</th>
-                                                <th>Date</th>
-                                                <th>Brand Ambassador</th>
-                                                <th>Date and Time</th>
-                                                <th>Location</th>
-                                                <th class="hide">Time Duration</th>
-                                                <th class="hide">Logout Time</th>
-                                            </tr>
+                                        <tr class="tableheader" style="background-color: #FF7300; color: white;">
+                                            <th>Date</th>
+                                            <th>User</th>
+                                            <th>Date and Time</th>
+                                            <th>Location</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach ($locations as $location)
                                             <tr>
-                                                <td class="hide">Verify 001</td>
-                                                <td>05/30/17</td>
-                                                <td>Rina Martez</td>
-                                                <td>05/30/17 01:05:20 PM</td>
-                                                <td>Cafediem</td>
-                                                <td class="hide">05:08:03</td>
-                                                <td class="hide">05/09/17 05:25:03 PM</td>
+                                                <td>{{ $location->created_at->toFormattedDateString() }}</td>
+                                                <td>{{ $location->user->profile->full_name }}</td>
+                                                <td>{{ $location->created_at }}</td>
+                                                <td>{{ $location->formatted_address }}</td>
                                             </tr>
-                                            <tr>
-                                                <td class="hide">Verify 001</td>
-                                                <td>05/30/17</td>
-                                                <td>Rina Martez</td>
-                                                <td>05/30/17 01:08:08 PM</td>
-                                                <td>Kamuning Road</td>
-                                                <td class="hide">05:08:03</td>
-                                                <td class="hide">05/09/17 05:25:03 PM</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="hide">Verify 001</td>
-                                                <td>05/30/17</td>
-                                                <td>Rina Martez</td>
-                                                <td>05/30/17 01:10:29 PM</td>
-                                                <td>Epifanio de los Santos Ave</td>
-                                                <td class="hide">05:08:03</td>
-                                                <td class="hide">05/09/17 05:25:03 PM</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="hide">Verify 001</td>
-                                                <td>05/30/17</td>
-                                                <td>Rina Martez</td>
-                                                <td>05/30/17 01:13:39 PM</td>
-                                                <td>Kamias Road</td>
-                                                <td class="hide">05:08:03</td>
-                                                <td class="hide">05/09/17 05:25:03 PM</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="hide">Verify 001</td>
-                                                <td>05/30/17</td>
-                                                <td>Rina Martez</td>
-                                                <td>05/30/17 01:17:02 PM</td>
-                                                <td>Buger King Kamias</td>
-                                                <td class="hide">05:08:03</td>
-                                                <td class="hide">05/09/17 05:25:03 PM</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="hide">Verify 001</td>
-                                                <td>05/30/17</td>
-                                                <td>Rina Martez</td>
-                                                <td>05/30/17 01:20:47 PM</td>
-                                                <td>Shell Kasing-kasing</td>
-                                                <td class="hide">05:08:03</td>
-                                                <td class="hide">05/09/17 05:25:03 PM</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="hide">Verify 001</td>
-                                                <td>05/30/17</td>
-                                                <td>Rina Martez</td>
-                                                <td>05/30/17 01:22:32 PM</td>
-                                                <td>Shell Kasing-kasing Street, Quezon City</td>
-                                                <td class="hide">05:08:03</td>
-                                                <td class="hide">05/09/17 05:25:03 PM</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="hide">Verify 001</td>
-                                                <td>05/30/17</td>
-                                                <td>Rina Martez</td>
-                                                <td>05/30/17 01:26:17 PM</td>
-                                                <td>Shell Kasing-kasing Street, Quezon City</td>
-                                                <td class="hide">05:08:03</td>
-                                                <td class="hide">05/09/17 05:25:03 PM</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="hide">Verify 001</td>
-                                                <td>05/30/17</td>
-                                                <td>Rina Martez</td>
-                                                <td>05/30/17 01:32:17 PM</td>
-                                                <td>Kasing-kasing Street, Quezon City</td>
-                                                <td class="hide">05:08:03</td>
-                                                <td class="hide">05/09/17 05:25:03 PM</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="hide">Verify 001</td>
-                                                <td>05/30/17</td>
-                                                <td>Rina Martez</td>
-                                                <td>05/30/17 01:37:17 PM</td>
-                                                <td>Kasing-kasing Street, Quezon City</td>
-                                                <td class="hide">05:08:03</td>
-                                                <td class="hide">05/09/17 05:25:03 PM</td>
-                                            </tr>
+                                        @endforeach
                                         </tbody>
-                                        
+
                                     </table>
                                 </div>
                             </div>

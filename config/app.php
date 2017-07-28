@@ -169,6 +169,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Geocoder\Laravel\Providers\GeocoderService::class,
 
         /*
          * Application Service Providers...
