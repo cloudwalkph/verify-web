@@ -155,7 +155,7 @@ class ProjectsController extends Controller
                 'audit_percent'     => $percentage,
                 'services'          => $services,
                 'vboxes'            => implode(", ", array_map_assoc(function($k, $v){
-                        return $v['name'];
+                        return $v['alias'];
                     }, $location->videos->toArray())),
                 'status'            => $location->status
             ];

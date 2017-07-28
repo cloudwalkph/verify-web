@@ -209,7 +209,7 @@
                                         <th>Date</th>
                                         <th>Location Name</th>
                                         <th>Services</th>
-                                        <th>Vbox Channel</th>
+                                        <th>Video</th>
                                         <th>Reported Hits</th>
                                         <th>Audited Hits</th>
                                         <th>Status</th>
@@ -218,7 +218,7 @@
 
                                 <tbody>
                                     @foreach ($locations as $location)
-                                        <tr>
+                                        <tr class="clickable" data-uri="/management/projects/update/{{ $project['id'] }}/locations/{{ $location['id'] }}">
                                             <td>{{ $location['date'] }}</td>
                                             <td style="max-width: 250px">{{ $location['name'] }}</td>
                                             <td>{{ $location['services'] }}</td>
