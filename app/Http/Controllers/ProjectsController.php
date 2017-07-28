@@ -53,18 +53,29 @@ class ProjectsController extends Controller
             $locationIds[] = $location->id;
         }
 
-        $hits = Hit::with('answers')
-            ->whereIn('project_location_id', $locationIds)
-            ->limit(5000)
+        $hits = Hit::whereIn('project_location_id', $locationIds)
             ->get();
 
-        $answers = $this->parseAnswers($hits->toArray());
         $hits = $this->parseHits($hits);
 
-        return response()->json([
-            'answers'   => $answers,
-            'hits'      => $hits
-        ], 200);
+        return response()->json($hits, 200);
+    }
+
+    public function getDemographics(Request $request, $projectId)
+    {
+        $locations = ProjectLocation::where('project_id', $projectId)->get();
+
+        $locationIds = [];
+        foreach ($locations as $location) {
+            $locationIds[] = $location->id;
+        }
+
+        $hits = Hit::whereIn('project_location_id', $locationIds)
+            ->get();
+
+        $answers = $this->parseAnswers($hits);
+
+        return response()->json($answers, 200);
     }
 
     private function parseLocations($locations)
