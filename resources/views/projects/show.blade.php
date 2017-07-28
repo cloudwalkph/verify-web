@@ -7,7 +7,6 @@
             let hits = [];
 
             let height = $('.panel-body').css('height');
-            console.log(height);
             $('.overlay').css('height', height);
 
             let projectId = $('#projectId').val();
@@ -21,6 +20,8 @@
                 axios.spread(function (hitsRes, answersRes) {
                     hits = hitsRes.data;
                     answers = answersRes.data;
+
+
 
                     drawCharts();
 
@@ -66,7 +67,6 @@
             function createDataForTimeline() {
                 let arr = [];
                 for (let hit of hits) {
-                    console.log(new Date(hit.hit_timestamp));
                     arr.push([new Date(hit.hit_timestamp), 1]);
                 }
 
