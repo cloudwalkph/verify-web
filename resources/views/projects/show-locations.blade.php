@@ -40,6 +40,7 @@
                             <thead>
                             <tr>
                                 <th>Id</th>
+                                <th>Project Type</th>
                                 <th>Location Name</th>
                                 <th>Date</th>
                                 <th>Reported Hits</th>
@@ -53,6 +54,10 @@
                                 <tr class="clickable" data-uri="/projects/{{ $location['project_id'] }}/locations/{{ $location['id'] }}">
                                     <td>
                                         <strong>{{ $location['id'] }}</strong>
+                                    </td>
+
+                                    <td>
+                                        <strong>{{ $location['project_type'] }}</strong>
                                     </td>
 
                                     <td>

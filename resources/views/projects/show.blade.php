@@ -177,13 +177,13 @@
                         <hr>
 
                         <div class="content-body">
-                            <div class="time-and-video">
-                                <div class="time-graph" id="recog-time-graph"></div>
-                            </div>
-
                             <div class="other-graphs">
                                 <div class="graph" id="recog-gender-graph"></div>
                                 <div class="graph" id="recog-age-graph" style="background-color: #da7c29;"></div>
+                            </div>
+
+                            <div class="time-and-video">
+                                <div class="time-graph" id="recog-time-graph"></div>
                             </div>
                         </div>
 
