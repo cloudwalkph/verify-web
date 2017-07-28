@@ -2,7 +2,9 @@
 
 @section('content')
 <div class="flex">
-    <img src="{{ asset('images/logo-verify.png') }}" class="logo-big" alt="logo-big">
+    <img src="{{ asset('images/verify.png') }}" class="logo-big img-responsive" alt="logo-big">
+
+    <h5 class="text-center">Collect, track, and record accurate and reliable data from consumer engagements. </h5>
     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
         {{ csrf_field() }}
 
@@ -15,8 +17,8 @@
 
                 @if ($errors->has('email'))
                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
                 @endif
             </div>
         </div>
@@ -29,19 +31,21 @@
 
                 @if ($errors->has('password'))
                     <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
                 @endif
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-12">
+            <div class="col-md-6 col-md-offset-3">
                 <button type="submit" class="btn btn-primary btn-block">
-                    Login
+                    Sign In
                 </button>
             </div>
         </div>
     </form>
 </div>
+
+<h5 class="text-center">Copyright © 2017 Cloudwalk Digital Inc. All rights reserved.</h5>
 @endsection
