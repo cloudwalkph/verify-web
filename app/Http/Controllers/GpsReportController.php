@@ -44,8 +44,6 @@ class GpsReportController extends Controller
         $startDate = Carbon::createFromTimestamp(strtotime($location->date))->toDateString();
         $locations = $this->getLocationsPerHour($startDate, $locationId);
 
-        print_r($locations);exit;
-
         return view('projects.reports.gps', compact('location', 'locations', 'project', 'hits', 'answers'));
     }
 
