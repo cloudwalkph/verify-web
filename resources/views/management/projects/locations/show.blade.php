@@ -50,7 +50,7 @@
                     <li role="separator" class="divider"></li>
 
                     <li><a href="#">Manage Vboxes</a></li>
-                    <li><a href="#">Manage Team</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#manageTeam">Manage Team</a></li>
                 </ul>
             </div>
         </div>
@@ -159,6 +159,8 @@
             </div>
         </div>
     </div>
+
+    @include('management.projects.locations.modals.manage-team')
 @endsection
 
 @section('scripts')

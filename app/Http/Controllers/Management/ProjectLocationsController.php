@@ -38,7 +38,7 @@ class ProjectLocationsController extends Controller
         $services = $location->services ? json_decode($location->services) : [];
         $videos = Video::where('project_location_id', $locationId)
             ->get();
-
+        
         return view('management.projects.locations.show', compact('location',
             'project', 'hits', 'answers', 'videos', 'services', 'videos'));
     }
