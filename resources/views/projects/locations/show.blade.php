@@ -74,7 +74,7 @@
                                     <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/gps">GPS</a>
                                 </li>
 
-                                <li><a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/videos">Video</a></li>
+                                <li class="{{ count($videos) <= 0 ? 'hide' : '' }}"><a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/videos">Video</a></li>
                             </ul>
 
                             <div class="content-body">
