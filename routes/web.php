@@ -51,6 +51,11 @@ Route::group(['prefix' => 'management', 'namespace' => 'Management'], function()
         Route::get('/update/{id}', 'ProjectsController@edit');
         Route::post('/update/{id}', 'ProjectsController@update');
         Route::post('/update/{id}/locations', 'ProjectsController@createLocations');
+
+        Route::get('/update/{id}/locations/{locationId}', 'ProjectLocationsController@show');
+        Route::get('/update/{id}/locations/{locationId}/gps', 'ProjectLocationsController@showGPS');
+        Route::post('/update/{id}/locations/{locationId}/gps', 'ProjectLocationsController@importGPSData');
+        Route::get('/{id}/locations/{locationId}/gps', 'ProjectLocationsController@getGPSData');
     });
 
     Route::group(['prefix' => 'profile'], function () {

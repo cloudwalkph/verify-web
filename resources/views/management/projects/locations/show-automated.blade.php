@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.management')
 
 @section('styles')
+    <link rel="stylesheet" href="/dropzone/basic.css">
+    <link rel="stylesheet" href="/dropzone/dropzone.css">
     <style>
         .black-description ul li {
             list-style: none;
@@ -19,13 +21,14 @@
             color: #B4B4B4;
         }
     </style>
+
 @endsection
 
 @section('content')
     <div class="info-section">
         <div class="info-title">
-            <div class="col-sm-7" style="display: inline-flex;">
-                <a href="/projects/{{ $project->id }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            <div class="col-sm-6" style="display: inline-flex;">
+                <a href="/management/projects/update/{{ $project['id'] }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
                 <h1 style="color: #fff">
                     {{ $project->name }}
                     <p class="info-sub-title">{{ $location->name }}</p>
@@ -37,11 +40,13 @@
             </div>
         </div>
 
+
         <div class="info-body">
             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports"
                class="btn btn-primary">Verify Audit Report</a>
         </div>
     </div>
+
 
     <div class="black-description">
         <div class="col-md-4 col-sm-6 col-xs-12">
@@ -71,22 +76,25 @@
 
                         <div class="content">
                             <h3>Event Analytics</h3>
-                            <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
+                            <p>Automated data analytics base from captured images</p>
 
                             <ul class="nav nav-tabs" id="serviceTabs">
-                                <li class="active">
-                                    <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}">Manual</a>
+                                <li>
+                                    <a href="/management/projects/update/{{ $project['id'] }}/locations/{{ $location['id'] }}">Manual</a>
                                 </li>
 
-                                <li class="{{ $services && in_array('automatic', $services) ? '' : 'hide' }}">
-                                    <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/automated">Automated</a>
+                                <li class="{{ $services && in_array('automatic', $services) ? '' : 'hide' }} active">
+                                    <a href="/management/projects/update/{{ $project['id'] }}/locations/{{ $location['id'] }}/automated">Automated</a>
                                 </li>
 
                                 <li class="{{ $services && in_array('gps', $services) ? '' : 'hide' }}">
-                                    <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/gps">GPS</a>
+                                    <a href="/management/projects/update/{{ $project['id'] }}/locations/{{ $location['id'] }}/gps">GPS</a>
                                 </li>
 
-                                <li class="{{ count($videos) <= 0 ? 'hide' : '' }}"><a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/videos">Video</a></li>
+                                <li class="{{ count($videos) <= 0 ? 'hide' : '' }}">
+                                    <a href="/management/projects/update/{{ $project['id'] }}/locations/{{ $location['id'] }}/videos">Video
+                                    </a>
+                                </li>
                             </ul>
 
                             <div class="content-body">
@@ -99,7 +107,6 @@
                                     <div class="time-graph" id="time-graph"></div>
                                 </div>
                             </div>
-
                         </div>
 
                     </div>
@@ -110,12 +117,14 @@
 @endsection
 
 @section('scripts')
+    {{--<script src="//content.jwplatform.com/libraries/PotMeZLE.js"></script>--}}
     <script src="/dropzone/dropzone.js"></script>
+    <script type="text/javascript" src="//bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
 
     <script type="text/javascript">
         (function() {
-            let answers = JSON.parse('{!! json_encode($answers) !!}');
-            let hits = JSON.parse('{!! json_encode($hits) !!}');
+            let answers = [];
+            let hits = [];
 
             // Load the Visualization API and the corechart package.
             google.charts.load('current', {'packages':['corechart']});
@@ -155,6 +164,7 @@
             function createDataForTimeline() {
                 let arr = [];
                 for (let hit of hits) {
+                    console.log(new Date(hit.hit_timestamp));
                     arr.push([new Date(hit.hit_timestamp), 1]);
                 }
 
