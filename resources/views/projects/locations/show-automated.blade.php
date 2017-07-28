@@ -3,18 +3,43 @@
 @section('styles')
     <link rel="stylesheet" href="/dropzone/basic.css">
     <link rel="stylesheet" href="/dropzone/dropzone.css">
+    <style>
+        .black-description ul li {
+            list-style: none;
+            width: 50%;
+            float: left;
+        }
+        .black-description ul {
+            padding: 0;
+            width:50%;
+        }
+        .black-description {
+            color: #fff;
+            padding: 20px 30px 250px;
+        }
+        .black-description b {
+            color: #B4B4B4;
+        }
+    </style>
+
 @endsection
 
 @section('content')
     <div class="info-section">
         <div class="info-title">
-            <a href="/projects/{{ $project->id }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
-            <h1 style="color: #fff">
-                {{ $project->name }}
-                <p class="info-sub-title">{{ $location->name }}</p>
-            </h1>
-
+            <div class="col-sm-6" style="display: inline-flex;">
+                <a href="/projects/{{ $project->id }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                <h1 style="color: #fff">
+                    {{ $project->name }}
+                    <p class="info-sub-title">{{ $location->name }}</p>
+                </h1>
+            </div>
+            <div class="col-sm-3">
+                <h5 style="color: #B4B4B4;"><b>Reported Hits:</b></h5>
+                <h5 class="text-primary">500,000 of 1,000,000 (50%)</h5>
+            </div>
         </div>
+
 
         <div class="info-body">
             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports"
@@ -22,7 +47,28 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+
+    <div class="black-description">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <h4><b>Type:</b> Experiential Sampling </h4>
+            <h4><b>Target Hits:</b> 100 Hits </h4>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <h4><b>Run Date:</b> April 03, 2017 </h4>
+            <h4><b>Team Leader:</b> Jane Doe </h4>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <h4><b>Brand Ambassadors:</b> </h4>
+            <ul>
+                <li>Suzan</li>
+                <li>Jerry</li>
+                <li>Sandra</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="container-fluid" style="margin-top: -130px">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
