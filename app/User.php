@@ -3,7 +3,9 @@
 namespace App;
 
 use App\Models\Project;
+use App\Models\ProjectLocation;
 use App\Models\UserGroup;
+use App\Models\UserLocation;
 use App\Models\UserProfile;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -53,6 +55,11 @@ class User extends Authenticatable
 
     public function locations()
     {
-        return $this->belongsToMany(Location::class, 'project_location_user');
+        return $this->belongsToMany(ProjectLocation::class, 'project_location_user');
+    }
+
+    public function gps()
+    {
+        return $this->hasMany(UserLocation::class, 'user_id');
     }
 }

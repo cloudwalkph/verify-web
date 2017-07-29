@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Hit;
 use App\Models\Project;
 use App\Models\ProjectLocation;
+use App\Models\UserLocation;
+use Carbon\Carbon;
+use Geocoder\Formatter\StringFormatter;
 use Illuminate\Http\Request;
 
 class GpsReportController extends Controller
@@ -38,7 +41,10 @@ class GpsReportController extends Controller
 
         $answers = $this->parseAnswers($hits->toArray());
 
-        return view('projects.reports.gps', compact('location', 'project', 'hits', 'answers'));
+        $startDate = Carbon::createFromTimestamp(strtotime($location->date))->toDateString();
+        $locations = $this->getLocationsPerHour($startDate, $locationId);
+
+        return view('projects.reports.gps', compact('location', 'locations', 'project', 'hits', 'answers'));
     }
 
     private function parseAnswers($hits)
@@ -53,20 +59,57 @@ class GpsReportController extends Controller
         return $result;
     }
 
+//    public function preview(Request $request, $projectId, $locationId)
+//    {
+////        $user = $request->user();
+//
+//        $location = ProjectLocation::where('id', $locationId)
+//            ->first();
+//
+//        $project = Project::find($projectId);
+//        $hits = Hit::with('answers')
+//            ->where('project_location_id', $locationId)
+//            ->get();
+//
+//        $answers = $this->parseAnswers($hits->toArray());
+//
+//        return view('projects.reports.print.gps', compact('location', 'project', 'hits', 'answers'));
+//    }
+
     public function preview(Request $request, $projectId, $locationId)
     {
-//        $user = $request->user();
+        $location = ProjectLocation::where('id', $locationId)->first();
 
-        $location = ProjectLocation::where('id', $locationId)
-            ->first();
+        $startDate = Carbon::createFromTimestamp(strtotime($location->date))->toDateString();
 
-        $project = Project::find($projectId);
-        $hits = Hit::with('answers')
+        $locations = $this->getLocationsPerHour($startDate, $locationId);
+
+        return view('projects.reports.print.gps', compact('location', 'locations', 'startDate'));
+    }
+
+    private function getLocationsPerHour($startDate, $locationId)
+    {
+        $locations = UserLocation::whereDate('created_at', '=', $startDate)
             ->where('project_location_id', $locationId)
-            ->get();
+            ->get()
+            ->groupBy(function($d) {
+                return Carbon::parse($d->created_at)->format('Y-m-d H');
+            });
 
-        $answers = $this->parseAnswers($hits->toArray());
+        $result = [];
+        foreach ($locations as $location) {
+            // Reverse geocoding
+            $address = app('geocoder')
+                ->reverse($location[0]->lat, $location[0]->lng)
+                ->get();
 
-        return view('projects.reports.print.gps', compact('location', 'project', 'hits', 'answers'));
+            $formatter = new StringFormatter();
+
+            $location[0]['formatted_address'] = $formatter->format($address->first(), '%S %n, %z %L');;
+
+            $result[] = $location[0];
+        }
+
+        return $result;
     }
 }
