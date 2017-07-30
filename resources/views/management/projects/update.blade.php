@@ -434,6 +434,7 @@
                                 <thead>
                                     <tr>
                                         <th>Date</th>
+                                        <th>Project Type</th>
                                         <th>Location Name</th>
                                         <th>Services</th>
                                         <th>Video</th>
@@ -447,6 +448,7 @@
                                     @foreach ($locations as $location)
                                         <tr class="clickable" data-uri="/management/projects/update/{{ $project['id'] }}/locations/{{ $location['id'] }}">
                                             <td>{{ $location['date'] }}</td>
+                                            <th>{{ $location['project_type'] }}</th>
                                             <td style="max-width: 250px">{{ $location['name'] }}</td>
                                             <td>{{ $location['services'] }}</td>
                                             <td>{{ $location['vboxes'] }}</td>
