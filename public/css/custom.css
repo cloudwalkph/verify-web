@@ -27,6 +27,19 @@
     margin-top: -20px;
 }
 
+.black-description.project-location ul li {
+    list-style: none;
+    width: 50%;
+    float: left;
+}
+.black-description.project-location ul {
+    padding: 0;
+    width:50%;
+}
+.black-description b {
+    color: #B4B4B4;
+}
+
 .jw-title {
     position: absolute !important;
     top: 35px !important;
@@ -412,4 +425,10 @@ p.bottom-desc {
     vertical-align: middle;
     background-size: 16px 16px;
     margin: 0 3px 0 0;
+}
+
+@media (max-width: 991px) {
+    .black-description.project-location {
+        padding: 20px 30px 350px;
+    }
 }

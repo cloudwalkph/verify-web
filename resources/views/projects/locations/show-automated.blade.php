@@ -4,21 +4,9 @@
     <link rel="stylesheet" href="/dropzone/basic.css">
     <link rel="stylesheet" href="/dropzone/dropzone.css">
     <style>
-        .black-description ul li {
-            list-style: none;
-            width: 50%;
-            float: left;
-        }
-        .black-description ul {
-            padding: 0;
-            width:50%;
-        }
         .black-description {
             color: #fff;
             padding: 20px 30px 250px;
-        }
-        .black-description b {
-            color: #B4B4B4;
         }
     </style>
 
@@ -48,7 +36,7 @@
     </div>
 
 
-    <div class="black-description">
+    <div class="black-description project-location">
         <div class="col-md-4 col-sm-6 col-xs-12">
             <h4><b>Type:</b> {{ ($location->project_type) ? $location->project_type : 'NA' }} </h4>
             <h4><b>Target Hits:</b> {{ ($location->target_hits > 0) ? $location->target_hits.' Hits' : 'No target hits' }} </h4>
