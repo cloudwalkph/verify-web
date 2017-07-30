@@ -26,7 +26,14 @@
                         </div>
 
                         <div class="col-md-12">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="project_type">Project Type (Sampling, Experiential)</label>
+                                    <input type="text" class="form-control input-field" name="project_type" id="project_type" placeholder="Project Type (Sampling, Experiential)">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="date">Date</label>
                                     <input type="date" class="form-control input-field" name="date" id="date" placeholder="Date">
