@@ -81,7 +81,8 @@ class ProjectsController extends Controller
                 'services'      => json_encode($input['services']),
                 'assigned_raspberry'    => '',
                 'status'        => 'pending',
-                'category_id'   => 0
+                'category_id'   => 0,
+                'project_type'  => isset($input['project_type']) ? $input['project_type'] : ''
             ];
 
             $location = ProjectLocation::create($data);
