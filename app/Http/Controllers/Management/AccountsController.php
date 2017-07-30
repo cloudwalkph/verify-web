@@ -102,7 +102,7 @@ class AccountsController extends Controller
 
         $users = User::with('profile')->where('user_group_id', $request->get('group'))
             ->whereHas('profile', function($q) use ($query) {
-                $q->where('first_name', 'LIKE', '%'.$query.'%');
+                $q->where(\DB::raw("CONCAT(`first_name`, ' ', `last_name`)"), 'LIKE', '%'.$query.'%');
             })
             ->limit(10)
             ->get();
