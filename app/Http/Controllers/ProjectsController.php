@@ -52,6 +52,7 @@ class ProjectsController extends Controller
 
     public function getHits(Request $request, $projectId)
     {
+
         if (! $request->has('location_id')) {
             $locations = ProjectLocation::where('project_id', $projectId)->get();
         } else {
@@ -59,7 +60,6 @@ class ProjectsController extends Controller
                 ->where('id', $request->get('location_id'))->get();
 
         }
-
 
         $locationIds = [];
         foreach ($locations as $location) {
@@ -70,6 +70,8 @@ class ProjectsController extends Controller
             ->get();
 
         $hits = $this->parseHits($hits);
+
+//        \Cache::add()
 
         return response()->json($hits, 200);
     }
