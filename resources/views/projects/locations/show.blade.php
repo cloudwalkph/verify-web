@@ -34,7 +34,7 @@
 
                         @component('components.chart', ['project' => $project, 'location' => $location])
                             @slot('nav')
-                                <li class="active">
+                                <li class="{{ $services && in_array('manual', $services) ? '' : 'hide' }} active">
                                     <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}">Manual</a>
                                 </li>
 

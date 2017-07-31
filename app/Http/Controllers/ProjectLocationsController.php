@@ -34,6 +34,19 @@ class ProjectLocationsController extends Controller
         $location = ProjectLocation::where('id', $locationId)
             ->first();
 
+        $services = json_decode($location->services);
+        if (! in_array('manual', $services)) {
+            if (in_array('automatic', $services)) {
+                return redirect()->to('/projects/'.$projectId.'/locations/'.$locationId.'/automated');
+            }
+
+            if (in_array('gps', $services)) {
+                return redirect()->to('/projects/'.$projectId.'/locations/'.$locationId.'/gps');
+            }
+
+            return redirect()->to('/projects/'.$projectId.'/locations/'.$locationId.'/videos');
+        }
+
         $project = Project::find($projectId);
         $hits = Hit::with('answers')
             ->where('auto', 0)

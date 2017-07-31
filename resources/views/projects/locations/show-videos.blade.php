@@ -39,7 +39,7 @@
                             <p style="color: #FF7300;">Last updated: {{ $project->updated_at->toFormattedDateString() }}</p>
 
                             <ul class="nav nav-tabs" id="serviceTabs">
-                                <li>
+                                <li class="{{ $services && in_array('manual', $services) ? '' : 'hide' }}">
                                     <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}">Manual</a>
                                 </li>
 

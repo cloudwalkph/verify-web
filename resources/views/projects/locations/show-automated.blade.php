@@ -36,7 +36,7 @@
 
                         @component('components.chart', ['project' => $project, 'location' => $location])
                             @slot('nav')
-                                <li>
+                                <li class="{{ $services && in_array('manual', $services) ? '' : 'hide' }}">
                                     <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}">Manual</a>
                                 </li>
 
