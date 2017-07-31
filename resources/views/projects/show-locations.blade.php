@@ -28,7 +28,7 @@
             </div>
             <div class="col-sm-3">
                 <h5 style="color: #B4B4B4;"><b>Runs Completed:</b></h5>
-                <h5 class="text-primary">{{ $completed }} / {{ count($project['locations']) }} ({{ ($completed / count($project['locations'])) * 100 }}%)</h5>
+                <h5 class="text-primary">{{ $completed }} / {{ count($project['locations']) }} ({{ number_format(($completed / count($project['locations'])) * 100, 2) }}%)</h5>
             </div>
             <div class="col-sm-3">
                 <h5 style="color: #B4B4B4;"><b>Reported Hits:</b></h5>
