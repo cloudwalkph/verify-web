@@ -131,6 +131,7 @@ class ProjectLocationsController extends Controller
         $project = Project::find($projectId);
 
         $services = $location->services ? json_decode($location->services) : [];
+
         $videos = Video::where('project_location_id', $locationId)
             ->get();
 
