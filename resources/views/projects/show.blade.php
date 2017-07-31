@@ -27,10 +27,6 @@
                 <h5 class="text-primary">{{ $reported }}</h5>
             </div>
         </div>
-
-        <div class="info-body">
-            <button class="btn btn-primary">Verify Audit Report</button>
-        </div>
     </div>
 
     <div class="black-description">
