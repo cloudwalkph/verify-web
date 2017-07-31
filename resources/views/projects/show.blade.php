@@ -21,9 +21,9 @@
                     hits = hitsRes.data;
                     answers = answersRes.data;
 
-
-
-                    drawCharts();
+                    if (hits.length > 0) {
+                        drawCharts();
+                    }
 
                     $('.overlay').addClass('hide');
             }));
