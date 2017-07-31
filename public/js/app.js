@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 44);
+/******/ 	return __webpack_require__(__webpack_require__.s = 47);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -11221,7 +11221,7 @@ __webpack_require__(31);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(38));
+Vue.component('example', __webpack_require__(41));
 
 var app = new Vue({
   el: '#app'
@@ -12109,11 +12109,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
 
 
-window._ = __webpack_require__(35);
+window._ = __webpack_require__(38);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12123,7 +12123,7 @@ window._ = __webpack_require__(35);
 
 window.$ = window.jQuery = __webpack_require__(1);
 
-__webpack_require__(33);
+__webpack_require__(36);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -12131,7 +12131,7 @@ __webpack_require__(33);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(41);
+window.Vue = __webpack_require__(44);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -12145,7 +12145,7 @@ window.axios = __webpack_require__(12);
  * Laravel Echo
  * Realtime communication between the server and the frontend
  */
-window.Pusher = __webpack_require__(36);
+window.Pusher = __webpack_require__(39);
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'pusher',
   key: '560a948394287251a7a8',
@@ -12156,14 +12156,29 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
 /**
  * Toastr
  */
-window.Toastr = __webpack_require__(37);
+window.Toastr = __webpack_require__(40);
 
 window.axios.defaults.headers.common = {
   'X-CSRF-TOKEN': window.Laravel.csrfToken,
   'X-Requested-With': 'XMLHttpRequest'
 };
 
-window.selectize = __webpack_require__(32);
+window.selectize = __webpack_require__(35);
+
+/**
+ * App Namespace
+ */
+window.GPS = __webpack_require__(32);
+
+/**
+ * GPS Library
+ */
+window.GPS = __webpack_require__(34);
+
+/**
+ * Chart Library
+ */
+window.Chart = __webpack_require__(33);
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -12180,6 +12195,197 @@ window.selectize = __webpack_require__(32);
 
 /***/ }),
 /* 32 */
+/***/ (function(module, exports) {
+
+window.Verify = function () {
+    var c = {};
+
+    return c;
+}();
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(jQuery) {(function (verify, google, $) {})(Verify || {}, google, jQuery);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(jQuery) {(function (verify, google, $) {
+    var c = {};
+
+    var map = void 0,
+        activations = void 0,
+        baPath = void 0,
+        baCoordinates = [];
+    var gpsData = [];
+    var coordinates = [];
+    var contentString = void 0;
+    var infowindow = void 0;
+
+    c.getLocationData = function (projectId, locationId) {
+        axios.get('/management/projects/' + projectId + '/locations/' + locationId + '/gps').then(function (res) {
+            gpsData = res.data;
+
+            coordinates = res.data;
+            // for (let data of gpsData) {
+            //     coordinates.push([data.lat, data.lng]);
+            // }
+
+            drawMapHistory();
+            $('.overlay').addClass('hide');
+        });
+    };
+
+    c.initMap = function () {
+        // Create the map with no initial style specified.
+        // It therefore has default styling.
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 14.6334979, lng: 121.0561233 },
+            zoom: 17,
+            mapTypeControl: false,
+            scrollwheel: false
+        });
+
+        // contentString = '<div id="iw-container">' +
+        //     '<div class="iw-title">Test Project</div>' +
+        //     '<div class="iw-content">' +
+        //     '<div class="iw-subTitle">Rina Martes</div>' +
+        //     '</div>' +
+        //     '<div class="iw-bottom-gradient"></div>' +
+        //     '</div>';
+
+        infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+        baPath = new google.maps.Polyline({
+            geodesic: true,
+            strokeColor: '#ff9e4a',
+            strokeOpacity: 0.9,
+            strokeWeight: 3
+        });
+
+        google.maps.event.addListenerOnce(map, 'idle', function () {
+            var image = '/images/marker.png';
+            activations = new google.maps.Marker({
+                map: map,
+                icon: image,
+                animation: google.maps.Animation.DROP,
+                title: 'Test Project'
+            });
+
+            //                activations.addListener('click', function() {
+            //                    infowindow.open(map, activations);
+            //                    toggleBounce();
+            //                });
+        });
+
+        baPath.setMap(map);
+
+        google.maps.event.addListener(map, "click", function (e) {
+
+            //lat and lng is available in e object
+            var latLng = e.latLng;
+            console.log(latLng.toString());
+        });
+
+        // *
+        // START INFOWINDOW CUSTOMIZE.
+        // The google.maps.event.addListener() event expects
+        // the creation of the infowindow HTML structure 'domready'
+        // and before the opening of the infowindow, defined styles are applied.
+        // *
+        // google.maps.event.addListener(infowindow, 'domready', function() {
+        //
+        //     // Reference to the DIV that wraps the bottom of infowindow
+        //     let iwOuter = $('.gm-style-iw');
+        //
+        //     /* Since this div is in a position prior to .gm-div style-iw.
+        //      * We use jQuery and create a iwBackground variable,
+        //      * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
+        //      */
+        //     let iwBackground = iwOuter.prev();
+        //
+        //     // Removes background shadow DIV
+        //     iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+        //
+        //     // Removes white background DIV
+        //     iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+        //
+        //     // Moves the infowindow 115px to the right.
+        //     iwOuter.parent().parent().css({left: '115px'});
+        //
+        //     // Moves the shadow of the arrow 76px to the left margin.
+        //     iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+        //
+        //     // Moves the arrow 76px to the left margin.
+        //     iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+        //
+        //     // Changes the desired tail shadow color.
+        //     iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px', 'z-index' : '1'});
+        //
+        //     // Reference to the div that groups the close button elements.
+        //     let iwCloseBtn = iwOuter.next();
+        //
+        //     // Apply the desired effect to the close button
+        //     iwCloseBtn.css({opacity: '1', right: '38px', top: '3px', border: '7px solid #48b5e9', 'border-radius': '13px', 'box-shadow': '0 0 5px #3990B9'});
+        //
+        //     // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
+        //     if($('.iw-content').height() < 140){
+        //         $('.iw-bottom-gradient').css({display: 'none'});
+        //     }
+        //
+        //     // The API automatically applies 0.7 opacity to the button after the mouseout event. This function reverses this event to the desired value.
+        //     iwCloseBtn.mouseout(function(){
+        //         $(this).css({opacity: '1'});
+        //     });
+        // });
+    };
+
+    function drawMapHistory() {
+        var step = 0;
+        var numSteps = coordinates.length - 1;
+        var timePerStep = 2000;
+        var interval = setInterval(function () {
+            step += 1;
+
+            if (step >= numSteps) {
+                clearInterval(interval);
+            } else {
+                var coord = {
+                    lat: coordinates[step].lat,
+                    lng: coordinates[step].lng
+                };
+
+                baCoordinates.push(coord);
+
+                map.setCenter(coord);
+                activations.setPosition(coord);
+                baPath.setPath(baCoordinates);
+
+                $('#mapTime h1').html(coordinates[step].created_at);
+            }
+        }, timePerStep);
+    }
+
+    function toggleBounce() {
+        if (activations.getAnimation() !== null) {
+            activations.setAnimation(null);
+        } else {
+            activations.setAnimation(google.maps.Animation.BOUNCE);
+        }
+    }
+
+    verify.GPS = c;
+})(Verify || {}, google, jQuery);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_LOCAL_MODULE_0__;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_LOCAL_MODULE_1__;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -13048,7 +13254,7 @@ window.selectize = __webpack_require__(32);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 33 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -15432,7 +15638,7 @@ if (typeof jQuery === 'undefined') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {var asyncGenerator = function () {
@@ -16206,7 +16412,7 @@ module.exports = Echo;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -33295,10 +33501,10 @@ module.exports = Echo;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(43)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(46)(module)))
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -37433,7 +37639,7 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -37865,18 +38071,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
         })();
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-}(__webpack_require__(42)));
+}(__webpack_require__(45)));
 
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(39)(
+var Component = __webpack_require__(42)(
   /* script */
   __webpack_require__(30),
   /* template */
-  __webpack_require__(40),
+  __webpack_require__(43),
   /* scopeId */
   null,
   /* cssModules */
@@ -37903,7 +38109,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 39 */
+/* 42 */
 /***/ (function(module, exports) {
 
 module.exports = function normalizeComponent (
@@ -37956,7 +38162,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 40 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -37985,7 +38191,7 @@ if (false) {
 }
 
 /***/ }),
-/* 41 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47238,7 +47444,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(9)))
 
 /***/ }),
-/* 42 */
+/* 45 */
 /***/ (function(module, exports) {
 
 module.exports = function() {
@@ -47247,7 +47453,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 43 */
+/* 46 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -47275,7 +47481,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 44 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);

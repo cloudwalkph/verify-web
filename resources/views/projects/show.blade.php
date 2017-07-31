@@ -157,42 +157,6 @@
     </script>
 @endsection
 
-@section('styles')
-    <style>
-        .panel-body {
-            position: relative;
-        }
-
-        .panel {
-            border: none;
-        }
-
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.8);
-            height: 100%;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .overlay-content {
-            font-size: 20px;
-            color: #fff;
-            text-align: center;
-            position: inherit;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, 0);
-        }
-
-        .overlay-content i {
-            font-size: 100px;
-        }
-    </style>
-@endsection
-
 @section('content')
     <div class="info-section">
         <div class="info-title">
