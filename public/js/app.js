@@ -12207,7 +12207,214 @@ window.Verify = function () {
 /* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(jQuery) {(function (verify, google, $) {})(Verify || {}, google, jQuery);
+/* WEBPACK VAR INJECTION */(function(jQuery) {(function (verify, google, axios, $) {
+    var c = {};
+
+    var answers = [];
+    var hits = [];
+    var height = void 0;
+    var projectId = void 0;
+
+    var url = void 0;
+    var demographicsUrl = void 0;
+
+    var getHits = function getHits() {
+        return axios.get(url);
+    };
+    var getDemographics = function getDemographics() {
+        return axios.get(demographicsUrl);
+    };
+
+    c.init = function (locationId) {
+        height = $('.panel-body').css('height');
+        $('.overlay').css('height', height);
+
+        projectId = $('#projectId').val();
+
+        url = '/projects/' + projectId + '/locations/get-hits';
+        demographicsUrl = '/projects/' + projectId + '/locations/get-demographics';
+
+        if (typeof locationId !== 'undefined') {
+            url = '/projects/' + projectId + '/locations/get-hits?location_id=' + locationId;
+            demographicsUrl = '/projects/' + projectId + '/locations/get-demographics?location_id=' + locationId;
+        }
+
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawCharts);
+
+        getData();
+    };
+
+    function getData() {
+        axios.all([getHits(), getDemographics()]).then(axios.spread(function (hitsRes, answersRes) {
+            hits = hitsRes.data;
+            answers = answersRes.data;
+
+            if (hits.length > 0) {
+                drawCharts();
+            }
+
+            $('.overlay').addClass('hide');
+        }));
+    }
+
+    function drawCharts() {
+        drawLineChart();
+        drawPieChart();
+        drawBarChart();
+    }
+
+    function createData(pollId, $tableHeader) {
+        var arr = [];
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+            for (var _iterator = answers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var answer = _step.value;
+
+                if (answer.poll_id != pollId) {
+                    continue;
+                }
+
+                arr.push([answer.value, 1]);
+            }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
+            }
+        }
+
+        var dt = google.visualization.arrayToDataTable([$tableHeader].concat(arr));
+
+        return google.visualization.data.group(dt, [0], [{
+            column: 1,
+            aggregation: google.visualization.data.sum,
+            type: 'number'
+        }]);
+    }
+
+    function createDataForTimeline() {
+        var arr = [];
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+            for (var _iterator2 = hits[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                var hit = _step2.value;
+
+                arr.push([new Date(hit.hit_timestamp), 1]);
+            }
+        } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                    _iterator2.return();
+                }
+            } finally {
+                if (_didIteratorError2) {
+                    throw _iteratorError2;
+                }
+            }
+        }
+
+        var dt = google.visualization.arrayToDataTable([['Time', 'Hits']].concat(arr));
+
+        return google.visualization.data.group(dt, [0], [{
+            column: 1,
+            aggregation: google.visualization.data.sum,
+            type: 'number'
+        }]);
+    }
+
+    function drawBarChart() {
+        var data = createData(1, ['Age Group', 'Hits']);
+
+        var options = {
+            title: '',
+            width: '810',
+            height: '500',
+            chartArea: { width: '50%' },
+            colors: ['#FF7300', '#383A38', '#FFC799'],
+            hAxis: {
+                title: 'Age Groups',
+                minValue: 0
+            },
+            vAxis: {
+                title: 'Hits'
+            },
+            orientation: 'horizontal',
+            legend: { position: 'none' }
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('age-graph'));
+        chart.draw(data, options);
+    }
+
+    function drawPieChart() {
+        var data = createData(2, ['Gender', 'Hits']);
+
+        // Set chart options
+        var options = {
+            title: '',
+            width: '810',
+            height: '500',
+            colors: ['#FF7300', '#383A38']
+        };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('gender-graph'));
+        chart.draw(data, options);
+    }
+
+    function drawLineChart() {
+        var data = createDataForTimeline();
+
+        var options = {
+            title: '',
+            curveType: 'function',
+            width: '1618',
+            height: '500',
+            legend: { position: 'none' },
+            colors: ['#FF7300'],
+            explorer: {
+                axis: 'horizontal',
+                actions: ['dragToZoom', 'rightClickToReset']
+            },
+            vAxis: {
+                minValue: 0
+            },
+            gridlines: { count: -1 },
+            library: { hAxis: { format: "hh. mm." } }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('time-graph'));
+
+        var formatter = new google.visualization.DateFormat({ formatType: 'long' });
+
+        formatter.format(data, 0);
+
+        chart.draw(data, options);
+    }
+
+    verify.Chart = c;
+})(Verify || {}, google, axios, jQuery);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),

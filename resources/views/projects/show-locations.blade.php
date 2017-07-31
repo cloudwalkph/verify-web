@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('styles')
+    <style>
+        .black-description ul li {
+            list-style: none;
+            width: 200px;
+            text-align: center;
+        }
+    </style>
+@endsection
+
 @section('scripts')
     <script>
         $(function() {

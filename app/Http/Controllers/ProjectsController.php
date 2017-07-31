@@ -52,7 +52,14 @@ class ProjectsController extends Controller
 
     public function getHits(Request $request, $projectId)
     {
-        $locations = ProjectLocation::where('project_id', $projectId)->get();
+        if (! $request->has('location_id')) {
+            $locations = ProjectLocation::where('project_id', $projectId)->get();
+        } else {
+            $locations = ProjectLocation::where('project_id', $projectId)
+                ->where('id', $request->get('location_id'))->get();
+
+        }
+
 
         $locationIds = [];
         foreach ($locations as $location) {
@@ -69,7 +76,12 @@ class ProjectsController extends Controller
 
     public function getDemographics(Request $request, $projectId)
     {
-        $locations = ProjectLocation::where('project_id', $projectId)->get();
+        if (! $request->has('location_id')) {
+            $locations = ProjectLocation::where('project_id', $projectId)->get();
+        } else {
+            $locations = ProjectLocation::where('project_id', $projectId)
+                ->where('id', $request->get('location_id'))->get();
+        }
 
         $locationIds = [];
         foreach ($locations as $location) {

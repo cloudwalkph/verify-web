@@ -32,11 +32,8 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
 
-                        <div class="content">
-                            <h3>Event Analytics</h3>
-                            <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
-
-                            <ul class="nav nav-tabs" id="serviceTabs">
+                        @component('components.chart', ['project' => $project, 'location' => $location])
+                            @slot('nav')
                                 <li class="active">
                                     <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}">Manual</a>
                                 </li>
@@ -50,38 +47,8 @@
                                 </li>
 
                                 <li class="{{ count($videos) <= 0 ? 'hide' : '' }}"><a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/videos">Video</a></li>
-                            </ul>
-
-                            <div class="content-body">
-                                <div class="other-graphs">
-                                    <div class="col-md-6">
-                                        <div class="graph-description-container">
-                                            <h2>Gender</h2>
-                                            <p class="help-block">The percentage of male and female consumers from the total number of hits recorded.</p>
-                                        </div>
-                                        <div id="gender-graph"></div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="graph-description-container">
-                                            <h2>Age Group</h2>
-                                            <p class="help-block">The distribution of hits coming various age groups from the total number of hits recorded.</p>
-                                        </div>
-                                        <div id="age-graph"></div>
-                                    </div>
-                                </div>
-
-                                <div class="time-and-video">
-                                    <div class="col-md-12">
-                                        <div class="graph-description-container">
-                                            <h2>Timestamp</h2>
-                                            <p class="help-block">Data or hits recorded during specific hours of the day or run.</p>
-                                        </div>
-                                        <div id="time-graph"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                            @endslot
+                        @endcomponent
 
                     </div>
                 </div>
