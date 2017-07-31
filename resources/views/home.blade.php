@@ -81,7 +81,14 @@
             <div class="panel panel-default">
                 <div class="panel-body">
 
-                    <legend>Shared Projects</legend>
+                    <legend>
+                        Shared Projects
+                        <p class="help-block" style="font-size: 14px">
+                            These are projects shared with you by the owner that allows you to view
+                            all data and information from the shared project.
+                        </p>
+                    </legend>
+
                     <table class="table table-hover projects-table">
                         <thead>
                         <tr>

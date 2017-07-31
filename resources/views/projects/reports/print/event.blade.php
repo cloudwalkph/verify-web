@@ -66,13 +66,25 @@
 
             <div class="row">
                 <div class="col-xs-6">
-                    <div class="time-graph" id="time-graph"></div>
+                    <div class="graph-description-container">
+                        <h2>Timestamp</h2>
+                        <p class="help-block">Data or hits recorded during specific hours of the day or run.</p>
+                    </div>
+                    <div id="time-graph"></div>
                 </div>
                 <div class="col-xs-6">
-                    <div class="graph" id="gender-graph"></div>
+                    <div class="graph-description-container">
+                        <h2>Gender</h2>
+                        <p class="help-block">The percentage of male and female consumers from the total number of hits recorded.</p>
+                    </div>
+                    <div id="gender-graph"></div>
                 </div>
                 <div class="col-xs-12">
-                    <div class="graph" id="age-graph"></div>
+                    <div class="graph-description-container">
+                        <h2>Age Group</h2>
+                        <p class="help-block">The distribution of hits coming various age groups from the total number of hits recorded.</p>
+                    </div>
+                    <div id="age-graph"></div>
                 </div>
             </div>
         </div>
@@ -170,7 +182,7 @@
                 let data = createData(1, ['Age Group', 'Hits']);
 
                 let options = {
-                    title: 'Demographics',
+                    title: '',
                     chartArea: {width: '90%'},
                     colors: ['#FF7300', '#383A38', '#FFC799'],
                     hAxis: {
@@ -193,7 +205,7 @@
 
                 // Set chart options
                 let options = {
-                    title:'Gender',
+                    title:'',
                     colors: ['#FF7300', '#383A38']
                 };
 
@@ -206,7 +218,7 @@
                 let data = createDataForTimeline();
 
                 let options = {
-                    title: 'Timestamp',
+                    title: '',
                     curveType: 'function',
                     legend: {position: 'none'},
                     colors: ['#FF7300'],
