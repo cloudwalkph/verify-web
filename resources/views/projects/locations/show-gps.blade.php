@@ -1,15 +1,5 @@
 @extends('layouts.app')
 
-@section('styles')
-    <style>
-        .black-description {
-            color: #fff;
-            padding: 20px 30px 250px;
-        }
-    </style>
-
-@endsection
-
 @section('content')
     <div class="info-section">
         <div class="info-title">

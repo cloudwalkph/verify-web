@@ -1,27 +1,5 @@
 @extends('layouts.management')
 
-@section('styles')
-    <style>
-        .black-description ul li {
-            list-style: none;
-            width: 50%;
-            float: left;
-        }
-        .black-description ul {
-            padding: 0;
-            width:50%;
-        }
-        .black-description {
-            color: #fff;
-            padding: 20px 30px 250px;
-        }
-        .black-description b {
-            color: #B4B4B4;
-        }
-    </style>
-
-@endsection
-
 @section('content')
     <div class="info-section">
         <div class="info-title">
