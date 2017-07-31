@@ -22,7 +22,7 @@ Route::group(['prefix' => 'v1',
     'namespace' => 'API'], function() {
 
     Route::get('me', 'UsersController@profile');
-    Route::get('gps', 'UsersController@createLocationRecord');
+    Route::post('gps', 'UsersController@createLocationRecord');
 
     Route::get('/ba/events', 'BA\ProjectsController@self');
     // Route::post('/ba/events/{projectId}/locations/{locationId}', 'BA\HitsController@createHit');
