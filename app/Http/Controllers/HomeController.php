@@ -46,6 +46,7 @@ class HomeController extends Controller
             $locations = $project->locations;
             $reported = $this->getReportedHits($locations);
             $audited = $this->getAuditedHits($locations);
+            $target = $this->getTargetHits($locations);
 
             if ($reported > 0) {
                 $percentage = ($audited / $reported) * 100;
@@ -62,6 +63,7 @@ class HomeController extends Controller
                 'reported_hits'     => $reported,
                 'audited_hits'      => $audited,
                 'audit_percent'     => $percentage,
+                'target'            => $target,
                 'status'            => $project->status
             ];
         }
@@ -86,6 +88,16 @@ class HomeController extends Controller
         $count = 0;
         foreach ($locations as $location) {
             $count += $location->hits()->count();
+        }
+
+        return $count;
+    }
+
+    private function getTargetHits($locations)
+    {
+        $count = 0;
+        foreach ($locations as $location) {
+            $count += $location->target_hits;
         }
 
         return $count;

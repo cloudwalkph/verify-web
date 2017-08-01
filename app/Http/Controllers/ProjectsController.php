@@ -120,6 +120,7 @@ class ProjectsController extends Controller
                 'reported_hits'     => $reported,
                 'audited_hits'      => $audited,
                 'audit_percent'     => $percentage,
+                'target_hits'       => $location->target_hits,
                 'status'            => $location->status
             ];
         }
