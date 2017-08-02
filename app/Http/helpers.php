@@ -19,5 +19,5 @@ function array_map_assoc( $callback , $array ){
 }
 
 function get_placeholder() {
-    return '/images/placeholder-'.rand(1, 16);
+    return '/images/placeholder-'.rand(1, 16).'.jpg';
 }

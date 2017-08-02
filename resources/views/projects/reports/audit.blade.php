@@ -118,13 +118,13 @@
     <script>
         $(function() {
 
-            $(document).on('error', '.hits-image', function () {
-                $(this).onerror = "";
-                $(this).src = "/images/noimage.gif";
-
-                alert(1);
-                return true;
-            })
+//            $(document).on('error', '.hits-image', function () {
+//                $(this).onerror = "";
+//                $(this).src = "/images/noimage.gif";
+//
+//                alert(1);
+//                return true;
+//            })
 
             function openPrintWindow() {
 
