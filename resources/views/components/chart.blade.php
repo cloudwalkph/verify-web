@@ -50,8 +50,6 @@
     @parent
 
     <script type="text/javascript">
-        $(function() {
-            Verify.Chart.init({{ $location && isset($location['id']) ? $location['id'] : null }});
-        })
+        Verify.Chart.init({{ $location && isset($location['id']) ? $location['id'] : null }});
     </script>
 @endsection

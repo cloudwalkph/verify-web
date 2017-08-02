@@ -41,8 +41,9 @@ class GpsReportController extends Controller
 
         $answers = $this->parseAnswers($hits->toArray());
 
-        $startDate = Carbon::createFromTimestamp(strtotime($location->date))->toDateString();
-        $locations = $this->getLocationsPerHour($startDate, $locationId);
+        $startDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(6)->toDateTimeString();
+        $endDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(19)->toDateTimeString();
+        $locations = $this->getLocationsPerHour($startDate, $endDate, $locationId);
 
         return view('projects.reports.gps', compact('location', 'locations', 'project', 'hits', 'answers'));
     }
@@ -80,16 +81,18 @@ class GpsReportController extends Controller
     {
         $location = ProjectLocation::where('id', $locationId)->first();
 
-        $startDate = Carbon::createFromTimestamp(strtotime($location->date))->toDateString();
+        $startDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(6)->toDateTimeString();
+        $endDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(19)->toDateTimeString();
 
-        $locations = $this->getLocationsPerHour($startDate, $locationId);
+        $locations = $this->getLocationsPerHour($startDate, $endDate, $locationId);
 
         return view('projects.reports.print.gps', compact('location', 'locations', 'startDate'));
     }
 
-    private function getLocationsPerHour($startDate, $locationId)
+    private function getLocationsPerHour($startDate, $endDate, $locationId)
     {
-        $locations = UserLocation::whereDate('created_at', '=', $startDate)
+        $locations = UserLocation::whereDate('created_at', '>=', $startDate)
+            ->whereDate('created_at', '<=', $endDate)
             ->where('project_location_id', $locationId)
             ->get()
             ->groupBy(function($d) {
