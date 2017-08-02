@@ -12,7 +12,7 @@
             </div>
             <div class="col-sm-3">
                 <h5 style="color: #B4B4B4;"><b>Reported Hits:</b></h5>
-                <h5 class="text-primary">{{ $location->manual_hits }}</h5>
+                <h5 class="text-primary">{{ $location->manual_hits }} / {{ $location->target_hits ? $location->target_hits : 'NA' }} </h5>
             </div>
         </div>
 

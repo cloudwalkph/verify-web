@@ -41,13 +41,14 @@ class ProjectsController extends Controller
             ->get();
 
         $reported = $this->getReportedHits($locations);
+        $target = $this->getTargetHits($locations);
         $completed = $this->countRunsBaseOnStatus($locations, 'completed');
 
         $locations = $this->parseLocations($locations);
 
         $project = Project::find($projectId);
 
-        return view('projects.show', compact('locations', 'project', 'completed', 'reported'));
+        return view('projects.show', compact('locations', 'target', 'project', 'completed', 'reported'));
     }
 
     public function getHits(Request $request, $projectId)
@@ -175,6 +176,16 @@ class ProjectsController extends Controller
         $count = 0;
         foreach ($locations as $location) {
             $count += $location->manual_hits;
+        }
+
+        return $count;
+    }
+
+    private function getTargetHits($locations)
+    {
+        $count = 0;
+        foreach ($locations as $location) {
+            $count += $location->target_hits;
         }
 
         return $count;

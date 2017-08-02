@@ -32,7 +32,7 @@
             </div>
             <div class="col-sm-3">
                 <h5 style="color: #B4B4B4;"><b>Reported Hits:</b></h5>
-                <h5 class="text-primary">{{ $reported }}</h5>
+                <h5 class="text-primary">{{ $reported }} / {{ $target ? $target : 'NA' }}</h5>
             </div>
         </div>
     </div>
