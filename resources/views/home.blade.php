@@ -32,9 +32,9 @@
                                 <th>Project Name</th>
                                 <th>Active Runs</th>
                                 <th>Completed Runs</th>
+                                <th>Target Hits</th>
                                 <th>Reported Hits</th>
                                 <th>Audited Hits</th>
-                                <th>Target Hits</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -55,15 +55,15 @@
                                     </td>
 
                                     <td>
+                                        {{ $project['target_hits'] }}
+                                    </td>
+
+                                    <td>
                                         {{ $project['reported_hits']  }}
                                     </td>
 
                                     <td>
                                         {{ $project['audited_hits'] }} (<span class="text-primary">{{ number_format($project['audit_percent'], 2) }}%</span>)
-                                    </td>
-
-                                    <td>
-                                        {{ $project['target'] }}
                                     </td>
 
                                     <td>

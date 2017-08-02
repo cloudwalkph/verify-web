@@ -155,6 +155,7 @@ class ProjectsController extends Controller
                 'reported_hits'     => $reported,
                 'audited_hits'      => $audited,
                 'audit_percent'     => $percentage,
+                'target_hits'       => $location->target_hits,
                 'services'          => $services,
                 'vboxes'            => implode(", ", array_map_assoc(function($k, $v){
                         return $v['alias'];
@@ -173,6 +174,7 @@ class ProjectsController extends Controller
             $locations = $project->locations;
             $reported = $this->getReportedHits($locations);
             $audited = $this->getAuditedHits($locations);
+            $target = $this->getTargetHits($locations);
 
             if ($reported > 0) {
                 $percentage = ($audited / $reported) * 100;
@@ -186,6 +188,7 @@ class ProjectsController extends Controller
                 'locations'         => $locations->toArray(),
                 'active_runs'       => $this->countRunsBaseOnStatus($locations),
                 'completed_runs'    => $this->countRunsBaseOnStatus($locations, 'completed'),
+                'target_hits'       => $target,
                 'reported_hits'     => $reported,
                 'audited_hits'      => $audited,
                 'audit_percent'     => $percentage,
@@ -223,6 +226,16 @@ class ProjectsController extends Controller
         $count = 0;
         foreach ($locations as $location) {
             $count += $location->manual_hits;
+        }
+
+        return $count;
+    }
+
+    private function getTargetHits($locations)
+    {
+        $count = 0;
+        foreach ($locations as $location) {
+            $count += $location->target_hits;
         }
 
         return $count;

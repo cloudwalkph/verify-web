@@ -45,6 +45,7 @@
                                 <th>Project Name</th>
                                 <th>Active Runs</th>
                                 <th>Completed Runs</th>
+                                <th>Target Hits</th>
                                 <th>Reported Hits</th>
                                 <th>Audited Hits</th>
                                 <th>Status</th>
@@ -64,6 +65,10 @@
 
                                     <td>
                                         {{ $project['completed_runs'] }} / {{ count($project['locations']) }}
+                                    </td>
+
+                                    <td>
+                                        {{ $project['target_hits']  }}
                                     </td>
 
                                     <td>

@@ -63,7 +63,7 @@ class HomeController extends Controller
                 'reported_hits'     => $reported,
                 'audited_hits'      => $audited,
                 'audit_percent'     => $percentage,
-                'target'            => $target,
+                'target_hits'            => $target,
                 'status'            => $project->status
             ];
         }

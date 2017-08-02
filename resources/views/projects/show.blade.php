@@ -60,9 +60,9 @@
                                 <th>Project Type</th>
                                 <th>Location Name</th>
                                 <th>Date</th>
+                                <th>Target Hits</th>
                                 <th>Reported Hits</th>
                                 <th>Audited Hits</th>
-                                <th>Target Hits</th>
                                 <th>Status</th>
                             </tr>
                             </thead>
@@ -87,15 +87,15 @@
                                     </td>
 
                                     <td>
+                                        {{ $location['target_hits'] }}
+                                    </td>
+
+                                    <td>
                                         {{ $location['reported_hits'] }}
                                     </td>
 
                                     <td>
                                         {{ $location['audited_hits'] }} (<span class="text-primary">{{ number_format($location['audit_percent'], 2) }}%</span>)
-                                    </td>
-
-                                    <td>
-                                        {{ $location['target_hits'] }}
                                     </td>
 
                                     <td>

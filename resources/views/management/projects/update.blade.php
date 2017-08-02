@@ -438,6 +438,7 @@
                                         <th>Location Name</th>
                                         <th>Services</th>
                                         <th>Video</th>
+                                        <th>Target Hits</th>
                                         <th>Reported Hits</th>
                                         <th>Audited Hits</th>
                                         <th>Status</th>
@@ -452,6 +453,7 @@
                                             <td style="max-width: 250px">{{ $location['name'] }}</td>
                                             <td>{{ $location['services'] }}</td>
                                             <td>{{ $location['vboxes'] }}</td>
+                                            <td>{{ $location['target_hits'] }}</td>
                                             <td>{{ $location['reported_hits'] }}</td>
                                             <td>{{ $location['audited_hits'] }} (<span class="text-primary">{{ number_format($location['audit_percent'], 2) }}</span>%)</td>
                                             <td>{{ $location['status'] }}</td>
