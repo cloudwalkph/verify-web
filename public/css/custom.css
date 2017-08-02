@@ -502,7 +502,7 @@ p.bottom-desc {
     color: #B4B4B4;
 }
 
-.hit-image {
+.hits-image {
     filter: blur(8px) brightness(0.8);
 }
 
