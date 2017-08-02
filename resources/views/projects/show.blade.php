@@ -10,6 +10,14 @@
     </style>
 @endsection
 
+@section('scripts')
+    <script>
+        $(function() {
+            $('.locations-table').DataTable();
+        });
+    </script>
+@endsection
+
 @section('content')
     <div class="info-section">
         <div class="info-title">
@@ -31,8 +39,8 @@
 
     <div class="black-description">
         <ul class="nav nav-pills">
-            <li role="presentation" class="active"><a href="/projects/{{ $project->id }}">Overview</a></li>
-            <li role="presentation"><a href="/projects/{{ $project->id }}/locations">Locations</a></li>
+            <li role="presentation" class="active"><a href="/projects/{{ $project->id }}/locations">Locations</a></li>
+            <li role="presentation"><a href="/projects/{{ $project->id }}">Overview</a></li>
         </ul>
     </div>
 
@@ -42,14 +50,65 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
 
-                        @component('components.chart', ['project' => $project, 'location' => []])
-                            @slot('nav')
-                            @endslot
-                        @endcomponent
+                        <h1>Locations</h1>
+                        <hr>
+
+                        <table class="table table-hover locations-table">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Project Type</th>
+                                <th>Location Name</th>
+                                <th>Date</th>
+                                <th>Reported Hits</th>
+                                <th>Audited Hits</th>
+                                <th>Target Hits</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            @foreach ($locations as $location)
+                                <tr class="clickable" data-uri="/projects/{{ $location['project_id'] }}/locations/{{ $location['id'] }}">
+                                    <td>
+                                        <strong>{{ $location['id'] }}</strong>
+                                    </td>
+
+                                    <td>
+                                        <strong>{{ $location['project_type'] }}</strong>
+                                    </td>
+
+                                    <td>
+                                        <strong>{{ $location['name'] }}</strong>
+                                    </td>
+
+                                    <td>
+                                        {{ $location['date'] }}
+                                    </td>
+
+                                    <td>
+                                        {{ $location['reported_hits'] }}
+                                    </td>
+
+                                    <td>
+                                        {{ $location['audited_hits'] }} (<span class="text-primary">{{ number_format($location['audit_percent'], 2) }}%</span>)
+                                    </td>
+
+                                    <td>
+                                        {{ $location['target_hits'] }}
+                                    </td>
+
+                                    <td>
+                                        {{ ucwords($location['status']) }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <input type="hidden" id="projectId" value="{{ $project->id }}">
 @endsection

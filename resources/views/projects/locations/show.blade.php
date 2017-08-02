@@ -4,7 +4,7 @@
     <div class="info-section">
         <div class="info-title">
             <div class="col-sm-6" style="display: inline-flex;">
-                <a href="/projects/{{ $project->id }}/locations" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                <a href="/projects/{{ $project->id }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
                 <h1 style="color: #fff">
                     {{ $project->name }}
                     <p class="info-sub-title">{{ $location->name }}</p>

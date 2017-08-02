@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index');
 
 // Projects
 Route::get('/projects/{projectId}', 'ProjectsController@show');
-Route::get('/projects/{projectId}/locations', 'ProjectsController@showLocations');
+Route::get('/projects/{projectId}/overview', 'ProjectsController@showOverview');
 Route::get('/projects/{projectId}/locations/get-hits', 'ProjectsController@getHits');
 Route::get('/projects/{projectId}/locations/get-demographics', 'ProjectsController@getDemographics');
 

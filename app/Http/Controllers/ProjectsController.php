@@ -25,7 +25,7 @@ class ProjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $projectId)
+    public function showOverview(Request $request, $projectId)
     {
         $project = Project::find($projectId);
         $locations = $project->locations;
@@ -35,7 +35,7 @@ class ProjectsController extends Controller
         return view('projects.show', compact('locations', 'project', 'answers', 'hits', 'completed', 'reported'));
     }
 
-    public function showLocations(Request $request, $projectId)
+    public function show(Request $request, $projectId)
     {
         $locations = ProjectLocation::where('project_id', $projectId)
             ->get();
@@ -47,7 +47,7 @@ class ProjectsController extends Controller
 
         $project = Project::find($projectId);
 
-        return view('projects.show-locations', compact('locations', 'project', 'completed', 'reported'));
+        return view('projects.show', compact('locations', 'project', 'completed', 'reported'));
     }
 
     public function getHits(Request $request, $projectId)
