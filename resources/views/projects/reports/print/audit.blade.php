@@ -77,7 +77,7 @@
                         </tr>
                     @foreach($hits as $hit)
                         <tr>
-                            <td><img class="hits-image" src="{{ $hit->image ? Storage::drive('s3')->url($hit->image) : get_placeholder() }}" onError="this.onerror=null;this.src='{{ get_placeholder() }}';" height="50" width="50" class="img-circle" alt=""></td>
+                            <td><img class="hits-image" src="{{ $hit->image ? Storage::drive('s3')->url($hit->image) : get_placeholder() }}" onerror="this.onerror=null;this.src='{{ get_placeholder() }}';" height="50" width="50" class="img-circle" alt=""></td>
                             <td>{{ $hit->name }}</td>
                             <td>{{ $hit->email }}</td>
                             <td>{{ $hit->contact_number }}</td>
