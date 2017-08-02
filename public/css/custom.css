@@ -502,6 +502,14 @@ p.bottom-desc {
     color: #B4B4B4;
 }
 
+.hit-image {
+    filter: blur(100px);
+    -webkit-filter: blur(100px);
+    -moz-filter: blur(100px);
+    -o-filter: blur(100px);
+    -ms-filter: blur(100px);
+}
+
 @media (max-width: 991px) {
     .black-description.project-location {
         padding: 20px 30px 350px;
