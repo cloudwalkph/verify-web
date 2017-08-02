@@ -503,11 +503,7 @@ p.bottom-desc {
 }
 
 .hit-image {
-    filter: blur(100px);
-    -webkit-filter: blur(100px);
-    -moz-filter: blur(100px);
-    -o-filter: blur(100px);
-    -ms-filter: blur(100px);
+    filter: blur(8px) brightness(0.8);
 }
 
 @media (max-width: 991px) {
