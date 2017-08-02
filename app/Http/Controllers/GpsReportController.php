@@ -91,8 +91,8 @@ class GpsReportController extends Controller
 
     private function getLocationsPerHour($startDate, $endDate, $locationId)
     {
-        $locations = UserLocation::whereDate('created_at', '>=', $startDate)
-            ->whereDate('created_at', '<=', $endDate)
+        $locations = UserLocation::where('created_at', '>=', $startDate)
+            ->where('created_at', '<=', $endDate)
             ->where('project_location_id', $locationId)
             ->get()
             ->groupBy(function($d) {
