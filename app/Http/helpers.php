@@ -17,3 +17,7 @@ function array_map_assoc( $callback , $array ){
         $r[$key] = $callback($key,$value);
     return $r;
 }
+
+function get_placeholder() {
+    return '/images/placeholder-'.rand(1, 16);
+}
