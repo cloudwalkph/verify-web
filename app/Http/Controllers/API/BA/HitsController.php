@@ -32,8 +32,9 @@ class HitsController extends Controller {
 
         $file = $request->file('file');
         $filename = $file->getClientOriginalName();
-        $path = $request->file('file')->store($file);
-        $hit['image'] = $filename;
+        $path = $request->file('file')->store($file, 's3');
+
+        $hit['image'] = $path;
 
         $newHit = Hit::create($hit);
 
@@ -77,7 +78,7 @@ class HitsController extends Controller {
 
         $hit = Hit::where('id', $hitId)
             ->update([
-                'image' => $filename
+                'image' => $path
             ]);
 
         return response()->json($hit);
