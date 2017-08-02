@@ -15,6 +15,10 @@ class HitsController extends Controller {
     {
         $input = $request->all();
 
+        if (! $request->hasFile('file')) {
+            return response()->json(['no image provided'], 400);
+        }
+
         $hit = [
             'user_id'               => $request->user()->id,
             'project_location_id'   => $locationId,
@@ -26,13 +30,10 @@ class HitsController extends Controller {
             'location'              => isset($input['location']) ? json_encode($input['location']) : null
         ];
 
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $filename = $file->getClientOriginalName();
-            $path = $request->file('file')->store($file);
-
-            $hit['image'] = $filename;
-        }
+        $file = $request->file('file');
+        $filename = $file->getClientOriginalName();
+        $path = $request->file('file')->store($file);
+        $hit['image'] = $filename;
 
         $newHit = Hit::create($hit);
 
