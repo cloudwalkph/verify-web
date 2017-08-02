@@ -83,7 +83,7 @@
                                @foreach($hits as $hit)
                                 <div class="col-md-4 col-sm-6" style="margin: 50px 0">
                                     <div class="col-md-6 col-sm-4 text-center hits-image-container">
-                                        <img src="{{ Storage::drive('s3')->url($hit->image) }}" height="120" width="120" class="img-circle hits-image" alt="">
+                                        <img src="{{ $hit->image ? Storage::drive('s3')->url($hit->image) : '' }}" height="120" width="120" class="img-circle hits-image" alt="">
                                     </div>
                                     <div class="col-md-6 col-sm-8 hits-value-container">
                                         <h3>{{ $hit->name }}</h3>
