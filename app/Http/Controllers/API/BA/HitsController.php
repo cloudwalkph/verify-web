@@ -32,7 +32,10 @@ class HitsController extends Controller {
 
         $file = $request->file('file');
         $filename = $file->getClientOriginalName();
-        $path = $request->file('file')->storeAs('manual', $filename, 's3');
+        $path = $request->file('file')->storeAs('manual', $filename, [
+            'disk'  => 's3',
+            'visibility'   => 'public'
+        ]);
 
         $hit['image'] = $path;
 
