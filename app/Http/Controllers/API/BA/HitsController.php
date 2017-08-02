@@ -32,7 +32,7 @@ class HitsController extends Controller {
 
         $file = $request->file('file');
         $filename = $file->getClientOriginalName();
-        $path = $request->file('file')->store($file, 's3');
+        $path = $request->file('file')->storeAs('manual', $filename, 's3');
 
         $hit['image'] = $path;
 
@@ -74,7 +74,7 @@ class HitsController extends Controller {
         }
 
         $filename = uniqid().'.jpeg';
-        $path = $request->file('image')->storeAs('public', $filename);
+        $path = $path = $request->file('file')->storeAs('manual', $filename, 's3');
 
         $hit = Hit::where('id', $hitId)
             ->update([
