@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 48);
+/******/ 	return __webpack_require__(__webpack_require__.s = 47);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -11221,7 +11221,7 @@ __webpack_require__(31);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(42));
+Vue.component('example', __webpack_require__(41));
 
 var app = new Vue({
   el: '#app'
@@ -12109,11 +12109,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
 
 
-window._ = __webpack_require__(39);
+window._ = __webpack_require__(38);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12123,7 +12123,7 @@ window._ = __webpack_require__(39);
 
 window.$ = window.jQuery = __webpack_require__(1);
 
-__webpack_require__(37);
+__webpack_require__(36);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -12131,7 +12131,7 @@ __webpack_require__(37);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(45);
+window.Vue = __webpack_require__(44);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -12145,7 +12145,7 @@ window.axios = __webpack_require__(12);
  * Laravel Echo
  * Realtime communication between the server and the frontend
  */
-window.Pusher = __webpack_require__(40);
+window.Pusher = __webpack_require__(39);
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'pusher',
   key: '560a948394287251a7a8',
@@ -12156,14 +12156,14 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
 /**
  * Toastr
  */
-window.Toastr = __webpack_require__(41);
+window.Toastr = __webpack_require__(40);
 
 window.axios.defaults.headers.common = {
   'X-CSRF-TOKEN': window.Laravel.csrfToken,
   'X-Requested-With': 'XMLHttpRequest'
 };
 
-window.selectize = __webpack_require__(36);
+window.selectize = __webpack_require__(35);
 
 /**
  * App Namespace
@@ -12179,11 +12179,6 @@ window.GPS = __webpack_require__(34);
  * Chart Library
  */
 window.Chart = __webpack_require__(33);
-
-/**
- * Pixelate
- */
-window.Pixelate = __webpack_require__(35);
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -12610,111 +12605,6 @@ window.Verify = function () {
 
 /***/ }),
 /* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-(function (root) {
-
-    window.URL = window.URL || window.webkitURL || window.mozURL;
-
-    function disableSmoothRendering(ctx) {
-        ctx.webkitImageSmoothingEnabled = false;
-        ctx.mozImageSmoothingEnabled = false;
-        ctx.msImageSmoothingEnabled = false;
-        ctx.imageSmoothingEnabled = false;
-        return ctx;
-    }
-
-    function Pixelate(image, opts) {
-        opts = opts || {};
-        this.image = image;
-        this.setAmount(opts.amount);
-
-        var imageLoaded = function () {
-            this.imageUrl = image.src;
-            this.width = image.clientWidth;
-            this.height = image.clientHeight;
-
-            this.canvas = document.createElement('canvas');
-            this.canvas.style.display = 'none';
-            this.canvas.width = this.width;
-            this.canvas.height = this.height;
-
-            this.canvas.style.cssText = 'image-rendering: optimizeSpeed;' + // FireFox < 6.0
-            'image-rendering: -moz-crisp-edges;' + // FireFox
-            'image-rendering: -o-crisp-edges;' + // Opera
-            'image-rendering: -webkit-crisp-edges;' + // Chrome
-            'image-rendering: crisp-edges;' + // Chrome
-            'image-rendering: -webkit-optimize-contrast;' + // Safari
-            'image-rendering: pixelated; ' + // Future browsers
-            '-ms-interpolation-mode: nearest-neighbor;'; // IE
-
-            this.ctx = this.canvas.getContext('2d');
-            this.ctx = disableSmoothRendering(this.ctx);
-
-            this.image.parentNode.appendChild(this.canvas, this.image);
-            this.image.onload = null;
-
-            this.pixelImage = new Image();
-            this.pixelImage.onload = function () {
-                this.ready = true;
-                this.render();
-            }.bind(this);
-            this.pixelImage.src = this.imageUrl;
-        }.bind(this);
-
-        if (this.image.complete) {
-            imageLoaded();
-        }
-
-        this.image.onload = imageLoaded;
-
-        return this;
-    }
-
-    Pixelate.prototype.setAmount = function (amount) {
-        this.amount = 1 - (amount || 0);
-        return this;
-    };
-
-    Pixelate.prototype.setWidth = function (width) {
-        var height = this.height / this.width * width;
-        this.width = width;
-        this.height = height;
-        this.canvas.width = this.width;
-        this.canvas.height = this.height;
-
-        this.ctx = disableSmoothRendering(this.ctx);
-        return this;
-    };
-
-    Pixelate.prototype.render = function () {
-        if (!this.ready) return this;
-        var w = this.width * (this.amount <= 0 ? 0.01 : this.amount);
-        var h = this.height * (this.amount <= 0 ? 0.01 : this.amount);
-        // render smaller image
-        this.ctx.drawImage(this.pixelImage, 0, 0, w, h);
-        // stretch the smaller image
-        this.ctx.drawImage(this.canvas, 0, 0, w, h, 0, 0, this.width, this.height);
-        this.image.src = this.canvas.toDataURL('image/png');
-        return this;
-    };
-
-    if (true) {
-        if (typeof module !== 'undefined' && module.exports) {
-            exports = module.exports = Pixelate;
-        }
-        exports.pixelate = Pixelate;
-    } else if (typeof define === 'function' && define.amd) {
-        define([], function () {
-            return Pixelate;
-        });
-    } else {
-        root.Pixelate = Pixelate;
-    }
-})(this);
-
-/***/ }),
-/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_LOCAL_MODULE_0__;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_LOCAL_MODULE_1__;var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -13583,7 +13473,7 @@ window.Verify = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -15967,7 +15857,7 @@ if (typeof jQuery === 'undefined') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {var asyncGenerator = function () {
@@ -16741,7 +16631,7 @@ module.exports = Echo;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -33830,10 +33720,10 @@ module.exports = Echo;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(47)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(46)(module)))
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -37968,7 +37858,7 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -38400,18 +38290,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
         })();
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-}(__webpack_require__(46)));
+}(__webpack_require__(45)));
 
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(43)(
+var Component = __webpack_require__(42)(
   /* script */
   __webpack_require__(30),
   /* template */
-  __webpack_require__(44),
+  __webpack_require__(43),
   /* scopeId */
   null,
   /* cssModules */
@@ -38438,7 +38328,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports) {
 
 module.exports = function normalizeComponent (
@@ -38491,7 +38381,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -38520,7 +38410,7 @@ if (false) {
 }
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47773,7 +47663,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(9)))
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports) {
 
 module.exports = function() {
@@ -47782,7 +47672,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -47810,7 +47700,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
