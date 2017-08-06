@@ -7,7 +7,7 @@
 </div>
 
 <div class="content">
-    @if (! $title)
+    @if (isset($title))
         <h3>Analytics</h3>
         <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
     @else
