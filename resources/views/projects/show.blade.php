@@ -23,7 +23,7 @@
                 <h5 class="text-primary">{{ $completed }} / {{ count($project['locations']) }} ({{ number_format(($completed / count($project['locations'])) * 100, 2) }}%)</h5>
             </div>
             <div class="col-sm-3">
-                <h5 style="color: #B4B4B4;"><b>Reported Hits:</b></h5>
+                <h5 style="color: #B4B4B4;"><b>Reported / Target:</b></h5>
                 <h5 class="text-primary">{{ $reported }} / {{ $target ? $target : 'NA' }}</h5>
             </div>
         </div>
@@ -32,7 +32,7 @@
     <div class="black-description">
         <ul class="nav nav-pills">
             <li role="presentation" class="active"><a href="/projects/{{ $project->id }}/locations">Locations</a></li>
-            <li role="presentation"><a href="/projects/{{ $project->id }}/overview">Overview</a></li>
+            <li role="presentation"><a href="/projects/{{ $project->id }}/overview">Overall Report</a></li>
         </ul>
     </div>
 
