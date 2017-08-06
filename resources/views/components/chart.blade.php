@@ -8,7 +8,7 @@
 
 <div class="content">
     @if (! $title)
-        <h3>Event Analytics</h3>
+        <h3>Analytics</h3>
         <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
     @else
         {{ $title }}
