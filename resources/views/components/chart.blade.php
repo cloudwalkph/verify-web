@@ -7,8 +7,13 @@
 </div>
 
 <div class="content">
-    <h3>Event Analytics</h3>
-    <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
+    @if (! $title)
+        <h3>Analytics</h3>
+        <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
+    @else
+        {{ $title }}
+    @endif
+
     <input type="hidden" id="projectId" value="{{ $project->id }}">
 
     <ul class="nav nav-tabs" id="serviceTabs">
