@@ -21,6 +21,13 @@
     </ul>
 
     <div class="content-body">
+        @if($ongoingReport)
+            <div class="col-md-12" style="margin-top: 20px">
+                {{ $ongoingReport }}
+            </div>
+        @endif
+
+
         <div class="other-graphs">
             <div class="col-md-6">
                 <div class="graph-description-container">

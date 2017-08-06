@@ -102,6 +102,10 @@
                                     </a>
                                 </li>
                             @endslot
+                            @slot('title')
+                            @endslot
+                            @slot('ongoingReport')
+                            @endslot
                         @endcomponent
                     </div>
                 </div>
