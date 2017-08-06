@@ -108,7 +108,11 @@
                     videoUrl = `//streamer.medix.ph/vods3/_definst_/mp4:amazons3/verify-bucket/playback/${file}`;
                     break;
                 default:
-                    videoUrl = '';
+                    videoUrl = null;
+            }
+
+            if (videoUrl === null) {
+                return;
             }
 
             let source = {

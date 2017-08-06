@@ -32,7 +32,7 @@ class ProjectsController extends Controller
         $reported = $this->getReportedHits($locations);
         $completed = $this->countRunsBaseOnStatus($locations, 'completed');
 
-        return view('projects.show', compact('locations', 'project', 'answers', 'hits', 'completed', 'reported'));
+        return view('projects.show-overview', compact('locations', 'project', 'answers', 'hits', 'completed', 'reported'));
     }
 
     public function show(Request $request, $projectId)
