@@ -48,6 +48,10 @@
 
                                 <li class="{{ count($videos) <= 0 ? 'hide' : '' }}"><a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/videos">Video</a></li>
                             @endslot
+                            @slot('title')
+                            @endslot
+                            @slot('ongoingReport')
+                            @endslot
                         @endcomponent
 
                     </div>

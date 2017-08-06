@@ -40,7 +40,7 @@
                             @slot('title')
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <h3>Event Analytics</h3>
+                                        <h3>Analytics</h3>
                                         <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
                                     </div>
 
@@ -53,6 +53,33 @@
                                         <h5 class="text-primary" style="font-size: 18px;">{{ $reported }} / {{ $target ? $target : 'NA' }} ({{ $target ? number_format(($reported / $target) * 100, 2) : '0' }}%)</h5>
                                     </div>
                                 </div>
+                            @endslot
+
+                            @slot('ongoingReport')
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Achieved</th>
+                                        <th>Target</th>
+                                        <th>Percentage</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th>Number of Runs</th>
+                                        <td>{{ $completed }}</td>
+                                        <td>{{ count($project['locations']) }}</td>
+                                        <td>{{ number_format(($completed / count($project['locations'])) * 100, 2) }}%</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Hits</th>
+                                        <td>{{ $reported }}</td>
+                                        <td>{{ $target ? $target : 'NA' }}</td>
+                                        <td>{{ $target ? number_format(($reported / $target) * 100, 2) : '0' }}%</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             @endslot
                         @endcomponent
                     </div>
