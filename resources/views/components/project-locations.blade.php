@@ -60,7 +60,9 @@
 
     <script>
         $(function() {
-            $('.locations-table').DataTable();
+            $('.locations-table').DataTable( {
+                "order": [[ 3, "desc" ]]
+            } );
         });
     </script>
 @endsection

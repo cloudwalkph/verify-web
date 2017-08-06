@@ -117,7 +117,7 @@ class ProjectsController extends Controller
                 'id'                => $location->id,
                 'project_id'        => $location->project_id,
                 'project_type'      => $location->project_type,
-                'date'              => Carbon::createFromTimestamp(strtotime($location->date))->toFormattedDateString(),
+                'date'              => $location->date,
                 'name'              => $location->name,
                 'reported_hits'     => $reported,
                 'audited_hits'      => $audited,
