@@ -1,13 +1,5 @@
 @extends('layouts.app')
 
-@section('scripts')
-    <script>
-        $(function() {
-            $('.projects-table').DataTable();
-        });
-    </script>
-@endsection
-
 @section('content')
 <div class="alert alert-primary" style="text-align: center">
     <img src="{{ asset('images/ic_sms_failed_24px.png') }}" alt="info"> CLICK ON A PROJECT TO VIEW MORE DETAILS
@@ -26,54 +18,9 @@
                 <div class="panel-body">
 
                     <legend>My Projects</legend>
-                    <table class="table table-hover projects-table">
-                        <thead>
-                            <tr>
-                                <th>Project Name</th>
-                                <th>Active Runs</th>
-                                <th>Completed Runs</th>
-                                <th>Target Hits</th>
-                                <th>Reported Hits</th>
-                                <th>Audited Hits</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                            @foreach ($projects as $project)
-                                <tr class="clickable" data-uri="/projects/{{ $project['id'] }}">
-                                    <td>
-                                        <strong>{{ $project['name'] }}</strong>
-                                    </td>
-
-                                    <td>
-                                        {{ $project['active_runs'] }} / {{ count($project['locations']) }}
-                                    </td>
-
-                                    <td>
-                                        {{ $project['completed_runs'] }} / {{ count($project['locations']) }}
-                                    </td>
-
-                                    <td>
-                                        {{ $project['target_hits'] }}
-                                    </td>
-
-                                    <td>
-                                        {{ $project['reported_hits']  }}
-                                    </td>
-
-                                    <td>
-                                        {{ $project['audited_hits'] }} (<span class="text-primary">{{ number_format($project['audit_percent'], 2) }}%</span>)
-                                    </td>
-
-                                    <td>
-                                        {{ ucwords($project['status']) }}
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-
+                    @component('components.projects', ['projects' => $projects])
+                    @endcomponent
                 </div>
             </div>
         </div>

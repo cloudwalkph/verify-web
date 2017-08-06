@@ -31,8 +31,8 @@
 
     <div class="black-description">
         <ul class="nav nav-pills">
-            <li role="presentation"><a href="/projects/{{ $project->id }}/locations">Locations</a></li>
-            <li role="presentation" class="active"><a href="/projects/{{ $project->id }}">Overview</a></li>
+            <li role="presentation"><a href="/projects/{{ $project->id }}">Locations</a></li>
+            <li role="presentation" class="active"><a href="/projects/{{ $project->id }}/overview">Overview</a></li>
         </ul>
     </div>
 
