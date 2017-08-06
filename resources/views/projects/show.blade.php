@@ -18,14 +18,6 @@
                 <h1 style="color: #fff">
                     {{ $project->name }}</h1>
             </div>
-            <div class="col-sm-3">
-                <h5 style="color: #B4B4B4;"><b>Runs Completed:</b></h5>
-                <h5 class="text-primary">{{ $completed }} / {{ count($project['locations']) }} ({{ number_format(($completed / count($project['locations'])) * 100, 2) }}%)</h5>
-            </div>
-            <div class="col-sm-3">
-                <h5 style="color: #B4B4B4;"><b>Reported / Target:</b></h5>
-                <h5 class="text-primary">{{ $reported }} / {{ $target ? $target : 'NA' }}</h5>
-            </div>
         </div>
     </div>
 
@@ -42,7 +34,21 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
 
-                        <h1>Locations</h1>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h1>Locations</h1>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Runs Completed / Total Runs</b></h5>
+                                <h5 class="text-primary" style="font-size: 18px;">{{ $completed }} / {{ count($project['locations']) }} ({{ number_format(($completed / count($project['locations'])) * 100, 2) }}%)</h5>
+                            </div>
+                            <div class="col-sm-3">
+                                <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Reported Hits / Target Hits</b></h5>
+                                <h5 class="text-primary" style="font-size: 18px;">{{ $reported }} / {{ $target ? $target : 'NA' }} ({{ $target ? number_format(($reported / $target) * 100, 2) : '0' }}%)</h5>
+                            </div>
+                        </div>
+
                         <hr>
 
                         @component('components.project-locations', ['locations' => $locations])
