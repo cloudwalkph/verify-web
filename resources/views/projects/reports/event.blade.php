@@ -24,7 +24,7 @@
                             </p>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/audit-reports"
                                class="btn btn-primary">Audit Report</a> <br>
-                            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports" disabled="true"
+                            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports" dis
                                class="btn btn-primary">Event Report</a>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/gps-reports" style="margin-top: 20px;"
                                class="btn btn-primary">GPS Report</a>
@@ -59,10 +59,10 @@
                                     <p class="text-primary">{{ count($location->hits) > 0 ? $location->hits[count($location->hits) - 1]->created_at->toFormattedDateString() : 'N/A' }}</p>
                                 </div>
 
-                                <div class="col-md-4" style="margin-top: 15px">
-                                    <h5>Achieve Sampling Target Hits:</h5>
-                                    <p class="text-primary">{{ $location->hits()->count() > $location->target_hits ? $location->target_hits : $location->hits()->count() }} / {{ $location->target_hits }}</p>
-                                </div>
+                                {{--<div class="col-md-4" style="margin-top: 15px">--}}
+                                    {{--<h5>Achieve Sampling Target Hits:</h5>--}}
+                                    {{--<p class="text-primary">{{ $location->hits()->count() > $location->target_hits ? $location->target_hits : $location->hits()->count() }} / {{ $location->target_hits }}</p>--}}
+                                {{--</div>--}}
                                 <div class="col-md-12"><hr></div>
 
                                 <div class="col-md-12">
