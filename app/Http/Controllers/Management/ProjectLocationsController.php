@@ -186,11 +186,11 @@ class ProjectLocationsController extends Controller
         foreach ($locations as $userLoc) {
             $distance = $this->haversineGreatCircleDistance($userLoc->lat, $userLoc->lng, $to[0], $to[1]) / 1000;
 
-            if ($distance > 0.5) {
-                continue;
-            }
+//            if ($distance > 0.5) {
+//                continue;
+//            }
 
-            $result[] = $userLoc;
+            $result[] = $distance;
         }
 
         return response()->json($result, 200);
