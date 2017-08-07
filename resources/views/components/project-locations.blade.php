@@ -34,11 +34,11 @@
             </td>
 
             <td>
-                {{ $location['target_hits'] }}
+                {{ $location['target_hits'] > 0 ? $location['target_hits'] : 'NA' }}
             </td>
 
             <td>
-                {{ $location['reported_hits'] }}
+                {{ $location['reported_hits'] > 0 ? $location['reported_hits'] : 'NA' }}
             </td>
 
             @if (Auth::user()->email !== 'domex@verify.com')
