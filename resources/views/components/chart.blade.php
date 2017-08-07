@@ -77,12 +77,22 @@
             console.log("Error while creating bitmovin player instance");
         });
 
+        $('#video-selection').on('change', function() {
+            let status = $(this).find(':selected').data('status');
+            let value = $(this).val();
+
+            loadMPD(true, status, value);
+        });
+
         function loadMPD(a, status, file) {
             let videoUrl = '';
 
             switch (status) {
                 case "live":
                     videoUrl = `//streamer.medix.ph/live/${file}`;
+                    break;
+                case "playback":
+                    videoUrl = `//streamer.medix.ph/vods3/_definst_/mp4:amazons3/verify-bucket/playback/${file}`;
                     break;
                 default:
                     videoUrl = null;
