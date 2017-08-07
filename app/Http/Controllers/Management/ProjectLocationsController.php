@@ -194,7 +194,7 @@ class ProjectLocationsController extends Controller
             $result[] = $userLoc;
         }
 
-        return response()->json($locations, 200);
+        return response()->json($result, 200);
     }
 
     private function parseHits($hits)
