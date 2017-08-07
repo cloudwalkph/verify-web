@@ -24,7 +24,7 @@
                             </p>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/audit-reports"
                                class="btn btn-primary">Audit Report</a> <br>
-                            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports" dis
+                            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports" disabled="true"
                                class="btn btn-primary">Event Report</a>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/gps-reports" style="margin-top: 20px;"
                                class="btn btn-primary">GPS Report</a>
