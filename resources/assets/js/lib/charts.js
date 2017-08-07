@@ -157,7 +157,6 @@
         let options = {
             title: '',
             curveType: 'function',
-            width: '1618',
             height: '500',
             legend: {position: 'none'},
             colors: ['#FF7300'],

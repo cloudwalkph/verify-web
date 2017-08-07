@@ -10,10 +10,6 @@
                     <p class="info-sub-title">{{ $location->name }}</p>
                 </h1>
             </div>
-            <div class="col-sm-3">
-                <h5 style="color: #B4B4B4;"><b>Reported Hits:</b></h5>
-                <h5 class="text-primary">{{ $location->manual_hits }}</h5>
-            </div>
         </div>
 
 
@@ -51,7 +47,7 @@
                                     <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/gps">GPS</a>
                                 </li>
 
-                                <li class="{{ count($videos) <= 0 ? 'hide' : '' }} active"><a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/videos">Video</a></li>
+{{--                                <li class="{{ count($videos) <= 0 ? 'hide' : '' }} active"><a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/videos">Video</a></li>--}}
                             </ul>
 
                             <div class="content-body">

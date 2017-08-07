@@ -70,6 +70,8 @@
                         @component('components.chart', ['project' => $project, 'location' => []])
                             @slot('nav')
                             @endslot
+                            @slot('timeandvideo')
+                            @endslot
 
                             @slot('title')
                                 <div class="row">
