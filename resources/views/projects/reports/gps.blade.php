@@ -22,11 +22,12 @@
                             <p style="margin-bottom: 30px; line-height: 30px">
                                 Shows all the complete data and information gathered and recorded during the running of this event or project.
                             </p>
-                            <button type="button" class="btn btn-primary" style="margin-bottom: 20px">Print Report</button>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/audit-reports"
                                class="btn btn-primary">Audit Report</a> <br>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports"
                                class="btn btn-primary">Event Report</a>
+                            <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/gps-reports" style="margin-top: 20px;" disabled="true"
+                               class="btn btn-primary">GPS Report</a>
                         </div>
                     </div>
                 </div>
@@ -36,6 +37,11 @@
                     <div class="panel-body">
 
                         <div class="content">
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <button type="button" class="btn btn-primary"> <i class="fa fa-print fa-lg"></i> Print Report</button>
+                                </div>
+                            </div>
                             <div class="image-container">
                                 <img src="{{ asset('images/verify_white.png') }}" alt="logo" style="height: 100px">
                             </div>
