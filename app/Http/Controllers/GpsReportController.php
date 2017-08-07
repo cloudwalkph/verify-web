@@ -113,7 +113,7 @@ class GpsReportController extends Controller
         foreach ($locations as $location) {
             $distance = $this->haversineGreatCircleDistance($location[0]->lat, $location[0]->lng, $to[0], $to[1]) / 1000;
 
-            if ($distance > 0.5) {
+            if ($distance > 1.5) {
                 continue;
             }
 
