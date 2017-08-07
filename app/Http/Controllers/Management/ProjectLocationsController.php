@@ -185,7 +185,7 @@ class ProjectLocationsController extends Controller
 
         $result = [];
         foreach ($locations as $userLoc) {
-            $distance = $this->haversineGreatCircleDistance($userLoc[0]->lat, $userLoc[0]->lng, $to[0], $to[1]) / 1000;
+            $distance = $this->haversineGreatCircleDistance($userLoc->lat, $userLoc->lng, $to[0], $to[1]) / 1000;
 
             if ($distance > 2) {
                 continue;
