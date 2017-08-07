@@ -48,15 +48,21 @@
             </div>
         </div>
 
-        <div class="time-and-video">
-            <div class="col-md-12">
-                <div class="graph-description-container">
-                    <h2>Timestamp</h2>
-                    <p class="help-block">Data or hits recorded during specific hours of the day or run.</p>
-                </div>
-                <div id="time-graph"></div>
+        @if($timeandvideo)
+            <div class="time-and-video">
+                {{ $timeandvideo }}
             </div>
-        </div>
+        @else
+            <div class="time-and-video">
+                <div class="col-md-12">
+                    <div class="graph-description-container">
+                        <h2>Timestamp</h2>
+                        <p class="help-block">Data or hits recorded during specific hours of the day or run.</p>
+                    </div>
+                    <div id="time-graph"></div>
+                </div>
+            </div>
+        @endif
     </div>
 
 </div>
@@ -67,4 +73,53 @@
     <script type="text/javascript">
         Verify.Chart.init({{ $location && isset($location['id']) ? $location['id'] : null }});
     </script>
+
+    <script type="text/javascript" src="//bitmovin-a.akamaihd.net/bitmovin-player/stable/7/bitmovinplayer.js"></script>
+
+    <script>
+        let conf = {
+            key:       "58b50672-0aa2-4dd2-982c-412d99df04c4",
+        };
+
+        let player = bitmovin.player("player");
+        player.setup(conf).then(function(value) {
+            // Success
+            console.log("Successfully created bitmovin player instance");
+        }, function(reason) {
+            // Error!
+            console.log("Error while creating bitmovin player instance");
+        });
+
+        function loadMPD(a, status, file) {
+            let videoUrl = '';
+
+            switch (status) {
+                case "live":
+                    videoUrl = `//streamer.medix.ph/live/${file}`;
+                    break;
+                default:
+                    videoUrl = null;
+            }
+
+            if (videoUrl === null) {
+                return;
+            }
+
+            let source = {
+                dash:        `${videoUrl}/manifest.mpd`,
+                hls:         `${videoUrl}/playlist.m3u8`,
+                poster:      "/images/logo-verify.png"
+            };
+
+            console.log('current video', source);
+
+            player.load(source);
+        }
+
+        let status = $('#video-selection').find(':selected').data('status');
+        let value  = $('#video-selection').val();
+
+        loadMPD(true, status, value);
+    </script>
+
 @endsection

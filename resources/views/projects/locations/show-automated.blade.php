@@ -10,10 +10,6 @@
                     <p class="info-sub-title">{{ $location->name }}</p>
                 </h1>
             </div>
-            <div class="col-sm-3">
-                <h5 style="color: #B4B4B4;"><b>Reported Hits:</b></h5>
-                <h5 class="text-primary">{{ $location->manual_hits }}</h5>
-            </div>
         </div>
 
 
@@ -48,12 +44,30 @@
                                     <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/gps">GPS</a>
                                 </li>
 
-                                <li class="{{ count($videos) <= 0 ? 'hide' : '' }}"><a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/videos">Video</a></li>
+{{--                                <li class="{{ count($videos) <= 0 ? 'hide' : '' }}"><a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/videos">Video</a></li>--}}
                             @endslot
 
                             @slot('title')
                             @endslot
                             @slot('ongoingReport')
+                            @endslot
+                            @slot('timeandvideo')
+                                <div class="col-md-6">
+                                    <div class="graph-description-container">
+                                        <h2>Timestamp</h2>
+                                        <p class="help-block">Data or hits recorded during specific hours of the day or run.</p>
+                                    </div>
+                                    <div id="time-graph"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h2>Live Stream</h2>
+                                    <p class="help-block">Live streaming of videos on site.</p>
+                                    <div class="content-body">
+                                        <div class="video-feed bmpui-flexbox" id="player">
+                                        </div>
+                                    </div>
+                                </div>
                             @endslot
                         @endcomponent
 
