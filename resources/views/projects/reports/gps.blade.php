@@ -46,10 +46,10 @@
                                 </div>
                                 <div class="col-md-2" style="margin-top: 15px">
                                     <h5>Status:</h5>
-                                    <p class="text-primary">{{ ucwords($location->status) }}</p>
+                                    <p class="text-primary">{{ $location->status == 'completed' ? 'Achieved' : ucwords($location->status) }}</p>
                                 </div>
                                 <div class="col-md-2" style="margin-top: 15px">
-                                    <h5>Last Updated:</h5>
+                                    <h5>Event Date:</h5>
                                     <p class="text-primary">{{ count($location->hits) > 0 ? $location->hits[count($location->hits) - 1]->created_at->toFormattedDateString() : 'N/A' }}</p>
                                 </div>
 
