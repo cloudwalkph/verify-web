@@ -51,10 +51,10 @@
                     <p class="text-primary">{{ count($location->hits) > 0 ? $location->hits[count($location->hits) - 1]->created_at->toFormattedDateString() : 'N/A' }}</p>
                 </div>
 
-                <div class="col-md-2 col-xs-6" style="margin-top: 15px">
-                    <h5>Achieved Target Hits:</h5>
-                    <p class="text-primary">{{ $location->hits()->count() }} / {{ $location->target_hits }}</p>
-                </div>
+                {{--<div class="col-md-2 col-xs-6" style="margin-top: 15px">--}}
+                    {{--<h5>Achieved Target Hits:</h5>--}}
+                    {{--<p class="text-primary">{{ $location->hits()->count() }} / {{ $location->target_hits }}</p>--}}
+                {{--</div>--}}
                 <div class="col-md-12 col-xs-12"><hr></div>
 
                 <div class="col-md-12 col-xs-12">

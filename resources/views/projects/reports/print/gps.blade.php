@@ -43,23 +43,23 @@
             <img src="{{ asset('images/verify_white.png') }}" alt="logo" style="height: 100px">
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 col-xs-12">
                 <h2>{{ $project->name }}</h2>
                 <p>{{ $location->name }}</p>
             </div>
-            <div class="col-md-2" style="margin-top: 15px">
+            <div class="col-md-2 col-xs-4" style="margin-top: 15px">
                 <h5>Status:</h5>
                 <p class="text-primary">{{ $location->status == 'completed' ? 'Achieved' : ucwords($location->status) }}</p>
             </div>
-            <div class="col-md-2" style="margin-top: 15px">
+            <div class="col-md-2 col-xs-4" style="margin-top: 15px">
                 <h5>Event Date:</h5>
                 <p class="text-primary">{{ count($location->hits) > 0 ? $location->hits[count($location->hits) - 1]->created_at->toFormattedDateString() : 'N/A' }}</p>
             </div>
 
-            <div class="col-md-4" style="margin-top: 15px">
-                <h5>Achieve Sampling Target Hits:</h5>
-                <p class="text-primary">{{ $location->hits()->count() > $location->target_hits ? $location->target_hits : $location->hits()->count() }} / {{ $location->target_hits }}</p>
-            </div>
+            {{--<div class="col-md-2 col-xs-4" style="margin-top: 15px">--}}
+                {{--<h5>Achieve Sampling Target Hits:</h5>--}}
+                {{--<p class="text-primary">{{ $location->hits()->count() > $location->target_hits ? $location->target_hits : $location->hits()->count() }} / {{ $location->target_hits }}</p>--}}
+            {{--</div>--}}
             <div class="col-md-12"><hr></div>
 
             <div class="col-md-12">
