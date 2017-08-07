@@ -43,7 +43,7 @@ class GpsReportController extends Controller
 
         $startDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(6)->toDateTimeString();
         $endDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(19)->toDateTimeString();
-        $locations = $this->getLocationsPerHour($startDate, $endDate, $locationId);
+        $locations = $this->getLocationsPerHour($startDate, $endDate, $location);
 
         return view('projects.reports.gps', compact('location', 'locations', 'project', 'hits', 'answers'));
     }
@@ -89,18 +89,26 @@ class GpsReportController extends Controller
         return view('projects.reports.print.gps', compact('location', 'locations', 'startDate'));
     }
 
-    private function getLocationsPerHour($startDate, $endDate, $locationId)
+    private function getLocationsPerHour($startDate, $endDate, $projectLocation)
     {
         $locations = UserLocation::where('created_at', '>=', $startDate)
             ->where('created_at', '<=', $endDate)
-            ->where('project_location_id', $locationId)
+            ->where('project_location_id', $projectLocation->id)
             ->get()
             ->groupBy(function($d) {
                 return Carbon::parse($d->created_at)->format('Y-m-d H');
             });
 
+        $to = json_decode($projectLocation->target_location);
+
         $result = [];
         foreach ($locations as $location) {
+            $distance = $this->haversineGreatCircleDistance($location[0]->lat, $location[0]->lng, $to[0], $to[1]) / 1000;
+
+            if ($distance > 2) {
+                continue;
+            }
+
             // Reverse geocoding
             $address = app('geocoder')
                 ->reverse($location[0]->lat, $location[0]->lng)
