@@ -13,9 +13,6 @@
     </ul>
 
     <div class="content-body" style="position: relative">
-        <div class="col-md-12 text-right" style="margin-top: 10px">
-            <a href="javascript:window.print()" class="btn btn-primary print-btn" > <i class="fa fa-print fa-lg"></i> Print Report</a>
-        </div>
         @if($ongoingReport)
             <div class="col-md-12" style="margin-top: 20px">
                 {{ $ongoingReport }}
@@ -51,16 +48,6 @@
         @if($timeandvideo)
             <div class="time-and-video">
                 {{ $timeandvideo }}
-            </div>
-        @else
-            <div class="time-and-video">
-                <div class="col-md-12">
-                    <div class="graph-description-container">
-                        <h2>Timestamp</h2>
-                        <p class="help-block">Data or hits recorded during specific hours of the day or run.</p>
-                    </div>
-                    <div id="time-graph"></div>
-                </div>
             </div>
         @endif
     </div>

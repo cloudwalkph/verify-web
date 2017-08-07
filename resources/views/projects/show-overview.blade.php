@@ -71,6 +71,15 @@
                             @slot('nav')
                             @endslot
                             @slot('timeandvideo')
+                                <div class="time-and-video">
+                                    <div class="col-md-12">
+                                        <div class="graph-description-container">
+                                            <h2>Timestamp</h2>
+                                            <p class="help-block">Data or hits recorded during specific hours of the day or run.</p>
+                                        </div>
+                                        <div id="time-graph"></div>
+                                    </div>
+                                </div>
                             @endslot
 
                             @slot('title')
@@ -96,6 +105,9 @@
                             @endslot
 
                             @slot('ongoingReport')
+                                <div class="col-md-12 text-right" style="margin: 10px 0">
+                                    <a href="javascript:window.print()" class="btn btn-primary print-btn" > <i class="fa fa-print fa-lg"></i> Print Report</a>
+                                </div>
                                 <table class="table">
                                     <thead>
                                     <tr>
