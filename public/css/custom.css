@@ -165,22 +165,22 @@ td {
     flex: 3;
 }
 
-.time-and-video {
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-}
+/*.time-and-video {*/
+    /*display: flex;*/
+    /*flex: 1;*/
+    /*flex-direction: row;*/
+/*}*/
 
 .time-and-video > div {
     min-height: 500px;
     margin-top: 40px;
 }
 
-.other-graphs {
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-}
+/*.other-graphs {*/
+    /*display: flex;*/
+    /*flex: 1;*/
+    /*flex-direction: row;*/
+/*}*/
 
 .other-graphs > div {
     min-height: 500px;
