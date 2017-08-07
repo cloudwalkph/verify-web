@@ -178,16 +178,14 @@ class ProjectLocationsController extends Controller
         $startDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(6)->toDateTimeString();
         $endDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(19)->toDateTimeString();
 
-        $locations = UserLocation::where('created_at', '>=', $startDate)
-            ->where('created_at', '<=', $endDate)
-            ->where('project_location_id', $locationId)
+        $locations = UserLocation::where('project_location_id', $locationId)
             ->get();
 
         $result = [];
         foreach ($locations as $userLoc) {
-            $distance = $this->haversineGreatCircleDistance($userLoc[0]->lat, $userLoc[0]->lng, $to[0], $to[1]) / 1000;
+            $distance = $this->haversineGreatCircleDistance($userLoc->lat, $userLoc->lng, $to[0], $to[1]) / 1000;
 
-            if ($distance > 2) {
+            if ($distance > 0.5) {
                 continue;
             }
 

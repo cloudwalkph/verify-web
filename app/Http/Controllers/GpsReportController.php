@@ -94,9 +94,7 @@ class GpsReportController extends Controller
 
     private function getLocationsPerHour($startDate, $endDate, $projectLocation)
     {
-        $locations = UserLocation::where('created_at', '>=', $startDate)
-            ->where('created_at', '<=', $endDate)
-            ->where('project_location_id', $projectLocation->id)
+        $locations = UserLocation::where('project_location_id', $projectLocation->id)
             ->get()
             ->groupBy(function($d) {
                 return Carbon::parse($d->created_at)->format('Y-m-d H');
@@ -108,7 +106,7 @@ class GpsReportController extends Controller
         foreach ($locations as $location) {
             $distance = $this->haversineGreatCircleDistance($location[0]->lat, $location[0]->lng, $to[0], $to[1]) / 1000;
 
-            if ($distance > 2) {
+            if ($distance > 0.5) {
                 continue;
             }
 
