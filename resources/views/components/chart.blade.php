@@ -1,13 +1,5 @@
-<div class="overlay">
-    <div class="overlay-content">
-        <i class="fa fa-pulse fa-spinner"></i> <br>
-        Please wait while we create a visualization for your data. <br/>
-        The speed of calculation will vary depending on the internet connection and amount of data.
-    </div>
-</div>
-
 <div class="content">
-    @if (isset($title))
+    @if (! $title)
         <h3>Analytics</h3>
         <p>Real time Data from <strong>{{ $project->name }}</strong> activities.</p>
     @else
@@ -20,12 +12,23 @@
         {{ $nav }}
     </ul>
 
-    <div class="content-body">
+    <div class="content-body" style="position: relative">
+        <div class="col-md-12 text-right" style="margin-top: 10px">
+            <a href="javascript:window.print()" class="btn btn-primary print-btn" > <i class="fa fa-print fa-lg"></i> Print Report</a>
+        </div>
         @if($ongoingReport)
             <div class="col-md-12" style="margin-top: 20px">
                 {{ $ongoingReport }}
             </div>
         @endif
+
+        <div class="overlay">
+            <div class="overlay-content">
+                <i class="fa fa-pulse fa-spinner"></i> <br>
+                Please wait while we create a visualization for your data. <br/>
+                The speed of calculation will vary depending on the internet connection and amount of data.
+            </div>
+        </div>
 
 
         <div class="other-graphs">
