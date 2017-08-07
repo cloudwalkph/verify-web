@@ -32,14 +32,14 @@
 
 
         <div class="other-graphs">
-            <div class="col-md-6">
+            <div class="col-md-6 col-xs-6">
                 <div class="graph-description-container">
                     <h2>Gender</h2>
                     <p class="help-block">The percentage of male and female consumers from the total number of hits recorded.</p>
                 </div>
                 <div id="gender-graph"></div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-xs-6">
                 <div class="graph-description-container">
                     <h2>Age Group</h2>
                     <p class="help-block">The distribution of hits coming various age groups from the total number of hits recorded.</p>
