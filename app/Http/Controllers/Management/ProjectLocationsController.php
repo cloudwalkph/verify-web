@@ -183,6 +183,8 @@ class ProjectLocationsController extends Controller
             ->where('project_location_id', $locationId)
             ->get();
 
+        print_r($locations);exit;
+
         $result = [];
         foreach ($locations as $userLoc) {
             $distance = $this->haversineGreatCircleDistance($userLoc->lat, $userLoc->lng, $to[0], $to[1]) / 1000;
