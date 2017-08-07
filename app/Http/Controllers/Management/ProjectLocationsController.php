@@ -8,12 +8,14 @@ use App\Models\Project;
 use App\Models\ProjectLocation;
 use App\Models\UserLocation;
 use App\Models\Video;
+use App\Traits\GPSTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Events\NewFaceUploaded;
 
 class ProjectLocationsController extends Controller
 {
+    use GPSTrait;
 
     /**
      * Show the application dashboard manual hits.
@@ -171,6 +173,7 @@ class ProjectLocationsController extends Controller
     public function getGPSData(Request $request, $projectId, $locationId)
     {
         $location = ProjectLocation::where('id', $locationId)->first();
+        $to = json_decode($location->target_location);
 
         $startDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(6)->toDateTimeString();
         $endDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(19)->toDateTimeString();
@@ -179,6 +182,17 @@ class ProjectLocationsController extends Controller
             ->where('created_at', '<=', $endDate)
             ->where('project_location_id', $locationId)
             ->get();
+
+        $result = [];
+        foreach ($locations as $userLoc) {
+            $distance = $this->haversineGreatCircleDistance($userLoc[0]->lat, $userLoc[0]->lng, $to[0], $to[1]) / 1000;
+
+            if ($distance > 2) {
+                continue;
+            }
+
+            $result[] = $userLoc;
+        }
 
         return response()->json($locations, 200);
     }
