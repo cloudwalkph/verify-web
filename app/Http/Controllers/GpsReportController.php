@@ -89,7 +89,14 @@ class GpsReportController extends Controller
 
         $locations = $this->getLocationsPerHour($startDate, $endDate, $location);
 
-        return view('projects.reports.print.gps', compact('location', 'locations', 'startDate'));
+        $project = Project::find($projectId);
+        $hits = Hit::with('answers')
+            ->where('project_location_id', $locationId)
+            ->get();
+
+        $answers = $this->parseAnswers($hits->toArray());
+
+        return view('projects.reports.print.gps', compact('location', 'hits', 'answers', 'project', 'locations', 'startDate'));
     }
 
     private function getLocationsPerHour($startDate, $endDate, $projectLocation)
