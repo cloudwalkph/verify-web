@@ -60,55 +60,51 @@
     }
 
     function createData(pollId, $tableHeader) {
-        try {
-            let arr = [];
-            for (let answer of answers) {
-                if (answer.poll_id != pollId) {
-                    continue;
-                }
-
-                arr.push([answer.value, 1]);
+        let arr = [];
+        for (let answer of answers) {
+            if (answer.poll_id != pollId) {
+                continue;
             }
 
-            let dt = google.visualization.arrayToDataTable([
-                $tableHeader,
-                ...arr
-            ]);
+            if (! answer.value) {
+                continue;
+            }
 
-            return google.visualization.data.group(dt, [0], [
-                {
-                    column: 1,
-                    aggregation: google.visualization.data.sum,
-                    type: 'number'
-                }
-            ]);
-        } catch (e) {
-            return null;
+            arr.push([answer.value, 1]);
         }
+
+        let dt = google.visualization.arrayToDataTable([
+            $tableHeader,
+            ...arr
+        ]);
+
+        return google.visualization.data.group(dt, [0], [
+            {
+                column: 1,
+                aggregation: google.visualization.data.sum,
+                type: 'number'
+            }
+        ]);
     }
 
     function createDataForTimeline() {
-        try {
-            let arr = [];
-            for (let hit of hits) {
-                arr.push([new Date(hit.hit_timestamp), 1]);
-            }
-
-            let dt = google.visualization.arrayToDataTable([
-                ['Time', 'Hits'],
-                ...arr
-            ]);
-
-            return google.visualization.data.group(dt, [0], [
-                {
-                    column: 1,
-                    aggregation: google.visualization.data.sum,
-                    type: 'number'
-                }
-            ]);
-        } catch(e) {
-            return null;
+        let arr = [];
+        for (let hit of hits) {
+            arr.push([new Date(hit.hit_timestamp), 1]);
         }
+
+        let dt = google.visualization.arrayToDataTable([
+            ['Time', 'Hits'],
+            ...arr
+        ]);
+
+        return google.visualization.data.group(dt, [0], [
+            {
+                column: 1,
+                aggregation: google.visualization.data.sum,
+                type: 'number'
+            }
+        ]);
     }
 
     function drawBarChart() {

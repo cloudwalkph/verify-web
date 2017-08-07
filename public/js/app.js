@@ -12272,87 +12272,83 @@ window.Verify = function () {
     }
 
     function createData(pollId, $tableHeader) {
+        var arr = [];
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
         try {
-            var arr = [];
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
+            for (var _iterator = answers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var answer = _step.value;
 
-            try {
-                for (var _iterator = answers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var answer = _step.value;
-
-                    if (answer.poll_id != pollId) {
-                        continue;
-                    }
-
-                    arr.push([answer.value, 1]);
+                if (answer.poll_id != pollId) {
+                    continue;
                 }
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
+
+                if (!answer.value) {
+                    continue;
+                }
+
+                arr.push([answer.value, 1]);
+            }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
             } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
+                if (_didIteratorError) {
+                    throw _iteratorError;
                 }
             }
-
-            var dt = google.visualization.arrayToDataTable([$tableHeader].concat(arr));
-
-            return google.visualization.data.group(dt, [0], [{
-                column: 1,
-                aggregation: google.visualization.data.sum,
-                type: 'number'
-            }]);
-        } catch (e) {
-            return null;
         }
+
+        var dt = google.visualization.arrayToDataTable([$tableHeader].concat(arr));
+
+        return google.visualization.data.group(dt, [0], [{
+            column: 1,
+            aggregation: google.visualization.data.sum,
+            type: 'number'
+        }]);
     }
 
     function createDataForTimeline() {
+        var arr = [];
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
         try {
-            var arr = [];
-            var _iteratorNormalCompletion2 = true;
-            var _didIteratorError2 = false;
-            var _iteratorError2 = undefined;
+            for (var _iterator2 = hits[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                var hit = _step2.value;
 
+                arr.push([new Date(hit.hit_timestamp), 1]);
+            }
+        } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+        } finally {
             try {
-                for (var _iterator2 = hits[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                    var hit = _step2.value;
-
-                    arr.push([new Date(hit.hit_timestamp), 1]);
+                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                    _iterator2.return();
                 }
-            } catch (err) {
-                _didIteratorError2 = true;
-                _iteratorError2 = err;
             } finally {
-                try {
-                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                        _iterator2.return();
-                    }
-                } finally {
-                    if (_didIteratorError2) {
-                        throw _iteratorError2;
-                    }
+                if (_didIteratorError2) {
+                    throw _iteratorError2;
                 }
             }
-
-            var dt = google.visualization.arrayToDataTable([['Time', 'Hits']].concat(arr));
-
-            return google.visualization.data.group(dt, [0], [{
-                column: 1,
-                aggregation: google.visualization.data.sum,
-                type: 'number'
-            }]);
-        } catch (e) {
-            return null;
         }
+
+        var dt = google.visualization.arrayToDataTable([['Time', 'Hits']].concat(arr));
+
+        return google.visualization.data.group(dt, [0], [{
+            column: 1,
+            aggregation: google.visualization.data.sum,
+            type: 'number'
+        }]);
     }
 
     function drawBarChart() {
