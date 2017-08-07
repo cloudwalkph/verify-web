@@ -94,9 +94,7 @@ class GpsReportController extends Controller
 
     private function getLocationsPerHour($startDate, $endDate, $projectLocation)
     {
-        $locations = UserLocation::where('created_at', '>=', $startDate)
-            ->where('created_at', '<=', $endDate)
-            ->where('project_location_id', $projectLocation->id)
+        $locations = UserLocation::where('project_location_id', $projectLocation->id)
             ->get()
             ->groupBy(function($d) {
                 return Carbon::parse($d->created_at)->format('Y-m-d H');
