@@ -179,6 +179,7 @@ class ProjectLocationsController extends Controller
         $endDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(19)->toDateTimeString();
 
         $locations = UserLocation::where('project_location_id', $locationId)
+            ->orderBy('created_at', 'ASC')
             ->get();
 
         $result = [];
