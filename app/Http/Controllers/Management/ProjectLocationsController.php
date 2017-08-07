@@ -190,7 +190,7 @@ class ProjectLocationsController extends Controller
 //                continue;
 //            }
 
-            $result[] = $distance;
+            $result[] = $userLoc;
         }
 
         return response()->json($result, 200);
