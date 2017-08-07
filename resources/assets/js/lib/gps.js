@@ -21,6 +21,11 @@
         });
     }
 
+    c.setCenter = (lat, lng) => {
+        map.setCenter({lat, lng});
+        activations.setPosition({lat, lng});
+    }
+
     c.initMap = () => {
         // Create the map with no initial style specified.
         // It therefore has default styling.

@@ -12459,6 +12459,11 @@ window.Verify = function () {
         });
     };
 
+    c.setCenter = function (lat, lng) {
+        map.setCenter({ lat: lat, lng: lng });
+        activations.setPosition({ lat: lat, lng: lng });
+    };
+
     c.initMap = function () {
         // Create the map with no initial style specified.
         // It therefore has default styling.
