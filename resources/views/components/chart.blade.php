@@ -27,6 +27,11 @@
             </div>
         </div>
 
+        @if($timeandvideo)
+            <div class="time-and-video">
+                {{ $timeandvideo }}
+            </div>
+        @endif
 
         <div class="other-graphs">
             <div class="col-md-6 col-xs-6">
@@ -45,11 +50,6 @@
             </div>
         </div>
 
-        @if($timeandvideo)
-            <div class="time-and-video">
-                {{ $timeandvideo }}
-            </div>
-        @endif
     </div>
 
 </div>
