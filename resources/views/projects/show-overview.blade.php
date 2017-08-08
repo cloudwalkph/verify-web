@@ -104,7 +104,7 @@
                                     </div>
 
                                     <div class="col-sm-2 text-center">
-                                        <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Reported Hits / Target Hits</b></h5>
+                                        <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Reported Hits</b></h5>
                                         <h5 class="text-primary" style="font-size: 18px;">{{ $reported }} / {{ $target ? $target : 'NA' }} ({{ $target ? number_format(($reported / $target) * 100, 2) : '0' }}%)</h5>
                                     </div>
 
