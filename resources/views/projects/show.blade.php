@@ -35,26 +35,26 @@
                     <div class="panel-body">
 
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <h1>Locations</h1>
                             </div>
 
-                            <div class="col-sm-3 text-center">
+                            <div class="col-sm-2 text-center">
                                 <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Runs Completed</b></h5>
                                 <h5 class="text-primary" style="font-size: 18px;">{{ $completed }} / {{ count($project['locations']) }} ({{ number_format(($completed / count($project['locations'])) * 100, 2) }}%)</h5>
                             </div>
 
-                            <div class="col-sm-3 text-center">
+                            <div class="col-sm-2 text-center">
                                 <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Runs Completed</b></h5>
                                 <h5 class="text-primary" style="font-size: 18px;">{{ count($project['locations']) }} ({{ number_format(($completed / count($project['locations'])) * 100, 2) }}%)</h5>
                             </div>
 
-                            <div class="col-sm-3 text-center">
+                            <div class="col-sm-2 text-center">
                                 <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Reported Hits / Target Hits</b></h5>
                                 <h5 class="text-primary" style="font-size: 18px;">{{ $reported }} / {{ $target ? $target : 'NA' }} ({{ $target ? number_format(($reported / $target) * 100, 2) : '0' }}%)</h5>
                             </div>
 
-                            <div class="col-sm-3 text-center">
+                            <div class="col-sm-2 text-center">
                                 <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Target Hits</b></h5>
                                 <h5 class="text-primary" style="font-size: 18px;">{{ $target ? $target : 'NA' }} ({{ $target ? number_format(($reported / $target) * 100, 2) : '0' }}%)</h5>
                             </div>
