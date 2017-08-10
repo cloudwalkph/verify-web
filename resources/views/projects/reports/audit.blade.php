@@ -50,12 +50,12 @@
                 <div class="panel panel-default audit-side-panel">
                     <div class="panel-body">
                         <div class="content">
-                            <h3 style="margin: 30px 0;">Audit Report</h3>
+                            <h3 style="margin: 30px 0;">Verify Report</h3>
                             <p style="margin-bottom: 30px; line-height: 30px">
                                 Shows all the complete data and information gathered and recorded during the running of this event or project.
                             </p>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/audit-reports" disabled="true"
-                               class="btn btn-primary">Audit Report</a> <br>
+                               class="btn btn-primary">Verify Report</a> <br>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports"
                                class="btn btn-primary">Event Report</a>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/gps-reports" style="margin-top: 20px;"
@@ -80,7 +80,7 @@
                             <div class="row">
 
                                 <div class="col-md-12">
-                                    <h1>Audit Report</h1>
+                                    <h1>Verify Report</h1>
                                     <p>Shows data and info from each individual hit.</p>
                                 </div>
                             </div>

@@ -23,7 +23,7 @@
                                 Shows all the complete data and information gathered and recorded during the running of this event or project.
                             </p>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/audit-reports"
-                               class="btn btn-primary">Audit Report</a> <br>
+                               class="btn btn-primary">Verify Report</a> <br>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/event-reports"
                                class="btn btn-primary">Event Report</a>
                             <a href="/projects/{{ $project->id }}/locations/{{ $location->id }}/gps-reports" style="margin-top: 20px;" disabled="true"
