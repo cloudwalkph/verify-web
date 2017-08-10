@@ -48,8 +48,22 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="name">Status</label>
-                                    <input type="text" class="form-control input-field" name="status" id="status"
-                                           value="{{ isset($location['status']) ? $location['status'] : "" }}" placeholder="Status">
+                                    <select name="status" id="status" class="form-control input-field">
+                                        @if($location['status'] == 'pending')
+                                            <option value="pending">Pending</option>
+                                            <option value="on-going">On-Going</option>
+                                            <option value="completed">Completed</option>
+                                        @elseif($location['status'] == 'on-going')
+                                            <option value="on-going">On-Going</option>
+                                            <option value="pending">Pending</option>
+                                            <option value="completed">Completed</option>
+                                        @elseif($location['status'] == 'completed')
+                                            <option value="completed">Completed</option>
+                                            <option value="on-going">On-Going</option>
+                                            <option value="pending">Pending</option>
+                                        @endif
+
+                                    </select>
                                 </div>
                             </div>
                         </div>
