@@ -140,8 +140,8 @@
                                         <tr>
                                             <th>Number of Runs</th>
                                             <td>{{ number_format($completed, 0, '.', ',') }}</td>
-                                            <td>{{ number_format($project['target_runs'], 0, '.', ',') }}</td>
-                                            <td>{{ number_format(($completed / $project['target_runs']) * 100, 2, '.', ',') }}%</td>
+                                            <td>{{ $project['target_runs'] ? number_format($project['target_runs'], 0, '.', ',') : 'NA' }}</td>
+                                            <td>{{ $project['target_runs'] ? number_format(($completed / $project['target_runs']) * 100, 2, '.', ',') : 'NA' }}%</td>
                                         </tr>
                                     </tbody>
                                 </table>
