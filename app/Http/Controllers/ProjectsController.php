@@ -54,13 +54,22 @@ class ProjectsController extends Controller
 
     public function getHits(Request $request, $projectId)
     {
+        $cacheKey = null;
 
         if (! $request->has('location_id')) {
             $locations = ProjectLocation::where('project_id', $projectId)->get();
+            $cacheKey = "p-{$projectId}-hits";
         } else {
             $locations = ProjectLocation::where('project_id', $projectId)
                 ->where('id', $request->get('location_id'))->get();
 
+            $cacheKey = "p-{$projectId}-l-{$request->get('location_id')}-hits";
+        }
+
+        if (\Cache::has($cacheKey)) {
+            $hits = \Cache::get($cacheKey);
+
+            return response()->json(json_decode($hits), 200);
         }
 
         $locationIds = [];
@@ -68,23 +77,34 @@ class ProjectsController extends Controller
             $locationIds[] = $location->id;
         }
 
-        $hits = Hit::whereIn('project_location_id', $locationIds)
+        $hits = Hit::with('answers')->whereIn('project_location_id', $locationIds)
             ->get();
 
         $hits = $this->parseHits($hits);
 
-//        \Cache::add()
+        \Cache::add($cacheKey, json_encode($hits), (60 * 8));
 
         return response()->json($hits, 200);
     }
 
     public function getDemographics(Request $request, $projectId)
     {
+        $cacheKey = null;
+
         if (! $request->has('location_id')) {
             $locations = ProjectLocation::where('project_id', $projectId)->get();
+            $cacheKey = "p-{$projectId}-demographics";
         } else {
             $locations = ProjectLocation::where('project_id', $projectId)
                 ->where('id', $request->get('location_id'))->get();
+
+            $cacheKey = "p-{$projectId}-l-{$request->get('location_id')}-demographics";
+        }
+
+        if (\Cache::has($cacheKey)) {
+            $answers = \Cache::get($cacheKey);
+
+            return response()->json($answers, 200);
         }
 
         $locationIds = [];
@@ -96,6 +116,8 @@ class ProjectsController extends Controller
             ->get();
 
         $answers = $this->parseAnswers($hits);
+
+//        \Cache::add($cacheKey, $answers, (60 * 8));
 
         return response()->json($answers, 200);
     }

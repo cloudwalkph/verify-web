@@ -36,11 +36,16 @@
     }
 
     function getData() {
-        axios.all([getHits(), getDemographics()]).then(
-            axios.spread(function (hitsRes, answersRes) {
+        axios.all([getHits()]).then(
+            axios.spread(function (hitsRes) {
                 hits = hitsRes.data;
-                answers = answersRes.data;
 
+                for (let hit of hits) {
+                    for (let answer of hit.answers) {
+                        answers.push(answer);
+                    }
+                }
+                // answers = answersRes.data;
                 if (hits.length > 0) {
                     drawCharts();
                 }
