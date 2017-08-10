@@ -106,6 +106,8 @@
                             @endslot
                             @slot('ongoingReport')
                             @endslot
+                            @slot('timeandvideo')
+                            @endslot
                         @endcomponent
                     </div>
                 </div>
