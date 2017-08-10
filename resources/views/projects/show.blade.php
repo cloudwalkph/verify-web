@@ -41,22 +41,22 @@
 
                             <div class="col-sm-2 text-center">
                                 <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Runs Completed</b></h5>
-                                <h5 class="text-primary" style="font-size: 18px;">{{ $completed }}</h5>
+                                <h5 class="text-primary" style="font-size: 18px;">{{ number_format($completed, 2, '.', ',') }}</h5>
                             </div>
 
                             <div class="col-sm-2 text-center">
                                 <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Total Runs</b></h5>
-                                <h5 class="text-primary" style="font-size: 18px;">{{ count($project['locations']) }} ({{ number_format(($completed / count($project['locations'])) * 100, 2) }}%)</h5>
+                                <h5 class="text-primary" style="font-size: 18px;">{{ number_format($project['target_runs'], 2, '.', ',') }} ({{ number_format(($completed / $project['target_runs']) * 100, 2, '.', ',') }}%)</h5>
                             </div>
 
                             <div class="col-sm-2 text-center">
                                 <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Reported Hits</b></h5>
-                                <h5 class="text-primary" style="font-size: 18px;">{{ $reported }}</h5>
+                                <h5 class="text-primary" style="font-size: 18px;">{{ number_format($reported, 2, '.', ',') }}</h5>
                             </div>
 
                             <div class="col-sm-2 text-center">
                                 <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Target Hits</b></h5>
-                                <h5 class="text-primary" style="font-size: 18px;">{{ $target ? $target : 'NA' }} ({{ $target ? number_format(($reported / $target) * 100, 2) : '0' }}%)</h5>
+                                <h5 class="text-primary" style="font-size: 18px;">{{ $target ? number_format($target, 2, '.', ',') : 'NA' }} ({{ $target ? number_format(($reported / $target) * 100, 2, '.', ',') : '0' }}%)</h5>
                             </div>
                         </div>
 
