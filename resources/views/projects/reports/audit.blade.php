@@ -86,26 +86,28 @@
                             </div>
 
                             <div class="row">
-                               @foreach($hits as $hit)
-                                <div class="col-md-4 col-sm-6" style="margin: 50px 0">
-                                    <div class="col-md-6 col-sm-4 text-center hits-image-container">
-                                        <img src="{{ $hit->image ? Storage::drive('s3')->url($hit->image) : get_placeholder() }}" onerror="this.onerror=null;this.src='{{ get_placeholder() }}';" height="120" width="120" class="img-circle hits-image" alt="">
-                                    </div>
-                                    <div class="col-md-6 col-sm-8 hits-value-container">
-                                        <h3>{{ $hit->name }}</h3>
-                                        <ul>
-                                            {{ ($hit->email) ? '<li>'.$hit->email.'</li>' : '' }}
-                                            {{ ($hit->contact_number) ? '<li>'.$hit->contact_number.'</li>' : '' }}
-                                            @foreach($hit['answers'] as $answer)
-                                                <li>{{ $answer->value }}</li>
-                                            @endforeach
-                                            <li>{{ $hit->created_at->toFormattedDateString() }}</li>
-                                        </ul>
+                                @if (Auth::user()->email === 'domex@verify.com')
+                                   @foreach($hits as $hit)
+                                    <div class="col-md-4 col-sm-6" style="margin: 50px 0">
+                                        <div class="col-md-6 col-sm-4 text-center hits-image-container">
+                                            <img src="{{ $hit->image ? Storage::drive('s3')->url($hit->image) : get_placeholder() }}" onerror="this.onerror=null;this.src='{{ get_placeholder() }}';" height="120" width="120" class="img-circle hits-image" alt="">
+                                        </div>
+                                        <div class="col-md-6 col-sm-8 hits-value-container">
+                                            <h3>{{ $hit->name }}</h3>
+                                            <ul>
+                                                {{ ($hit->email) ? '<li>'.$hit->email.'</li>' : '' }}
+                                                {{ ($hit->contact_number) ? '<li>'.$hit->contact_number.'</li>' : '' }}
+                                                @foreach($hit['answers'] as $answer)
+                                                    <li>{{ $answer->value }}</li>
+                                                @endforeach
+                                                <li>{{ $hit->created_at->toFormattedDateString() }}</li>
+                                            </ul>
 
 
+                                        </div>
                                     </div>
-                                </div>
-                               @endforeach
+                                   @endforeach
+                                @endif
                             </div>
 
                             <div class="text-center">

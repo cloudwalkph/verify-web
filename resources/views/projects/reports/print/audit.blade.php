@@ -58,7 +58,7 @@
                 <div class="col-md-12 col-xs-12"><hr></div>
 
                 <div class="col-md-12 col-xs-12">
-                    <h1>Audit Report</h1>
+                    <h1>Verify Report</h1>
                     <p>Shows data and info from each individual hit.</p>
                 </div>
             </div>
@@ -75,17 +75,19 @@
                             <th>Age Group</th>
                             <th>Gender</th>
                         </tr>
-                    @foreach($hits as $hit)
-                        <tr>
-                            <td><img class="hits-image" src="{{ $hit->image ? Storage::drive('s3')->url($hit->image) : get_placeholder() }}" onerror="this.onerror=null;this.src='{{ get_placeholder() }}';" height="50" width="50" class="img-circle" alt=""></td>
-                            <td>{{ $hit->name }}</td>
-                            <td>{{ $hit->email }}</td>
-                            <td>{{ $hit->contact_number }}</td>
-                            @foreach($hit->answers as $answer)
-                                <td>{{ $answer->value }}</td>
-                            @endforeach
-                        </tr>
-                    @endforeach
+                    @if (Auth::user()->email === 'domex@verify.com')
+                        @foreach($hits as $hit)
+                            <tr>
+                                <td><img class="hits-image" src="{{ $hit->image ? Storage::drive('s3')->url($hit->image) : get_placeholder() }}" onerror="this.onerror=null;this.src='{{ get_placeholder() }}';" height="50" width="50" class="img-circle" alt=""></td>
+                                <td>{{ $hit->name }}</td>
+                                <td>{{ $hit->email }}</td>
+                                <td>{{ $hit->contact_number }}</td>
+                                @foreach($hit->answers as $answer)
+                                    <td>{{ $answer->value }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    @endif
                     </tbody>
                 </table>
 
