@@ -124,6 +124,37 @@
                                 <table class="table">
                                     <thead>
                                     <tr>
+                                        <th colspan="4">
+                                            <h1>Overall</h1>
+                                            <small>This is the overall targets</small>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Achieved</th>
+                                        <th>Target</th>
+                                        <th>Percentage</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>Number of Runs</th>
+                                            <td>{{ $completed }}</td>
+                                            <td>{{ $project['target_runs'] }}</td>
+                                            <td>{{ number_format(($completed / count($project['locations'])) * 100, 2) }}%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="4">
+                                            <h1>On-Going Runs</h1>
+                                            <small>This are the currenty on-going runs</small>
+                                        </th>
+                                    </tr>
+                                    <tr>
                                         <th>Description</th>
                                         <th>Achieved</th>
                                         <th>Target</th>
@@ -133,12 +164,6 @@
                                     <tbody>
                                     <tr>
                                         <th>Number of Runs</th>
-                                        <td>{{ $project['target_runs'] }}</td>
-                                        <td>{{ $project['target_runs'] }}</td>
-                                        <td>{{ number_format(($completed / count($project['locations'])) * 100, 2) }}%</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Locations</th>
                                         <td>{{ $completed }}</td>
                                         <td>{{ count($project['locations']) }}</td>
                                         <td>{{ number_format(($completed / count($project['locations'])) * 100, 2) }}%</td>
