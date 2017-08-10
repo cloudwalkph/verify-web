@@ -40,18 +40,30 @@
             axios.spread(function (hitsRes) {
                 hits = hitsRes.data;
 
-                for (let hit of hits) {
-                    for (let answer of hit.answers) {
-                        answers.push(answer);
-                    }
-                }
-                // answers = answersRes.data;
-                if (hits.length > 0) {
-                    drawCharts();
-                }
+                buildAnswers(hits).then(response => {
+                    answers = response;
 
-                $('.overlay').addClass('hide');
+                    if (hits.length > 0) {
+                        drawCharts();
+                    }
+
+                    $('.overlay').addClass('hide');
+                });
             }));
+    }
+
+    function buildAnswers(hits) {
+        return new Promise((resolve, reject) => {
+            let answers = [];
+
+            for (let hit of hits) {
+                for (let answer of hit.answers) {
+                    answers.push(answer);
+                }
+            }
+
+            resolve(answers);
+        });
     }
 
     function drawCharts() {

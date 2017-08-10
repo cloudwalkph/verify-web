@@ -69,13 +69,15 @@
         };
 
         let player = bitmovin.player("player");
-        player.setup(conf).then(function(value) {
-            // Success
-            console.log("Successfully created bitmovin player instance");
-        }, function(reason) {
-            // Error!
-            console.log("Error while creating bitmovin player instance");
-        });
+        if (typeof player !== 'undefined') {
+            player.setup(conf).then(function(value) {
+                // Success
+                console.log("Successfully created bitmovin player instance");
+            }, function(reason) {
+                // Error!
+                console.log("Error while creating bitmovin player instance");
+            });
+        }
 
         $('#video-selection').on('change', function() {
             let status = $(this).find(':selected').data('status');

@@ -12252,6 +12252,22 @@ window.Verify = function () {
         axios.all([getHits()]).then(axios.spread(function (hitsRes) {
             hits = hitsRes.data;
 
+            buildAnswers(hits).then(function (response) {
+                answers = response;
+
+                if (hits.length > 0) {
+                    drawCharts();
+                }
+
+                $('.overlay').addClass('hide');
+            });
+        }));
+    }
+
+    function buildAnswers(hits) {
+        return new Promise(function (resolve, reject) {
+            var answers = [];
+
             var _iteratorNormalCompletion = true;
             var _didIteratorError = false;
             var _iteratorError = undefined;
@@ -12284,7 +12300,6 @@ window.Verify = function () {
                         }
                     }
                 }
-                // answers = answersRes.data;
             } catch (err) {
                 _didIteratorError = true;
                 _iteratorError = err;
@@ -12300,12 +12315,8 @@ window.Verify = function () {
                 }
             }
 
-            if (hits.length > 0) {
-                drawCharts();
-            }
-
-            $('.overlay').addClass('hide');
-        }));
+            resolve(answers);
+        });
     }
 
     function drawCharts() {
