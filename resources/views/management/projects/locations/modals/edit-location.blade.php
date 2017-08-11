@@ -11,20 +11,27 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="name">Location</label>
                                     <input type="text" class="form-control input-field" name="name" id="name"
                                            value="{{ isset($location['name']) ? $location['name'] : "" }}" placeholder="Location">
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="project_type">Project Type (Sampling, Experiential)</label>
                                     <input type="text" class="form-control input-field" name="project_type" id="project_type"
                                            value="{{ isset($location['project_type']) ? $location['project_type'] : "" }}" placeholder="Project Type (Sampling, Experiential)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="manual_hits">Manual Hits</label>
+                                    <input type="text" class="form-control input-field" name="manual_hits" id="manual_hits"
+                                           value="{{ isset($location['manual_hits']) ? $location['manual_hits'] : "" }}" placeholder="Manual Hits">
                                 </div>
                             </div>
                             <div class="col-md-6">
