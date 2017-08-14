@@ -27,7 +27,9 @@
                     Location Actions <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Update Location Information</a></li>
+                    <li><a href="#"
+                           data-toggle="modal"
+                           data-target="#editLocation">Update Location Information</a></li>
 
                     <li role="separator" class="divider"></li>
 
@@ -117,6 +119,7 @@
 
     @include('management.projects.locations.modals.manage-team')
     @include('management.projects.locations.modals.upload-gps')
+    @include('management.projects.locations.modals.edit-location')
 @endsection
 
 @section('scripts')

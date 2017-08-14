@@ -225,4 +225,14 @@ class ProjectLocationsController extends Controller
 
         return $result;
     }
+
+    public function update(Request $request, $projectId, $locationId)
+    {
+        $input = $request->all();
+        $location = ProjectLocation::where('id', $locationId)->first();
+
+        $location = $location->update($input);
+
+        return redirect()->back();
+    }
 }
