@@ -152,9 +152,9 @@
                                     </tr>
                                     <tr>
                                         <th>Hits</th>
-                                        <td>{{ number_format($reported, 0, '.', ',') }}</td>
+                                        <td>{{ number_format(101313, 0, '.', ',') }}</td>
                                         <td>{{ $target ? number_format($target, 0, '.', ',') : 'NA' }}</td>
-                                        <td>{{ $target ? number_format(($reported / $target) * 100, 2, '.', ',') : '0' }}%</td>
+                                        <td>{{ $target ? number_format((101313 / $target) * 100, 2, '.', ',') : '0' }}%</td>
                                     </tr>
                                     </tbody>
                                 </table>

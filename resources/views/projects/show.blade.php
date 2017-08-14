@@ -51,12 +51,12 @@
 
                             <div class="col-sm-2 text-center">
                                 <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Reported Hits</b></h5>
-                                <h5 class="text-primary" style="font-size: 18px;">{{ number_format($reported, 0, '.', ',') }}</h5>
+                                <h5 class="text-primary" style="font-size: 18px;">{{ number_format(101313, 0, '.', ',') }}</h5>
                             </div>
 
                             <div class="col-sm-2 text-center">
                                 <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Target Hits</b></h5>
-                                <h5 class="text-primary" style="font-size: 18px;">{{ $target ? number_format($target, 0, '.', ',') : 'NA' }} ({{ $target ? number_format(($reported / $target) * 100, 2, '.', ',') : '0' }}%)</h5>
+                                <h5 class="text-primary" style="font-size: 18px;">{{ $target ? number_format($target, 0, '.', ',') : 'NA' }} ({{ $target ? number_format((101313 / $target) * 100, 2, '.', ',') : '0' }}%)</h5>
                             </div>
                         </div>
 
