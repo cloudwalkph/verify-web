@@ -121,9 +121,9 @@
                                         </tr>
                                         <tr>
                                             <th>Number of Hits</th>
-                                            <td>{{ number_format(101313, 0, '.', ',') }}</td>
+                                            <td>{{ number_format(110246, 0, '.', ',') }}</td>
                                             <td>{{ number_format(276000, 0, '.', ',') }}</td>
-                                            <td>{{ number_format((101313 / 276000) * 100, 2, '.', ',') }}%</td>
+                                            <td>{{ number_format((110246 / 276000) * 100, 2, '.', ',') }}%</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -152,9 +152,9 @@
                                     </tr>
                                     <tr>
                                         <th>Hits</th>
-                                        <td>{{ number_format(101313, 0, '.', ',') }}</td>
+                                        <td>{{ number_format(110246, 0, '.', ',') }}</td>
                                         <td>{{ $target ? number_format($target, 0, '.', ',') : 'NA' }}</td>
-                                        <td>{{ $target ? number_format((101313 / $target) * 100, 2, '.', ',') : '0' }}%</td>
+                                        <td>{{ $target ? number_format((110246 / $target) * 100, 2, '.', ',') : '0' }}%</td>
                                     </tr>
                                     </tbody>
                                 </table>
