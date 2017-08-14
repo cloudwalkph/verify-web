@@ -29,7 +29,7 @@
                 {{ $project['completed_runs'] }} / {{ count($project['locations']) }}
             </td>
 
-            @if (Auth::user()->email !== 'domex@verify.com')
+            @if (Auth::user()->email === 'domex@verify.com')
                 <td>{{ number_format(276000, 0, '.', ',') }}</td>
             @else
                 <td>
@@ -37,7 +37,7 @@
                 </td>
             @endif
 
-            @if (Auth::user()->email !== 'domex@verify.com')
+            @if (Auth::user()->email === 'domex@verify.com')
                 <td>{{ number_format(110246, 0, '.', ',') }}</td>
             @else
                 <td>
