@@ -68,9 +68,10 @@ class ProcessFace implements ShouldQueue
             'MaxFaces' => 10,
         ]);
 
-        \Log::info($result);
+        $result = count($result->get('FaceMatches')) <= 0 ? false : true;
+        \Log::info($face['Face']['FaceId'].' has face match: ' . $result);
 
-        return count($result->get('FaceMatches')) <= 0 ? false : true;
+        return $result;
     }
 
     private function processImage($path, $locationId, $timestamp, $userId)
@@ -89,10 +90,18 @@ class ProcessFace implements ShouldQueue
 
         $faceDetails = $result->get('FaceRecords');
         if ($result->count() <= 0) {
+            \Log::info('no face detected on : '. $path);
+
             return;
         }
 
-        \Log::info($result);
+        if (count($faceDetails) <= 0) {
+            \Log::info('no face detected on : '. $path);
+
+            return;
+        }
+
+        \Log::info('detected : '. count($faceDetails) . ' faces');
 
         $hits = [];
         foreach ($faceDetails as $face) {
@@ -124,6 +133,8 @@ class ProcessFace implements ShouldQueue
             ]);
 
             $his[] = $hit;
+
+            \Log::info('new hit with face : '. $face['Face']['FaceId'] . ' faces');
         }
 
         return $hits;
