@@ -7,7 +7,7 @@
         <th>Target Hits</th>
         <th>Reported Hits</th>
         @if (Auth::user()->email !== 'domex@verify.com')
-        <th>Audited Hits</th>
+        <th>Verified Hits</th>
         @endif
         <th>Status</th>
     </tr>
@@ -21,13 +21,27 @@
                 <strong>{{ $project['name'] }}</strong>
             </td>
 
-            <td>
-                {{ $project['active_runs'] }} / {{ count($project['locations']) }}
-            </td>
+            @if (Auth::user()->email === 'domex@verify.com')
+                <td>
+                    {{ $project['active_runs'] }} / 292
+                </td>
+            @else
+                <td>
+                    {{ $project['active_runs'] }} / {{ count($project['locations']) }}
+                </td>
+            @endif
 
-            <td>
-                {{ $project['completed_runs'] }} / {{ count($project['locations']) }}
-            </td>
+
+            @if (Auth::user()->email === 'domex@verify.com')
+                <td>
+                    {{ $project['completed_runs'] }} / 292
+                </td>
+            @else
+                <td>
+                    {{ $project['completed_runs'] }} / {{ count($project['locations']) }}
+                </td>
+            @endif
+
 
             @if (Auth::user()->email === 'domex@verify.com')
                 <td>{{ number_format(276000, 0, '.', ',') }}</td>
