@@ -46,17 +46,17 @@
 
                             <div class="col-sm-2 text-center">
                                 <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Total Runs</b></h5>
-                                <h5 class="text-primary" style="font-size: 18px;">{{ $project['target_runs'] ? number_format($project['target_runs'], 0, '.', ',') : 'NA' }} ({{ $project['target_runs'] ? number_format(($completed / $project['target_runs']) * 100, 2, '.', ',') : 'NA' }}%)</h5>
+                                <h5 class="text-primary" style="font-size: 18px;">{{ $project['total_target_runs'] ? number_format($project['total_target_runs'], 0, '.', ',') : 'NA' }} ({{ $project['total_target_runs'] ? number_format(($completed / $project['total_target_runs']) * 100, 2, '.', ',') : 'NA' }}%)</h5>
                             </div>
 
                             <div class="col-sm-2 text-center">
                                 <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Reported Hits</b></h5>
-                                <h5 class="text-primary" style="font-size: 18px;">{{ number_format(110246, 0, '.', ',') }}</h5>
+                                <h5 class="text-primary" style="font-size: 18px;">{{ number_format($reported, 0, '.', ',') }}</h5>
                             </div>
 
                             <div class="col-sm-2 text-center">
                                 <h5 style="color: #585858; margin-top: 15px; font-size: 20px;"><b>Target Hits</b></h5>
-                                <h5 class="text-primary" style="font-size: 18px;">{{ 276000 ? number_format(276000, 0, '.', ',') : 'NA' }} ({{ 276000 ? number_format((110246 / 276000) * 100, 2, '.', ',') : '0' }}%)</h5>
+                                <h5 class="text-primary" style="font-size: 18px;">{{ $project['total_target_hits'] ? number_format($project['total_target_hits'], 0, '.', ',') : 'NA' }} ({{ $project['total_target_hits'] ? number_format(($reported / $project['total_target_hits']) * 100, 2, '.', ',') : '0' }}%)</h5>
                             </div>
                         </div>
 
