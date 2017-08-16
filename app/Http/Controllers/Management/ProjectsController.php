@@ -192,6 +192,8 @@ class ProjectsController extends Controller
                 'reported_hits'     => $reported,
                 'audited_hits'      => $audited,
                 'audit_percent'     => $percentage,
+                'total_target_runs' => $project->total_target_runs,
+                'total_target_hits' => $project->total_target_hits,
                 'status'            => $project->status
             ];
         }

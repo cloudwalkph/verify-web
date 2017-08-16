@@ -64,6 +64,8 @@ class HomeController extends Controller
                 'audited_hits'      => $audited,
                 'audit_percent'     => $percentage,
                 'target_hits'            => $target,
+                'total_target_runs' => $project->total_target_runs,
+                'total_target_hits' => $project->total_target_hits,
                 'status'            => $project->status
             ];
         }
