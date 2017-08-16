@@ -21,43 +21,22 @@
                 <strong>{{ $project['name'] }}</strong>
             </td>
 
-            @if (Auth::user()->email === 'domex@verify.com')
-                <td>
-                    {{ $project['active_runs'] }} / 292
-                </td>
-            @else
-                <td>
-                    {{ $project['active_runs'] }} / {{ count($project['locations']) }}
-                </td>
-            @endif
+
+            <td>
+                {{ $project['active_runs'] }} / {{ $project['total_target_runs'] }}
+            </td>
 
 
-            @if (Auth::user()->email === 'domex@verify.com')
-                <td>
-                    {{ $project['completed_runs'] }} / 292
-                </td>
-            @else
-                <td>
-                    {{ $project['completed_runs'] }} / {{ count($project['locations']) }}
-                </td>
-            @endif
+            <td>
+                {{ $project['completed_runs'] }} / {{ $project['total_target_runs'] }}
+            </td>
 
 
-            @if (Auth::user()->email === 'domex@verify.com')
-                <td>{{ number_format(276000, 0, '.', ',') }}</td>
-            @else
-                <td>
-                    {{ $project['target_hits'] }}
-                </td>
-            @endif
+            <td>{{ number_format($project['total_target_hits'], 0, '.', ',') }}</td>
 
-            @if (Auth::user()->email === 'domex@verify.com')
-                <td>{{ number_format(110246, 0, '.', ',') }}</td>
-            @else
-                <td>
-                    {{ $project['reported_hits']  }}
-                </td>
-            @endif
+
+            <td>{{ number_format($project['reported_hits'], 0, '.', ',') }}</td>
+
 
             @if (Auth::user()->email !== 'domex@verify.com')
             <td>
