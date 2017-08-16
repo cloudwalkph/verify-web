@@ -40,7 +40,7 @@
 
             @if (Auth::user()->email !== 'domex@verify.com')
             <td>
-                {{ $project['audited_hits'] }} (<span class="text-primary">{{ number_format($project['audit_percent'], 2) }}%</span>)
+                {{ number_format($project['audited_hits'], 0, '.', ',') }} (<span class="text-primary">{{ number_format($project['audit_percent'], 2, '.', ',') }}%</span>)
             </td>
             @endif
 
