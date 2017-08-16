@@ -116,14 +116,14 @@
                                         <tr>
                                             <th>Number of Runs</th>
                                             <td>{{ number_format($completed, 0, '.', ',') }}</td>
-                                            <td>{{ $project['target_runs'] ? number_format($project['target_runs'], 0, '.', ',') : 'NA' }}</td>
-                                            <td>{{ $project['target_runs'] ? number_format(($completed / $project['target_runs']) * 100, 2, '.', ',') : 'NA' }}%</td>
+                                            <td>{{ $project['total_target_runs'] ? number_format($project['total_target_runs'], 0, '.', ',') : 'NA' }}</td>
+                                            <td>{{ $project['total_target_runs'] ? number_format(($completed / $project['total_target_runs']) * 100, 2, '.', ',') : 'NA' }}%</td>
                                         </tr>
                                         <tr>
                                             <th>Number of Hits</th>
-                                            <td>{{ number_format(110246, 0, '.', ',') }}</td>
-                                            <td>{{ number_format(276000, 0, '.', ',') }}</td>
-                                            <td>{{ number_format((110246 / 276000) * 100, 2, '.', ',') }}%</td>
+                                            <td>{{ number_format($reported, 0, '.', ',') }}</td>
+                                            <td>{{ number_format($project['total_target_hits'], 0, '.', ',') }}</td>
+                                            <td>{{ number_format(($reported / $project['total_target_hits']) * 100, 2, '.', ',') }}%</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -152,9 +152,9 @@
                                     </tr>
                                     <tr>
                                         <th>Hits</th>
-                                        <td>{{ number_format(110246, 0, '.', ',') }}</td>
+                                        <td>{{ number_format($reported, 0, '.', ',') }}</td>
                                         <td>{{ $target ? number_format($target, 0, '.', ',') : 'NA' }}</td>
-                                        <td>{{ $target ? number_format((110246 / $target) * 100, 2, '.', ',') : '0' }}%</td>
+                                        <td>{{ $target ? number_format(($reported / $target) * 100, 2, '.', ',') : '0' }}%</td>
                                     </tr>
                                     </tbody>
                                 </table>
