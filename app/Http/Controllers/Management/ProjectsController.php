@@ -95,10 +95,13 @@ class ProjectsController extends Controller
                         continue;
                     }
 
+                    $video = $video ? $video : '';
+
                     $videoData = [
-                        'name'      => $video ? $video : '',
-                        'alias'     => isset($input['video_names'][$key]) ? $input['video_names'][$key] : '',
-                        'status'    => 'pending'
+                        'name'          => $video,
+                        'alias'         => isset($input['video_names'][$key]) ? $input['video_names'][$key] : '',
+                        'status'        => 'pending',
+                        'playback_name' => uniqid() .'-'.$video.'.mp4'
                     ];
 
                     $location->videos()->create($videoData);
