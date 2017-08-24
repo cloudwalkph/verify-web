@@ -3,7 +3,9 @@
 @section('scripts')
     <script>
         $(function() {
-            $('.locations-table').DataTable();
+            $('.locations-table').DataTable( {
+                "order": [[ 0, "desc" ]]
+            } );
 
             // clients selectize
             $('#user_id').selectize({
@@ -470,15 +472,4 @@
     </div>
 
     @include('management.projects.add-location')
-@endsection
-
-
-@section('scripts')
-    <script>
-        $(function() {
-            $('.locations-table').DataTable( {
-                "order": [[ 0, "desc" ]]
-            } );
-        });
-    </script>
 @endsection
