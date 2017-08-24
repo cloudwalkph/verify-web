@@ -7,7 +7,7 @@
         <th>Target Hits</th>
         <th>Reported Hits</th>
         @if (Auth::user()->email !== 'domex@verify.com')
-        <th>Audited Hits</th>
+        <th>Verified Hits</th>
         @endif
         <th>Status</th>
     </tr>
@@ -21,25 +21,26 @@
                 <strong>{{ $project['name'] }}</strong>
             </td>
 
-            <td>
-                {{ $project['active_runs'] }} / {{ count($project['locations']) }}
-            </td>
 
             <td>
-                {{ $project['completed_runs'] }} / {{ count($project['locations']) }}
+                {{ $project['active_runs'] }} / {{ $project['total_target_runs'] }}
             </td>
 
-            <td>
-                {{ $project['target_hits'] }}
-            </td>
 
             <td>
-                {{ $project['reported_hits']  }}
+                {{ $project['completed_runs'] }} / {{ $project['total_target_runs'] }}
             </td>
+
+
+            <td>{{ number_format($project['total_target_hits'], 0, '.', ',') }}</td>
+
+
+            <td>{{ number_format($project['reported_hits'], 0, '.', ',') }}</td>
+
 
             @if (Auth::user()->email !== 'domex@verify.com')
             <td>
-                {{ $project['audited_hits'] }} (<span class="text-primary">{{ number_format($project['audit_percent'], 2) }}%</span>)
+                {{ number_format($project['audited_hits'], 0, '.', ',') }} (<span class="text-primary">{{ number_format($project['audit_percent'], 2, '.', ',') }}%</span>)
             </td>
             @endif
 

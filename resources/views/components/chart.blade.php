@@ -68,6 +68,8 @@
             key:       "58b50672-0aa2-4dd2-982c-412d99df04c4",
         };
 
+        let $videoSelection = $('#video-selection');
+
         let player = bitmovin.player("player");
         if (typeof player !== 'undefined') {
             player.setup(conf).then(function(value) {
@@ -79,9 +81,15 @@
             });
         }
 
-        $('#video-selection').on('change', function() {
+        $videoSelection.on('change', function() {
             let status = $(this).find(':selected').data('status');
-            let value = $(this).val();
+            let value = '';
+
+            if (status === 'live') {
+                value = $(this).val();
+            } else if (status === 'playback') {
+                value = $(this).find(':selected').data('playback');
+            }
 
             loadMPD(true, status, value);
         });
@@ -115,8 +123,14 @@
             player.load(source);
         }
 
-        let status = $('#video-selection').find(':selected').data('status');
-        let value  = $('#video-selection').val();
+        let status = $videoSelection.find(':selected').data('status');
+        let value  = '';
+
+        if (status === 'live') {
+            value = $videoSelection.val();
+        } else if (status === 'playback') {
+            value = $videoSelection.find(':selected').data('playback');
+        }
 
         loadMPD(true, status, value);
     </script>

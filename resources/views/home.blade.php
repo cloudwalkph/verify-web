@@ -48,7 +48,7 @@
                             <th>Active Runs</th>
                             <th>Completed Runs</th>
                             <th>Reported Hits</th>
-                            <th>Audited Hits</th>
+                            <th>Verified Hits</th>
                             <th>Status</th>
                         </tr>
                         </thead>

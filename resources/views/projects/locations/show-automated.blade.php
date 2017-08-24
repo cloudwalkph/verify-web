@@ -66,7 +66,9 @@
                                     <div class="content-body">
                                         <select name="videos" id="video-selection" class="form-control">
                                             @foreach ($videos as $key => $video)
-                                                <option value="{{ $video->name }}" data-status="{{ $video->status }}" {{ $key === 0 ? 'selected' : '' }}>{{ $video->alias }}</option>
+                                                <option value="{{ $video->name }}"
+                                                        data-playback="{{ $video->playback_name }}"
+                                                        data-status="{{ $video->status }}" {{ $key === 0 ? 'selected' : '' }}>{{ $video->alias }}</option>
                                             @endforeach
                                         </select>
                                         <div class="video-feed bmpui-flexbox" id="player">

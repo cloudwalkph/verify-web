@@ -35,3 +35,5 @@ Route::group(['prefix' => 'v1',
     Route::get('/ba/user-locations/{locationId}', 'BA\UserLocationController@self');
     Route::post('/ba/user-locations/{locationId}', 'BA\UserLocationController@saveLocation');
 });
+
+Route::post('v1/locations/{locationId}', 'BA\HitsController@createHit');

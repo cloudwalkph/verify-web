@@ -8,7 +8,7 @@
         <th>Target Hits</th>
         <th>Reported Hits</th>
         @if (Auth::user()->email !== 'domex@verify.com')
-        <th>Audited Hits</th>
+        <th>Verified Hits</th>
         @endif
         <th>Status</th>
     </tr>

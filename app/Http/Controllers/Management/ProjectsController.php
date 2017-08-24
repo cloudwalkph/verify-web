@@ -95,10 +95,13 @@ class ProjectsController extends Controller
                         continue;
                     }
 
+                    $video = $video ? $video : '';
+
                     $videoData = [
-                        'name'      => $video ? $video : '',
-                        'alias'     => isset($input['video_names'][$key]) ? $input['video_names'][$key] : '',
-                        'status'    => 'pending'
+                        'name'          => $video,
+                        'alias'         => isset($input['video_names'][$key]) ? $input['video_names'][$key] : '',
+                        'status'        => 'pending',
+                        'playback_name' => uniqid() .'-'.$video.'.mp4'
                     ];
 
                     $location->videos()->create($videoData);
@@ -192,6 +195,8 @@ class ProjectsController extends Controller
                 'reported_hits'     => $reported,
                 'audited_hits'      => $audited,
                 'audit_percent'     => $percentage,
+                'total_target_runs' => $project->total_target_runs,
+                'total_target_hits' => $project->total_target_hits,
                 'status'            => $project->status
             ];
         }

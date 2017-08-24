@@ -33,7 +33,7 @@
 
                     <li role="separator" class="divider"></li>
 
-                    <li><a href="#">Manage Vboxes</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#manageVbox">Manage Vboxes</a></li>
                     <li><a href="#" data-toggle="modal" data-target="#manageTeam">Manage Team</a></li>
                 </ul>
             </div>
@@ -118,6 +118,7 @@
     </div>
 
     @include('management.projects.locations.modals.manage-team')
+    @include('management.projects.locations.modals.manage-vbox')
     @include('management.projects.locations.modals.upload-gps')
     @include('management.projects.locations.modals.edit-location')
 @endsection
