@@ -58,6 +58,14 @@
                                     <h5>Event Date:</h5>
                                     <p class="text-primary">{{ count($location->hits) > 0 ? $location->hits[count($location->hits) - 1]->created_at->toFormattedDateString() : 'N/A' }}</p>
                                 </div>
+                                <div class="col-md-2" style="margin-top: 15px">
+                                    <h5><b>Reported Hits </b> </h5>
+                                    <p class="text-primary">{{ ($location->manual_hits > 0) ? $location->manual_hits : 'NA' }} </p>
+                                </div>
+                                <div class="col-md-2" style="margin-top: 15px">
+                                    <h5><b>Target Hits:</b> </h5>
+                                    <p class="text-primary">{{ ($location->target_hits > 0) ? $location->target_hits : 'NA' }}</p>
+                                </div>
 
                                 {{--<div class="col-md-4" style="margin-top: 15px">--}}
                                     {{--<h5>Achieve Sampling Target Hits:</h5>--}}
