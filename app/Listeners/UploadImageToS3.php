@@ -31,9 +31,14 @@ class UploadImageToS3 implements ShouldQueue
         if ($hit) {
             $file = \Storage::disk('local')->get($hit->image);
 
-            \Storage::disk('s3')->put($hit->image, $file, [
+            $s3 = \Storage::disk('s3')->put($hit->image, $file, [
                 'visibility' => 'public'
             ]);
+
+            // Remove locally
+            if ($s3) {
+                \Storage::disk('local')->delete($hit->image);
+            }
         }
     }
 }
