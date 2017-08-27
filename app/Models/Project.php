@@ -43,6 +43,6 @@ class Project extends Model
             ];
         }
 
-        return $brands;
+        return $result;
     }
 }
