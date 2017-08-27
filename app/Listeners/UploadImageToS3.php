@@ -27,8 +27,10 @@ class UploadImageToS3 implements ShouldQueue
     public function handle(NewHitCreatedSuccessfully $event)
     {
         $hit = $event->hit;
+
         if ($hit) {
             $file = \Storage::disk('local')->get($hit->image);
+
             \Storage::disk('s3')->put($hit->image, $file, [
                 'visibility' => 'public'
             ]);

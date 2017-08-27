@@ -64,7 +64,7 @@ class HitsController extends Controller {
 
         if ($newHit) {
             event(new NewHitCreated($hit));
-            event(new NewHitCreatedSuccessfully($hit));
+            event(new NewHitCreatedSuccessfully($newHit));
         }
 
         return response()->json($newHit, 200);
