@@ -47,10 +47,7 @@ class ProjectsController extends Controller
     {
         $project = Project::find($id);
 
-        $brands = json_decode($project->brands);
-        $brands = implode(',', $brands);
-
-        $project->brands = $brands;
+        $brands = implode(',', $project->brands);
 
         $locations = ProjectLocation::where('project_id', $project->id)->get();
         $locations = $this->parseLocations($locations);
@@ -62,7 +59,7 @@ class ProjectsController extends Controller
             'name'  => $client->profile->full_name
         ];
 
-        return view('management.projects.update', compact('client', 'project', 'locations'));
+        return view('management.projects.update', compact('client', 'project', 'locations', 'brands'));
     }
 
     public function update(CreateProjectRequest $request, $id)
