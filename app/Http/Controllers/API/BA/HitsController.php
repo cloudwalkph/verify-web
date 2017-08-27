@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\API\BA;
 
 use App\Events\NewHitCreated;
+use App\Events\NewHitCreatedSuccessfully;
 use App\Http\Controllers\Controller;
 use App\Models\Hit;
 use App\Models\Project;
@@ -33,7 +34,7 @@ class HitsController extends Controller {
         $file = $request->file('file');
         $filename = $file->getClientOriginalName();
         $path = $request->file('file')->storeAs('manual', $filename, [
-            'disk'  => 's3',
+            'disk'  => 'local',
             'visibility'   => 'public'
         ]);
 
@@ -63,6 +64,7 @@ class HitsController extends Controller {
 
         if ($newHit) {
             event(new NewHitCreated($hit));
+            event(new NewHitCreatedSuccessfully($hit));
         }
 
         return response()->json($newHit, 200);

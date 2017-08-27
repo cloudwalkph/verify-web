@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\NewFaceUploaded' => [
             'App\Listeners\ProcessFace',
         ],
+        'App\Events\NewHitCreatedSuccessfully' => [
+            'App\Listeners\UploadImageToS3'
+        ]
     ];
 
     /**
