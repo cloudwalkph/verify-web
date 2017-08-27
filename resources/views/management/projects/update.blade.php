@@ -383,7 +383,7 @@
                                            <div class="form-group">
                                                <label for="brands">Brands</label>
                                                <input type="text" id="brands" name="brands" class="form-control"
-                                                      value='{{ isset( $project->brands ) ? $project->brands : '' }}'/>
+                                                      value='{{ isset( $brands ) ? $brands : '' }}'/>
                                            </div>
                                        </div>
 
