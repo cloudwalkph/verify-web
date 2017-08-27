@@ -34,6 +34,15 @@ class Project extends Model
     }
 
     public function getBrandsAttribute($value) {
-        return json_decode($value);
+        $brands = json_decode($value);
+
+        $result = [];
+        foreach ($brands as $brand) {
+            $result[] = [
+                'name' => $brand
+            ];
+        }
+
+        return $brands;
     }
 }
