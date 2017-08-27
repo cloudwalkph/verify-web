@@ -47,7 +47,11 @@ class ProjectsController extends Controller
     {
         $project = Project::find($id);
 
-        $brands = implode(',', $project->brands);
+        $brands = '';
+        foreach ($project->brands as $brand) {
+            $brands .= $brand['name'] . ',';
+        }
+        $brands = trim($brands, ",");
 
         $locations = ProjectLocation::where('project_id', $project->id)->get();
         $locations = $this->parseLocations($locations);
