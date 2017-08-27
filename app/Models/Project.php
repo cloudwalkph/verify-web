@@ -32,4 +32,8 @@ class Project extends Model
     {
         return $this->belongsTo(ProjectShare::class, 'project_id');
     }
+
+    public function getBrandsAttribute($value) {
+        return json_decode($value);
+    }
 }
