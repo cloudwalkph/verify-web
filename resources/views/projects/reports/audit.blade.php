@@ -79,9 +79,17 @@
                             </div>
                             <div class="row">
 
-                                <div class="col-md-12">
+                                <div class="col-md-7">
                                     <h1>Verify Report</h1>
                                     <p>Shows data and info from each individual hit.</p>
+                                </div>
+                                <div class="col-md-2" style="margin-top: 25px">
+                                    <h5><b>Reported Hits </b> </h5>
+                                    <p class="text-primary">{{ ($location->manual_hits > 0) ? $location->manual_hits : 'NA' }} </p>
+                                </div>
+                                <div class="col-md-2" style="margin-top: 25px">
+                                    <h5><b>Target Hits:</b> </h5>
+                                    <p class="text-primary">{{ ($location->target_hits > 0) ? $location->target_hits : 'NA' }}</p>
                                 </div>
                             </div>
 
