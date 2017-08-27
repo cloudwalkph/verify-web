@@ -68,6 +68,12 @@
                 }
             });
 
+            $('#brands').selectize({
+                placeholder: 'Add Brands',
+                plugins: ['remove_button'],
+                create: true
+            });
+
             // Add Multiple videos
             $(document).on('click', '.add-video', function() {
                 let $el = $(this).parent()
@@ -373,7 +379,15 @@
                                            </div>
                                        </div>
 
-                                       <div class="col-md-12">
+                                       <div class="col-md-6">
+                                           <div class="form-group">
+                                               <label for="brands">Brands</label>
+                                               <input type="text" id="brands" name="brands" class="form-control"
+                                                      value='{{ isset( $project->brands ) ? $project->brands : '' }}'/>
+                                           </div>
+                                       </div>
+
+                                       <div class="col-md-6">
                                            <div class="form-group">
                                                <label for="status">Status</label>
                                                <select class="form-control" id="status" name="status">

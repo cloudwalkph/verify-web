@@ -31,6 +31,9 @@ class ProjectsController extends Controller
         $input = $request->all();
         $input['status'] = 'pending';
 
+        $brands = explode(',', $input['brands']);
+        $input['brands'] = json_encode($brands);
+
         $project = Project::create($input);
 
         if (! $project) {
@@ -43,6 +46,11 @@ class ProjectsController extends Controller
     public function edit($id)
     {
         $project = Project::find($id);
+
+        $brands = json_decode($project->brands);
+        $brands = implode(',', $brands);
+
+        $project->brands = $brands;
 
         $locations = ProjectLocation::where('project_id', $project->id)->get();
         $locations = $this->parseLocations($locations);
@@ -60,6 +68,9 @@ class ProjectsController extends Controller
     public function update(CreateProjectRequest $request, $id)
     {
         $input = $request->all();
+
+        $brands = explode(',', $input['brands']);
+        $input['brands'] = json_encode($brands);
 
         $project = Project::where('id', $id)->first();
         $project->update($input);

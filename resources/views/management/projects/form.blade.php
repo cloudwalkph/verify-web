@@ -18,6 +18,14 @@
                 </select>
             </div>
         </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="brands">Brands</label>
+                <input type="text" id="brands" name="brands" class="form-control"
+                       value='{{ isset( $project->brands ) ? $project->brands : '' }}'/>
+            </div>
+        </div>
     </div>
 
     <div class="col-sm-12" style="text-align: right;">

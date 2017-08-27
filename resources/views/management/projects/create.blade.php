@@ -31,6 +31,12 @@
 
                 }
             });
+
+            $('#brands').selectize({
+                placeholder: 'Add Brands',
+                plugins: ['remove_button'],
+                create: true
+            });
         });
     </script>
 @endsection
