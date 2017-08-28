@@ -26,4 +26,17 @@ class Hit extends Model
         return $this->orderBy('created_at', 'DESC')
             ->first();
     }
+
+    public function getBrandsAttribute($value) {
+        $brands = json_decode($value);
+
+        $result = [];
+        foreach ($brands as $brand) {
+            $result[] = [
+                'name' => $brand
+            ];
+        }
+
+        return $result;
+    }
 }
