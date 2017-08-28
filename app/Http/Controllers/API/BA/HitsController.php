@@ -40,6 +40,14 @@ class HitsController extends Controller {
 
         $hit['image'] = $path;
 
+        if (isset($input['brands'])) {
+            foreach ($input['brands'] as $brand) {
+                $hit['brands'][] = $brand['name'];
+            }
+
+            $hit['brands'] = json_encode($hit['brands']);
+        }
+
         $newHit = Hit::create($hit);
 
         // foreach ($input['answers'] as $answer) {
