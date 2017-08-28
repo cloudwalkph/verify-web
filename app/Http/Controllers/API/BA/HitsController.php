@@ -45,7 +45,7 @@ class HitsController extends Controller {
             $input['brands'] = json_decode($input['brands']);
 
             foreach ($input['brands'] as $brand) {
-                $hit['brands'][] = $brand['name'];
+                $hit['brands'][] = $brand->name;
             }
 
             $hit['brands'] = json_encode($hit['brands']);
