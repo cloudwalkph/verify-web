@@ -41,6 +41,9 @@ class HitsController extends Controller {
         $hit['image'] = $path;
 
         if (isset($input['brands'])) {
+            \Log::info($input['brands']);
+            $input['brands'] = json_decode($input['brands']);
+
             foreach ($input['brands'] as $brand) {
                 $hit['brands'][] = $brand['name'];
             }
