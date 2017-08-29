@@ -30,6 +30,10 @@ class Hit extends Model
     public function getBrandsAttribute($value) {
         $brands = json_decode($value);
 
+        if (! $brands) {
+            return [];
+        }
+
         $result = [];
         foreach ($brands as $brand) {
             $result[] = [
