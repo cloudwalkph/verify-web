@@ -468,6 +468,8 @@
                                             style="margin-top: 30px;">
                                         <i class="glyphicon glyphicon-plus"></i> Import Hits Update</button>
 
+                                    &nbsp;&nbsp;&nbsp;
+
 
                                     <button class="btn btn-primary pull-right"
                                             type="button"
