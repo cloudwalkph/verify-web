@@ -33,3 +33,12 @@
     </div>
 @endsection
 
+@section('scripts')
+    <script>
+        $( function() {
+            $( "#birthdate" ).datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+        } );
+    </script>
+@endsection
