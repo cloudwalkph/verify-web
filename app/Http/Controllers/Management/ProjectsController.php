@@ -144,6 +144,42 @@ class ProjectsController extends Controller
         return redirect()->back();
     }
 
+    public function updateHits(Request $request, $id) {
+        if (! $request->hasFile('hits_file')) {
+            $request->session()->flash('error', 'No file to upload');
+            return redirect()->back();
+        }
+
+        $results = \Excel::load($request->file('hits_file'), function($reader) use ($request, $id) {
+            // reader methods
+            $sheets = $reader->all();
+
+            $results = [];
+            foreach ($sheets->toArray() as $sheet) {
+                foreach ($sheet as $loc) {
+
+                    $locationId = $loc['id'];
+                    $location = ProjectLocation::where('id', $locationId)->first();
+
+                    if (! $location) {
+                        continue;
+                    }
+
+                    $location->update([
+                        'target_hits'   => $loc['target_hits'],
+                        'manual_hits'   => $loc['reported_hits']
+                    ]);
+
+                    $results[] = $location;
+                }
+            }
+
+            return $results;
+        });
+
+        return redirect()->back();
+    }
+
     private function parseLocations($locations)
     {
         $result = [];

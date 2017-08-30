@@ -463,6 +463,14 @@
                                 <div class="col-md-6">
                                     <button class="btn btn-primary pull-right"
                                             type="button"
+                                            data-target="#importHitsUpdate"
+                                            data-toggle="modal"
+                                            style="margin-top: 30px;">
+                                        <i class="glyphicon glyphicon-plus"></i> Import Hits Update</button>
+
+
+                                    <button class="btn btn-primary pull-right"
+                                            type="button"
                                             data-target="#addLocation"
                                             data-toggle="modal"
                                             style="margin-top: 30px;">
@@ -523,4 +531,5 @@
 
     @include('management.projects.add-location')
     @include('management.projects.delete')
+    @include('management.projects.import-hits-update')
 @endsection

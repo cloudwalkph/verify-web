@@ -50,6 +50,7 @@ Route::group(['prefix' => 'management', 'namespace' => 'Management'], function()
         Route::post('/create', 'ProjectsController@store');
         Route::get('/update/{id}', 'ProjectsController@edit');
         Route::post('/update/{id}', 'ProjectsController@update');
+        Route::post('/update/{id}/hits-update', 'ProjectsController@updateHits');
         Route::post('/update/{id}/locations', 'ProjectsController@createLocations');
 
         Route::get('/update/{id}/locations/{locationId}', 'ProjectLocationsController@show');
