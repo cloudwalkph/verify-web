@@ -166,8 +166,8 @@ class ProjectsController extends Controller
                     }
 
                     $location->update([
-                        'target_hits'   => $loc['target_hits'],
-                        'manual_hits'   => $loc['reported_hits']
+                        'target_hits'   => is_numeric($loc['target_hits']) ? $loc['target_hits'] : 0,
+                        'manual_hits'   => is_numeric($loc['reported_hits']) ? $loc['reported_hits'] : 0
                     ]);
 
                     $results[] = $location;
