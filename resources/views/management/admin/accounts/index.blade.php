@@ -3,7 +3,9 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('#users').DataTable();
+            $('#users').DataTable( {
+                "order": [[ 3, "desc" ]]
+            } );
         } );
     </script>
 @endsection
@@ -54,7 +56,7 @@
                                     <td>{{ $user->profile->first_name }} {{ $user->profile->last_name }}</td>
                                     <td>{{ $user->userGroup->name }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->created_at->toFormattedDateString() }}</td>
+                                    <td>{{ Carbon\Carbon::parse($user->created_at)->format('Y-m-d') }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

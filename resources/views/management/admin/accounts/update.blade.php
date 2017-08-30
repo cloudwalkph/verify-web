@@ -1,4 +1,4 @@
-@extends('layouts.app') 
+@extends('layouts.management')
 
 @section('content')
 
@@ -8,10 +8,6 @@
             <h2 style="color: #fff">
                 Edit Account
             </h2>
-        </div>
-
-        <div class="info-body">
-            <button class="btn btn-primary" data-target="#importModal" data-toggle="modal">Upload GPS Data</button>
         </div>
     </div>
 
@@ -62,3 +58,12 @@
     </div>
 @endsection
 
+@section('scripts')
+    <script>
+        $( function() {
+            $( "#birthdate" ).datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+        } );
+    </script>
+@endsection

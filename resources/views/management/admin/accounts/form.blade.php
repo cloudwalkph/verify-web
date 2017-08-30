@@ -31,13 +31,6 @@
     <div class="col-md-12">
         <div class="col-md-4">
             <div class="form-group">
-                <label for="profile[birthdate]">Birthdate</label>
-                <input type="date" class="form-control" name="profile[birthdate]" id="birthdate" 
-                    value='{{ isset( $user->profile['birthdate'] ) ? $user->profile['birthdate'] : "" }}' placeholder="Birthdate">
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
                 <label for="profile[gender]">Gender</label>
                 <select class="form-control" name="profile[gender]">
                     <option value="male">Male</option>
@@ -53,6 +46,13 @@
                         <option value="{{$g->id}}">{{ ucwords($g->name) }}</option>
                     @endforeach
                 </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="profile[birthdate]">Birthdate</label>
+                <input type="text" class="form-control" name="profile[birthdate]" id="birthdate"
+                       value='{{ isset( $user->profile['birthdate'] ) ? $user->profile['birthdate'] : "" }}' placeholder="Birthdate">
             </div>
         </div>
     </div>
@@ -106,7 +106,7 @@
     </div>
 
     <div class="col-sm-12" style="text-align: right;">
-        <a href="/management/profile" class="btn btn-danger" style="width: 200px">Cancel</a>
+        <a href="/management/users" class="btn btn-danger" style="width: 200px">Cancel</a>
         <button type="submit" class="btn btn-success" style="width: 200px">Save</button>
     </div>
 
