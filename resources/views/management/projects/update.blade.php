@@ -466,7 +466,7 @@
                                             data-target="#importHitsUpdate"
                                             data-toggle="modal"
                                             style="margin-top: 30px;">
-                                        <i class="glyphicon glyphicon-plus"></i> Import Hits Update</button>
+                                        <i class="glyphicon glyphicon-upload"></i> Import Hits Update</button>
 
                                     &nbsp;&nbsp;&nbsp;
 
