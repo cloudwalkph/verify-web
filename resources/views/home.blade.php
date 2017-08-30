@@ -41,48 +41,51 @@
                         </p>
                     </legend>
 
-                    <table class="table table-hover projects-table">
-                        <thead>
-                        <tr>
-                            <th>Project Name</th>
-                            <th>Active Runs</th>
-                            <th>Completed Runs</th>
-                            <th>Reported Hits</th>
-                            <th>Verified Hits</th>
-                            <th>Status</th>
-                        </tr>
-                        </thead>
+                    @component('components.projects', ['projects' => $sharedProjects])
+                    @endcomponent
 
-                        <tbody>
-                        @foreach ($sharedProjects as $sharedProject)
-                            <tr class="clickable" data-uri="/projects/{{ $sharedProject->project->id }}">
-                                <td>
-                                    <strong>{{ $sharedProject->project->name }}</strong>
-                                </td>
+                    {{--<table class="table table-hover projects-table">--}}
+                        {{--<thead>--}}
+                        {{--<tr>--}}
+                            {{--<th>Project Name</th>--}}
+                            {{--<th>Active Runs</th>--}}
+                            {{--<th>Completed Runs</th>--}}
+                            {{--<th>Reported Hits</th>--}}
+                            {{--<th>Verified Hits</th>--}}
+                            {{--<th>Status</th>--}}
+                        {{--</tr>--}}
+                        {{--</thead>--}}
 
-                                <td>
-                                    {{ $sharedProject->project->locations()->onGoing()->count() }} / {{ $sharedProject->project->locations()->total() }}
-                                </td>
+                        {{--<tbody>--}}
+                        {{--@foreach ($sharedProjects as $sharedProject)--}}
+                            {{--<tr class="clickable" data-uri="/projects/{{ $sharedProject->project->id }}">--}}
+                                {{--<td>--}}
+                                    {{--<strong>{{ $sharedProject->project->name }}</strong>--}}
+                                {{--</td>--}}
 
-                                <td>
-                                    {{ $sharedProject->project->locations()->completed()->count() }} / {{ $sharedProject->project->locations()->total() }}
-                                </td>
+                                {{--<td>--}}
+                                    {{--{{ $sharedProject->project->locations()->onGoing()->count() }} / {{ $sharedProject->project->locations()->total() }}--}}
+                                {{--</td>--}}
 
-                                <td>
-                                    Reported
-                                </td>
+                                {{--<td>--}}
+                                    {{--{{ $sharedProject->project->locations()->completed()->count() }} / {{ $sharedProject->project->locations()->total() }}--}}
+                                {{--</td>--}}
 
-                                <td>
-                                    Audited Hits
-                                </td>
+                                {{--<td>--}}
+                                    {{--Reported--}}
+                                {{--</td>--}}
 
-                                <td>
-                                    {{ ucwords($sharedProject->project->status) }}
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                                {{--<td>--}}
+                                    {{--Audited Hits--}}
+                                {{--</td>--}}
+
+                                {{--<td>--}}
+                                    {{--{{ ucwords($sharedProject->project->status) }}--}}
+                                {{--</td>--}}
+                            {{--</tr>--}}
+                        {{--@endforeach--}}
+                        {{--</tbody>--}}
+                    {{--</table>--}}
 
                 </div>
             </div>
