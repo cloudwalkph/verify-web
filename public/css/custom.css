@@ -19,6 +19,19 @@
     color: #B4B4B4;
 }
 
+.btn-red {
+    color: #fff;
+    background-color: #ef5350;
+    border-color: #ef5350;
+}
+
+.btn-red.btn:hover, .btn-red.btn:focus, .btn-red.btn.focus {
+    color: #fff;
+    background-color: #c62828;
+    border-color: #c62828;
+    text-decoration: none;
+}
+
 .black-description {
     background: #484A48;
     width: 100%;

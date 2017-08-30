@@ -235,4 +235,11 @@ class ProjectLocationsController extends Controller
 
         return redirect()->back();
     }
+
+    public function destroy($projectId, $locationId)
+    {
+        ProjectLocation::find($locationId)->delete();
+
+        return redirect()->back();
+    }
 }

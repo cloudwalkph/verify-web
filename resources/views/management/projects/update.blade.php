@@ -3,9 +3,35 @@
 @section('scripts')
     <script>
         $(function() {
-            $('.locations-table').DataTable( {
+            var table = $('.locations-table').DataTable( {
                 "order": [[ 0, "desc" ]]
             } );
+
+            var locationId;
+            var projectId;
+            var $that;
+
+            $(document).on('click', '.deleteLocation', function(e){
+                locationId = $(this).attr('data-item');
+                projectId = $(this).attr('data-project-id');
+                $that = $(this);
+            });
+
+            $('.deleteConfirmation').on('click', function(e){
+                console.log(locationId);
+                if (locationId) {
+                    var data = {
+                        '_method': 'DELETE',
+                        '_token': '{{ csrf_token() }}'
+                    };
+
+                    $.post('/management/projects/update/'+ projectId +'/locations/'+ locationId, data, function(res){
+                        console.log(res);
+                        var rowSelected = $that.parent().parent();
+                        table.row(rowSelected).remove().draw();
+                    });
+                }
+            });
 
             // clients selectize
             $('#user_id').selectize({
@@ -458,21 +484,31 @@
                                         <th>Reported Hits</th>
                                         <th>Audited Hits</th>
                                         <th>Status</th>
+                                        <th style="text-align: center">Action</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     @foreach ($locations as $location)
-                                        <tr class="clickable" data-uri="/management/projects/update/{{ $project['id'] }}/locations/{{ $location['id'] }}">
+                                        <tr>
                                             <td>{{ $location['date'] }}</td>
                                             <th>{{ $location['project_type'] }}</th>
-                                            <td style="max-width: 250px">{{ $location['name'] }}</td>
+                                            <td style="max-width: 250px"
+                                                class="clickable" data-uri="/management/projects/update/{{ $project['id'] }}/locations/{{ $location['id'] }}">
+                                                {{ $location['name'] }}
+                                            </td>
                                             <td>{{ $location['services'] }}</td>
                                             <td>{{ $location['vboxes'] }}</td>
                                             <td>{{ $location['target_hits'] }}</td>
                                             <td>{{ $location['reported_hits'] }}</td>
                                             <td>{{ $location['audited_hits'] }} (<span class="text-primary">{{ number_format($location['audit_percent'], 2) }}</span>%)</td>
                                             <td>{{ $location['status'] }}</td>
+                                            <td style="text-align: center">
+                                                <button class="btn btn-red deleteLocation" data-toggle="modal" data-project-id="{{ $project['id'] }}"
+                                                        data-target="#deleteModal" data-item="{{ $location['id'] }}">
+                                                    <i class="fa fa-remove fa-2x"></i>
+                                                </button>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -486,4 +522,5 @@
     </div>
 
     @include('management.projects.add-location')
+    @include('management.projects.delete')
 @endsection
