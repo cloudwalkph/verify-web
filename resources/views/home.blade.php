@@ -41,7 +41,7 @@
                         </p>
                     </legend>
 
-                    @component('components.projects', ['projects' => $sharedProjects])
+                    @component('components.projects', ['projects' => $shared])
                     @endcomponent
 
                     {{--<table class="table table-hover projects-table">--}}

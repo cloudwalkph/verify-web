@@ -36,7 +36,14 @@ class HomeController extends Controller
             ->where('user_id', $user->id)
             ->get();
 
-        return view('home', compact('projects', 'sharedProjects'));
+        $shared = [];
+        foreach ($sharedProjects as $sharedProject) {
+            $shared[] = $sharedProject->project;
+        }
+
+        $shared = $this->parseProjects($shared);
+
+        return view('home', compact('projects', 'shared'));
     }
 
     private function parseProjects($projects)
