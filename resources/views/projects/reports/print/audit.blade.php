@@ -83,7 +83,7 @@
                             <th>Age Group</th>
                             <th>Gender</th>
                         </tr>
-                    @if (Auth::user()->email === 'domex@verify.com')
+                    @if (Auth::user()->email !== 'domex@verify.com')
                         @foreach($hits as $hit)
                             <tr>
                                 <td><img class="hits-image" src="{{ $hit->image ? Storage::drive('s3')->url($hit->image) : get_placeholder() }}" onerror="this.onerror=null;this.src='{{ get_placeholder() }}';" height="50" width="50" class="img-circle" alt=""></td>

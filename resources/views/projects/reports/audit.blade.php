@@ -94,7 +94,7 @@
                             </div>
 
                             <div class="row">
-                                @if (Auth::user()->email === 'domex@verify.com')
+                                @if (Auth::user()->email !== 'domex@verify.com')
                                    @foreach($hits as $hit)
                                     <div class="col-md-4 col-sm-6" style="margin: 50px 0">
                                         <div class="col-md-6 col-sm-4 text-center hits-image-container">
