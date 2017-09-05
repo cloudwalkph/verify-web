@@ -20,6 +20,20 @@ class HitsController extends Controller {
             return response()->json(['no image provided'], 400);
         }
 
+        // Check duplicate
+        $file = $request->file('file');
+        $filename = $file->getClientOriginalName();
+
+        $duplicate = Hit::where('image', 'manual/'.$filename)
+            ->where('project_location_id', $locationId)
+            ->where('user_id', $request->user()->id)
+            ->where('auto', 0)
+            ->first();
+
+        if ($duplicate) {
+            return response()->json(['already synced'], 400);
+        }
+
         $hit = [
             'user_id'               => $request->user()->id,
             'project_location_id'   => $locationId,
@@ -31,8 +45,6 @@ class HitsController extends Controller {
             'location'              => isset($input['location']) ? json_encode($input['location']) : null
         ];
 
-        $file = $request->file('file');
-        $filename = $file->getClientOriginalName();
         $path = $request->file('file')->storeAs('manual', $filename, [
             'disk'  => 'local',
             'visibility'   => 'public'
