@@ -33,6 +33,14 @@ class ProjectsController extends Controller
 
         $brands = explode(',', $input['brands']);
         $input['brands'] = json_encode($brands);
+        $input['target_runs'] = 0;
+        $input['total_target_runs'] = 0;
+        $input['total_target_hits'] = 0;
+
+        if (! isset($input['brands'])) {
+            $input['brands'] = 0;
+        }
+
 
         $project = Project::create($input);
 
