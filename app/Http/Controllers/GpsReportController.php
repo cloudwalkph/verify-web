@@ -36,6 +36,7 @@ class GpsReportController extends Controller
 
         $location = ProjectLocation::where('id', $locationId)
             ->first();
+        $firstUser = $location->users()->first();
 
         $project = Project::find($projectId);
         $hits = Hit::with('answers')
@@ -46,7 +47,7 @@ class GpsReportController extends Controller
 
         $startDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(6)->toDateTimeString();
         $endDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(19)->toDateTimeString();
-        $locations = $this->getLocationsPerHour($startDate, $endDate, $location);
+        $locations = $this->getLocationsPerHour($firstUser, $startDate, $endDate, $location);
 
         return view('projects.reports.gps', compact('location', 'locations', 'project', 'hits', 'answers'));
     }
@@ -83,11 +84,12 @@ class GpsReportController extends Controller
     public function preview(Request $request, $projectId, $locationId)
     {
         $location = ProjectLocation::where('id', $locationId)->first();
+        $firstUser = $location->users()->first();
 
         $startDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(6)->toDateTimeString();
         $endDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(19)->toDateTimeString();
 
-        $locations = $this->getLocationsPerHour($startDate, $endDate, $location);
+        $locations = $this->getLocationsPerHour($firstUser, $startDate, $endDate, $location);
 
         $project = Project::find($projectId);
         $hits = Hit::with('answers')
@@ -99,9 +101,11 @@ class GpsReportController extends Controller
         return view('projects.reports.print.gps', compact('location', 'hits', 'answers', 'project', 'locations', 'startDate'));
     }
 
-    private function getLocationsPerHour($startDate, $endDate, $projectLocation)
+    private function getLocationsPerHour($firstUser, $startDate, $endDate, $projectLocation)
     {
-        $locations = UserLocation::where('project_location_id', $projectLocation->id)
+        $locations = UserLocation::where('created_at', '>=', $startDate)
+            ->where('created_at', '<=', $endDate)
+            ->where('user_id', $firstUser->id)
             ->get()
             ->groupBy(function($d) {
                 return Carbon::parse($d->created_at)->format('Y-m-d H');
@@ -111,11 +115,11 @@ class GpsReportController extends Controller
 
         $result = [];
         foreach ($locations as $location) {
-            $distance = $this->haversineGreatCircleDistance($location[0]->lat, $location[0]->lng, $to[0], $to[1]) / 1000;
-
-            if ($distance > 1.5) {
-                continue;
-            }
+//            $distance = $this->haversineGreatCircleDistance($location[0]->lat, $location[0]->lng, $to[0], $to[1]) / 1000;
+//
+//            if ($distance > 1.5) {
+//                continue;
+//            }
 
             // Reverse geocoding
             $address = app('geocoder')

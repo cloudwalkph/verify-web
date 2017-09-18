@@ -173,22 +173,26 @@ class ProjectLocationsController extends Controller
     public function getGPSData(Request $request, $projectId, $locationId)
     {
         $location = ProjectLocation::where('id', $locationId)->first();
+        $firstUser = $location->users()->first();
+
         $to = json_decode($location->target_location);
 
         $startDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(6)->toDateTimeString();
         $endDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(19)->toDateTimeString();
 
-        $locations = UserLocation::where('project_location_id', $locationId)
+        $locations = UserLocation::where('created_at', '>=', $startDate)
+            ->where('created_at', '<=', $endDate)
+            ->where('user_id', $firstUser->id)
             ->orderBy('created_at', 'ASC')
             ->get();
 
         $result = [];
         foreach ($locations as $userLoc) {
-            $distance = $this->haversineGreatCircleDistance($userLoc->lat, $userLoc->lng, $to[0], $to[1]) / 1000;
-
-            if ($distance > 1.5) {
-                continue;
-            }
+//            $distance = $this->haversineGreatCircleDistance($userLoc->lat, $userLoc->lng, $to[0], $to[1]) / 1000;
+//
+//            if ($distance > 1.5) {
+//                continue;
+//            }
 
             $result[] = $userLoc;
         }
