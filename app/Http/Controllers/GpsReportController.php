@@ -106,6 +106,7 @@ class GpsReportController extends Controller
         $locations = UserLocation::where('created_at', '>=', $startDate)
             ->where('created_at', '<=', $endDate)
             ->where('user_id', $firstUser->id)
+            ->orderBy('created_at', 'ASC')
             ->get()
             ->groupBy(function($d) {
                 return Carbon::parse($d->created_at)->format('Y-m-d H');
