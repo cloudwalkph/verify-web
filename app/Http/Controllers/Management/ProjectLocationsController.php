@@ -178,7 +178,7 @@ class ProjectLocationsController extends Controller
         $to = json_decode($location->target_location);
 
         $startDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(6)->toDateTimeString();
-        $endDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(19)->toDateTimeString();
+        $endDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(24)->toDateTimeString();
 
         $locations = UserLocation::where('created_at', '>=', $startDate)
             ->where('created_at', '<=', $endDate)
