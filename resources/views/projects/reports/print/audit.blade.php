@@ -76,7 +76,7 @@
                 <table class="table table-hover">
                     <tbody>
                         <tr>
-                            <th class="hide">Image</th>
+                            <th>Image</th>
                             <th>Name</th>
                             <th>Email Address</th>
                             <th>Contact Number</th>

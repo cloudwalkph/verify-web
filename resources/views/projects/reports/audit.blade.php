@@ -147,13 +147,14 @@
                 var printWindow = window.open(location.protocol + '//' + location.host + location.pathname+'/preview');
 
                 var printAndClose = function () {
-                    if (printWindow.document.readyState == 'complete') {
-                        clearInterval(sched);
-                        printWindow.print();
-                        printWindow.close();
-                    }
-                }
-
+                    printWindow.document.onreadystatechange = function () {
+                        if (printWindow.document.readyState == "complete") {
+                            clearInterval(sched);
+                            printWindow.print();
+                            printWindow.close();
+                        }
+                    };
+                };
                 var sched = setInterval(printAndClose, 1000);
             }
             jQuery(document).ready(function ($) {
