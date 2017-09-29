@@ -407,6 +407,22 @@
 
                                        <div class="col-md-6">
                                            <div class="form-group">
+                                               <label for="target_runs">Target Runs</label>
+                                               <input type="text" id="target_runs" name="total_target_runs" class="form-control"
+                                                      value='{{ $project->total_target_runs }}'/>
+                                           </div>
+                                       </div>
+
+                                       <div class="col-md-6">
+                                           <div class="form-group">
+                                               <label for="target_hits">Target Hits</label>
+                                               <input type="text" id="target_hits" name="total_target_hits" class="form-control"
+                                                      value='{{ $project->total_target_hits }}'/>
+                                           </div>
+                                       </div>
+
+                                       <div class="col-md-6">
+                                           <div class="form-group">
                                                <label for="brands">Brands</label>
                                                <input type="text" id="brands" name="brands" class="form-control"
                                                       value='{{ isset( $brands ) ? $brands : '' }}'/>
@@ -433,21 +449,7 @@
                                            </div>
                                        </div>
 
-                                       <div class="col-md-6">
-                                           <div class="form-group">
-                                               <label for="target_runs">Target Runs</label>
-                                               <input type="text" id="target_runs" name="total_target_runs" class="form-control"
-                                                      value='{{ $project->total_target_runs }}'/>
-                                           </div>
-                                       </div>
 
-                                       <div class="col-md-6">
-                                           <div class="form-group">
-                                               <label for="target_hits">Target Hits</label>
-                                               <input type="text" id="target_hits" name="total_target_hits" class="form-control"
-                                                      value='{{ $project->total_target_hits }}'/>
-                                           </div>
-                                       </div>
                                    </div>
 
                                    <div class="col-sm-12" style="text-align: right;">
