@@ -413,6 +413,7 @@
                                            </div>
                                        </div>
 
+
                                        <div class="col-md-6">
                                            <div class="form-group">
                                                <label for="status">Status</label>
@@ -429,6 +430,22 @@
                                                        Cancelled
                                                    </option>
                                                </select>
+                                           </div>
+                                       </div>
+
+                                       <div class="col-md-6">
+                                           <div class="form-group">
+                                               <label for="brands">Target Runs</label>
+                                               <input type="text" id="brands" name="total_target_runs" class="form-control"
+                                                      value='{{ $project->total_target_runs }}'/>
+                                           </div>
+                                       </div>
+
+                                       <div class="col-md-6">
+                                           <div class="form-group">
+                                               <label for="brands">Target Hits</label>
+                                               <input type="text" id="brands" name="total_target_hits" class="form-control"
+                                                      value='{{ $project->total_target_hits }}'/>
                                            </div>
                                        </div>
                                    </div>
