@@ -152,7 +152,7 @@ class ProjectLocationsController extends Controller
             $timestamp = $request->has('hit_timestamp') ? $request->get('hit_timestamp') : Carbon::today()->toDateTimeString();
 
             // Queue the image processing
-//            event(new NewFaceUploaded($path, $locationId, $timestamp, $user->id));
+            event(new NewFaceUploaded($path, $locationId, $timestamp, $user->id));
 
             return response()->json('success', 200);
         }
