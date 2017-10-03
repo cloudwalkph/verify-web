@@ -11,11 +11,27 @@
                        value='{{ isset( $project->name ) ? $project->name : old('name') }}'>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" style="margin-bottom: 20px">
             <div class="control-group">
                 <label for="user_id">Client Name</label>
                 <select class="form-control" id="user_id" name="user_id">
                 </select>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="target_runs">Target Runs</label>
+                <input type="number" id="target_runs"
+                       name="total_target_runs" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="target_hits">Target Hits</label>
+                <input type="number" id="target_hits"
+                       name="total_target_hits" class="form-control"/>
             </div>
         </div>
 
