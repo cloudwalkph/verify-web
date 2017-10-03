@@ -153,5 +153,43 @@
                 })
             }
         };
+
+        $('#bas').selectize({
+            placeholder: 'Select brand ambassadors',
+            valueField: 'id',
+            labelField: 'name',
+            searchField: 'name',
+            plugins: ['remove_button'],
+            create: false,
+            render: {
+                option: function(item, escape) {
+                    return '<div>' +
+                        '<span class="title">' +
+                        '<span>' + escape(item.name) + '</span>' +
+                        '</span>' +
+                        '</div>';
+                }
+            },
+            load: function(query, callback) {
+                if (!query.length) return callback();
+
+                let url = '/management/users/json?group=3&q=' + encodeURIComponent(query);
+
+                axios.get(url).then((response) => {
+                    callback(response.data);
+                }).catch((err) => {
+                    callback();
+                });
+
+            }
+        });
+
+        let $bas = $('#bas').selectize();
+        let selectize = $bas[0].selectize;
+        @foreach ($location->users as $user)
+            selectize.addOption({ id: '{{ $user->id }}', name: '{{ $user->profile->full_name }}' });
+            selectize.addItem('{{ $user->id }}');
+            {{--$bas.addItem({{ json_encode(['id' => $user->id, 'name' => $user->profile->full_name ]) }});--}}
+        @endforeach
     </script>
 @endsection
