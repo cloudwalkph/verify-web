@@ -37,10 +37,12 @@ class Project extends Model
         $brands = json_decode($value);
 
         $result = [];
-        foreach ($brands as $brand) {
-            $result[] = [
-                'name' => $brand
-            ];
+        if ($brands) {
+            foreach ($brands as $brand) {
+                $result[] = [
+                    'name' => $brand
+                ];
+            }
         }
 
         return $result;
