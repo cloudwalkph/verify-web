@@ -77,13 +77,6 @@ class ProjectsController extends Controller
         return view('management.projects.update', compact('client', 'project', 'locations', 'brands', 'shared'));
     }
 
-    public function destroyClient($projectId, $shareId)
-    {
-        ProjectShare::find($shareId)->delete();
-
-        return redirect()->back();
-    }
-
     public function update(CreateProjectRequest $request, $id)
     {
         $input = $request->all();
@@ -209,7 +202,7 @@ class ProjectsController extends Controller
                 'user_id'       => $input['user_id']
             ];
 
-            $result = ProjectShare::create($data);
+            $result = ProjectShare::firstOrCreate($data);
 
         });
 
@@ -219,6 +212,13 @@ class ProjectsController extends Controller
         }
 
         $request->session()->flash('status', 'Successfully added client');
+
+        return redirect()->back();
+    }
+
+    public function destroyClient($projectId, $shareId)
+    {
+        ProjectShare::find($shareId)->delete();
 
         return redirect()->back();
     }
