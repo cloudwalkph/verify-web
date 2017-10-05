@@ -1,7 +1,7 @@
 <div class="modal fade" id="manageTeam" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" style="width: 80%" role="document">
         <div class="modal-content">
-            <form action="/management/projects/update/{{ $location->project_id }}/locations/{{ $location->id }}/update-team">
+            <form action="/management/projects/update/{{ $location->project_id }}/locations/{{ $location->id }}/update-team" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Manage Team</h4>

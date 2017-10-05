@@ -240,6 +240,19 @@ class ProjectLocationsController extends Controller
         return redirect()->back();
     }
 
+    public function updateTeam(Request $request, $projectId, $locationId)
+    {
+        $input = $request->all();
+        $bas = explode(',', $input['bas']);
+
+        $location = ProjectLocation::where('id', $locationId)->first();
+        $location->users()->detach();
+        $location->users()->attach($bas);
+
+
+        dd($bas);
+    }
+
     public function destroy($projectId, $locationId)
     {
         ProjectLocation::find($locationId)->delete();

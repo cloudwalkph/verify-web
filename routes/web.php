@@ -61,6 +61,7 @@ Route::group(['prefix' => 'management', 'namespace' => 'Management'], function()
         Route::post('/update/{id}/locations/{locationId}/gps', 'ProjectLocationsController@importGPSData');
         Route::get('/{id}/locations/{locationId}/gps', 'ProjectLocationsController@getGPSData');
         Route::post('/update/{id}/locations/{locationId}/update', 'ProjectLocationsController@update');
+        Route::post('/update/{id}/locations/{locationId}/update-team', 'ProjectLocationsController@updateTeam');
     });
 
     Route::group(['prefix' => 'profile'], function () {
