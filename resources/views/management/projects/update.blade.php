@@ -8,6 +8,7 @@
             } );
 
             var locationId;
+            var shareId;
             var projectId;
             var $that;
 
@@ -15,6 +16,28 @@
                 locationId = $(this).attr('data-item');
                 projectId = $(this).attr('data-project-id');
                 $that = $(this);
+            });
+
+            $(document).on('click', '.deleteClient', function(e){
+                shareId = $(this).attr('data-item');
+                projectId = $(this).attr('data-project-id');
+                $that = $(this);
+            });
+
+            $('.deleteClientConfirmation').on('click', function(e){
+                console.log(shareId);
+                if (shareId) {
+                    var data = {
+                        '_method': 'DELETE',
+                        '_token': '{{ csrf_token() }}'
+                    };
+
+                    $.post('/management/projects/update/'+ projectId +'/clients/'+ shareId, data, function(res){
+                        console.log(res);
+                        var rowSelected = $that.parent().parent();
+                        table.row(rowSelected).remove().draw();
+                    });
+                }
             });
 
             $('.deleteConfirmation').on('click', function(e){
@@ -59,6 +82,36 @@
                     }).catch((err) => {
                         callback();
                     });
+
+                }
+            });
+
+            // add client selectize
+            $('#client_id').selectize({
+                placeholder: 'Select a client user',
+                valueField: 'id',
+                labelField: 'name',
+                searchField: 'name',
+                create: false,
+                render: {
+                    option: function(item, escape) {
+                        return '<div>' +
+                            '<span class="title">' +
+                            '<span>' + escape(item.name) + '</span>' +
+                            '</span>' +
+                            '</div>';
+                    }
+                },
+                load: function(query, callback) {
+                    if (!query.length) return callback();
+
+                    let url = '/management/users/json?group=2&q=' + encodeURIComponent(query);
+
+                    axios.get(url).then((response) => {
+                        callback(response.data);
+                }).catch((err) => {
+                        callback();
+                });
 
                 }
             });
@@ -476,6 +529,62 @@
                         <div class="content">
                             <div class="row">
                                 <div class="col-md-6">
+                                    <h1>Share Project To:</h1>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-primary pull-right"
+                                            type="button"
+                                            data-target="#addClientToProject"
+                                            data-toggle="modal"
+                                            style="margin-top: 30px;">
+                                        <i class="glyphicon glyphicon-plus"></i> Add Client</button>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <table class="table table-bordered locations-table">
+                                <thead>
+                                <tr>
+                                    <th>Client Name</th>
+                                    <th>Date Added</th>
+                                    <th style="text-align: center">Action</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                @foreach ($shared as $client)
+                                    <tr>
+                                        <td>{{ $client->user->profile->first_name }} {{ $client->user->profile->last_name }}</td>
+                                        <td>{{ $client->created_at }}</td>
+                                        <td style="text-align: center">
+                                            <button class="btn btn-red deleteClient" data-toggle="modal" data-project-id="{{ $project['id'] }}"
+                                                    data-target="#deleteClientModal" data-item="{{ $client['id'] }}">
+                                                <i class="fa fa-remove fa-2x"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <div class="content">
+                            <div class="row">
+                                <div class="col-md-6">
                                     <h1>Project Locations</h1>
                                 </div>
 
@@ -550,7 +659,9 @@
         </div>
     </div>
 
+    @include('management.projects.add-client')
     @include('management.projects.add-location')
     @include('management.projects.delete')
+    @include('management.projects.deleteClient')
     @include('management.projects.import-hits-update')
 @endsection
