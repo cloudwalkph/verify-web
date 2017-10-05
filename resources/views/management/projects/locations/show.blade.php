@@ -132,6 +132,37 @@
                 let userId = $(this).data('user');
                 $('#userId').val(userId);
             });
+
+            // Add Multiple videos
+            $(document).on('click', '.add-video', function() {
+                let $el = $(this).parent()
+                    .parent()
+                    .parent()
+                    .clone();
+
+                $el.find('.input-field').val('');
+
+                let $parent = $(this).parent()
+                    .parent()
+                    .parent()
+                    .parent();
+
+                $parent.append($el);
+
+                $(this).html('<i class="glyphicon glyphicon-remove"></i>')
+                    .removeClass('btn-default')
+                    .removeClass('add-video')
+                    .addClass('btn-danger')
+                    .addClass('remove-video');
+            });
+
+            // Remove video
+            $(document).on('click', '.remove-video', function() {
+                $(this).parent()
+                    .parent()
+                    .parent()
+                    .remove();
+            });
         })
     </script>
 

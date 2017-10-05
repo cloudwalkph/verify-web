@@ -233,9 +233,57 @@ class ProjectLocationsController extends Controller
     public function update(Request $request, $projectId, $locationId)
     {
         $input = $request->all();
-        $location = ProjectLocation::where('id', $locationId)->first();
 
-        $location = $location->update($input);
+        $location = \DB::transaction(function() use ($input, $locationId) {
+
+            $location = ProjectLocation::where('id', $locationId)->first();
+            $input['services'] = json_encode($input['services']);
+
+            // Videos
+            if (isset($input['assigned_raspberries']) && count($input['assigned_raspberries']) > 0) {
+
+                $videos = Video::where('project_location_id', $locationId)->get();
+                Video::where('project_location_id')->delete();
+
+                foreach ($input['assigned_raspberries'] as $key => $video) {
+                    if (! $video) {
+                        continue;
+                    }
+
+                    $video = $video ? $video : '';
+
+                    $checkVideo = $videos->filter(function ($value, $key) use ($video) {
+                        return $value->name === $video;
+                    })->first();
+
+                    $videoData = [
+                        'name'          => $video,
+                        'alias'         => isset($input['video_names'][$key]) ? $input['video_names'][$key] : '',
+                        'status'        => isset($input['video_status'][$key]) ? $input['video_status'][$key] : 'pending',
+                        'playback_name' => $checkVideo ? $checkVideo->playback_name : uniqid() .'-'.$video.'.mp4'
+                    ];
+
+                    if ($checkVideo) {
+                        $checkVideo->update($videoData);
+
+                        continue;
+                    }
+
+                    $location->videos()->create($videoData);
+                }
+            }
+
+            unset($input['assigned_raspberries']);
+            unset($input['video_names']);
+            unset($input['video_status']);
+
+            $location->update($input);
+
+            return $location;
+
+        });
+
+
 
         return redirect()->back();
     }
@@ -250,7 +298,7 @@ class ProjectLocationsController extends Controller
         $location->users()->attach($bas);
 
 
-        dd($bas);
+        return redirect()->back();
     }
 
     public function destroy($projectId, $locationId)

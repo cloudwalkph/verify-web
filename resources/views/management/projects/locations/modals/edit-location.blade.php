@@ -74,6 +74,112 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-md-12 videos">
+                            @foreach ($videos as $video)
+                                <div class="video-item">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="assigned_raspberry">Assigned VBox (For livestreaming)</label>
+                                            <select class="form-control input-field" id="assigned_raspberry" name="assigned_raspberries[]" id="assigned_raspberry" >
+                                                <option value="" selected>No livestreaming</option>
+                                                @for($i = 1; $i <= 25; $i++)
+                                                    <option value="raspi-{{$i}}" {{ "raspi-{$i}" === $video->name ? 'selected' : '' }}>V-BOX {{$i}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="video_name">Video Name</label>
+                                            <input type="text" class="form-control input-field" id="video_name" name="video_names[]"
+                                                   value="{{ $video->alias }}" placeholder="Video Name">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="video_name">Status</label>
+                                            <select name="video_status[]" class="form-control input-field">
+                                                <option value="pending" {{ "pending" === $video->status ? 'selected' : '' }}>Pending</option>
+                                                <option value="live" {{ "live" === $video->status ? 'selected' : '' }}>Live</option>
+                                                <option value="playback" {{ "playback" === $video->status ? 'selected' : '' }}>Playback</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="test">&nbsp;</label>
+                                            <button type="button"
+                                                    class="btn btn-danger btn-block remove-video">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                            <div class="video-item">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="assigned_raspberry">Assigned VBox (For livestreaming)</label>
+                                        <select class="form-control input-field" id="assigned_raspberry" name="assigned_raspberries[]" id="assigned_raspberry" >
+                                            <option value="" selected>No livestreaming</option>
+                                            @for($i = 1; $i <= 25; $i++)
+                                                <option value="raspi-{{$i}}">V-BOX {{$i}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="video_name">Video Name</label>
+                                        <input type="text" class="form-control input-field" id="video_name" name="video_names[]" placeholder="Video Name">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="video_name">Status</label>
+                                        <select name="video_status[]" class="form-control input-field">
+                                            <option value="pending">Pending</option>
+                                            <option value="live">Live</option>
+                                            <option value="playback">Playback</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="test">&nbsp;</label>
+                                        <button type="button"
+                                                class="btn btn-default btn-block add-video">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Services</label> <br>
+                                    <label><input type="checkbox" value="manual"
+                                                  {{ in_array('manual', $services) ? 'checked' : '' }}
+                                                  class="checkbox-input" name="services[]"> Manual V-App</label>
+
+                                    <label><input type="checkbox" value="automatic"
+                                                  {{ in_array('automatic', $services) ? 'checked' : '' }}
+                                                  class="checkbox-input" name="services[]"> Automatic V-App</label>
+
+                                    <label><input type="checkbox" value="gps"
+                                                  {{ in_array('gps', $services) ? 'checked' : '' }}
+                                                  class="checkbox-input" name="services[]"> GPS Tracker</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>

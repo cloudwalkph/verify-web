@@ -173,6 +173,14 @@
                     .removeClass('btn-default')
                     .addClass('btn-danger');
             });
+
+            // Remove video
+            $(document).on('click', '.remove-video', function() {
+                $(this).parent()
+                    .parent()
+                    .parent()
+                    .remove();
+            });
         });
     </script>
 
