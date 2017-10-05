@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Management;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\ProjectLocation;
+use App\ProjectShare;
 use App\User;
 
 use Carbon\Carbon;
@@ -71,7 +72,9 @@ class ProjectsController extends Controller
             'name'  => $client->profile->full_name
         ];
 
-        return view('management.projects.update', compact('client', 'project', 'locations', 'brands'));
+        $shared = ProjectShare::where('project_id', $id)->get();
+
+        return view('management.projects.update', compact('client', 'project', 'locations', 'brands', 'shared'));
     }
 
     public function update(CreateProjectRequest $request, $id)
@@ -184,6 +187,38 @@ class ProjectsController extends Controller
 
             return $results;
         });
+
+        return redirect()->back();
+    }
+
+    public function addClients(Request $request, $id)
+    {
+        $input = $request->all();
+        $result = null;
+
+        \DB::transaction(function() use ($input, $id, &$result) {
+            $data = [
+                'project_id'    => $id,
+                'user_id'       => $input['user_id']
+            ];
+
+            $result = ProjectShare::firstOrCreate($data);
+
+        });
+
+
+        if (! $result) {
+            return redirect()->back()->with('errors', ['Failed to add client']);
+        }
+
+        $request->session()->flash('status', 'Successfully added client');
+
+        return redirect()->back();
+    }
+
+    public function destroyClient($projectId, $shareId)
+    {
+        ProjectShare::find($shareId)->delete();
 
         return redirect()->back();
     }
