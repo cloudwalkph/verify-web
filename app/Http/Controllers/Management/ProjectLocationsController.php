@@ -243,7 +243,7 @@ class ProjectLocationsController extends Controller
             if (isset($input['assigned_raspberries']) && count($input['assigned_raspberries']) > 0) {
 
                 $videos = Video::where('project_location_id', $locationId)->get();
-                Video::where('project_location_id')->delete();
+                Video::where('project_location_id', $locationId)->delete();
 
                 foreach ($input['assigned_raspberries'] as $key => $video) {
                     if (! $video) {
@@ -262,12 +262,6 @@ class ProjectLocationsController extends Controller
                         'status'        => isset($input['video_status'][$key]) ? $input['video_status'][$key] : 'pending',
                         'playback_name' => $checkVideo ? $checkVideo->playback_name : uniqid() .'-'.$video.'.mp4'
                     ];
-
-                    if ($checkVideo) {
-                        $checkVideo->update($videoData);
-
-                        continue;
-                    }
 
                     $location->videos()->create($videoData);
                 }
