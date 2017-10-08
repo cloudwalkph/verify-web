@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserLocation;
+use App\Traits\Cachable;
 use App\User;
 use App\Models\UserGroup;
 use Carbon\Carbon;
@@ -11,16 +12,22 @@ use App\Http\Requests\CreateAccountRequest;
 
 class AccountsController extends Controller
 {
+    use Cachable;
+
     public function index()
     {
-        $users = User::all();
+        $users = \Cache::rememberForever('users', function() {
+            return  User::all();
+        });
 
         return view('management.admin.accounts.index', compact('users'));
     }
 
     public function create()
     {
-    	$groups = UserGroup::all();
+    	$groups = \Cache::rememberForever('user_groups', function() {
+            return UserGroup::all();
+        });
 
         return view('management.admin.accounts.create', compact('groups'));
     }
@@ -38,12 +45,22 @@ class AccountsController extends Controller
         $user = User::create($input);
         $user->profile()->create($profile);
 
+        // Cache update
+        if (\Cache::has('users')) {
+            $users = \Cache::get('users');
+            $users->push($user);
+
+            \Cache::forever('users', $users);
+        }
+
         return redirect()->back()->with('status', 'Successfully added new account');
     }
 
     public function edit($id)
     {
-    	$groups = UserGroup::all();
+        $groups = \Cache::rememberForever('user_groups', function() {
+            return UserGroup::all();
+        });
         $user = User::where('id', $id)->first();
 
         return view('management.admin.accounts.update', compact('user', 'groups'));
@@ -63,6 +80,9 @@ class AccountsController extends Controller
         $user = User::where('id', $id)->first();
 
         $user->profile()->update($profile);
+
+        // update the cache
+        $this->updateCache('users', $user);
 
         return redirect()->back()->with('status', 'Successfully updated account details');
     }
