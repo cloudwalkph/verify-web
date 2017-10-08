@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\ProjectLocation;
 use App\ProjectShare;
+use App\Traits\Cachable;
 use App\User;
 
 use Carbon\Carbon;
@@ -13,10 +14,20 @@ use App\Http\Requests\CreateProjectRequest;
 
 class ProjectsController extends Controller
 {
+    use Cachable;
+
     public function index()
     {
+        if ($this->hasCache('projects')) {
+            return $this->getCache('projects');
+        }
+
         $projects = Project::all();
+
         $projects = $this->parseProjects($projects);
+
+        // add to cache
+        $this->cache('projects', $projects);
 
         return view('management.projects.index', compact('projects'));
     }
@@ -48,6 +59,9 @@ class ProjectsController extends Controller
         if (! $project) {
             return redirect()->to('/management/projects')->with('status', 'Failed to create a project');
         }
+
+        // update cache
+        $this->updateCache('projects', $project);
 
         return redirect()->to('/management/projects/update/'.$project->id)->with('status', 'Successfully created new project');
     }

@@ -9,6 +9,16 @@ trait Cachable {
         return \Cache::get($key);
     }
 
+    public function hasCache($key)
+    {
+        return \Cache::has($key);
+    }
+
+    public function getCache($key)
+    {
+        return \Cache::get($key);
+    }
+
     public function updateCache($key, $data)
     {
         if (\Cache::has($key)) {
