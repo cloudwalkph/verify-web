@@ -19,10 +19,10 @@ class ProjectsController extends Controller
     public function index()
     {
         if ($this->hasCache('projects')) {
-            return $this->getCache('projects');
+            $projects = $this->getCache('projects');
+        } else {
+            $projects = Project::all();
         }
-
-        $projects = Project::all();
 
         $projects = $this->parseProjects($projects);
 
