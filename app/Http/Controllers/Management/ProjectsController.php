@@ -22,12 +22,14 @@ class ProjectsController extends Controller
             $projects = $this->getCache('projects');
         } else {
             $projects = Project::all();
+
+            // add to cache
+            $this->cache('projects', $projects);
         }
 
         $projects = $this->parseProjects($projects);
 
-        // add to cache
-        $this->cache('projects', $projects);
+
 
         return view('management.projects.index', compact('projects'));
     }
