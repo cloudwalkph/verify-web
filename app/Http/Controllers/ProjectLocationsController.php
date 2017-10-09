@@ -160,6 +160,27 @@ class ProjectLocationsController extends Controller
         return response()->json('error', 400);
     }
 
+    public function videoUpload(Request $request, $projectId, $locationId)
+    {
+        $user = $request->user();
+
+        if ($request->hasFile('file')) {
+
+            $file = $request->file('file');
+
+            $filename = uniqid() . '-' . $locationId . '-' . $file->getClientOriginalName();
+            $path = \Storage::drive('s3')->putFileAs('videos/'.$projectId.'/'.$locationId, $file, $filename, 'public');
+            $timestamp = $request->has('hit_timestamp') ? $request->get('hit_timestamp') : Carbon::today()->toDateTimeString();
+
+            // Queue the image processing
+//            event(new NewFaceUploaded($path, $locationId, $timestamp, $user->id));
+
+            return response()->json('success', 200);
+        }
+
+        return response()->json('error', 400);
+    }
+
     private function parseHits($hits)
     {
         $result = [];

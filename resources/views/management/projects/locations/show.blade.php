@@ -49,6 +49,15 @@
                    class="btn btn-primary">Upload Images Manually</a>
             </div>
 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <div class="info-body">
+                <a href="#"
+                   data-toggle="modal"
+                   data-target="#uploadVideos"
+                   class="btn btn-primary">Upload Videos</a>
+            </div>
+
             <div class="modal fade" id="uploadImages" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" style="width: 80%" role="document">
                     <div class="modal-content">
@@ -58,6 +67,24 @@
                         </div>
                         <div class="modal-body">
                             <form class="dropzone" id="myDropzone" action="/projects/{{ $project->id }}/locations/{{ $location->id }}/faces" method="POST">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="uploadVideos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" style="width: 80%" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Upload Video Recordings</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="dropzone" id="myDropzoneVideos" action="/projects/{{ $project->id }}/locations/{{ $location->id }}/videos" method="POST">
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -171,6 +198,24 @@
             paramName: "file", // The name that will be used to transfer the file
             maxFilesize: 2, // MB
             acceptedFiles: 'image/*',
+            accept: function(file, done) {
+                if (file.name == "justinbieber.jpg") {
+                    done("Naha, you don't.");
+                }
+
+                else { done(); }
+            },
+            init: function() {
+                this.on('sending', function(file, xhr, formData) {
+                    formData.append('_token', window.Laravel.csrfToken);
+                })
+            }
+        };
+
+        Dropzone.options.myDropzoneVideos = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 100, // MB
+            acceptedFiles: 'video/*, .mkv',
             accept: function(file, done) {
                 if (file.name == "justinbieber.jpg") {
                     done("Naha, you don't.");

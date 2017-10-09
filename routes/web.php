@@ -31,6 +31,7 @@ Route::get('/projects/{projectId}/locations/{locationId}/automated', 'ProjectLoc
 Route::get('/projects/{projectId}/locations/{locationId}/gps', 'ProjectLocationsController@showGPS');
 Route::get('/projects/{projectId}/locations/{locationId}/videos', 'ProjectLocationsController@showVideos');
 Route::post('/projects/{projectId}/locations/{locationId}/faces', 'ProjectLocationsController@faceUpload');
+Route::post('/projects/{projectId}/locations/{locationId}/videos', 'ProjectLocationsController@videoUpload');
 
 
 
