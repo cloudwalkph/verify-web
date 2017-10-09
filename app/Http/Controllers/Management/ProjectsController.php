@@ -61,7 +61,7 @@ class ProjectsController extends Controller
         }
 
         // update cache
-        $this->updateCache('projects', $project);
+        $this->addToCache('projects', $project);
 
         return redirect()->to('/management/projects/update/'.$project->id)->with('status', 'Successfully created new project');
     }
@@ -76,7 +76,13 @@ class ProjectsController extends Controller
         }
         $brands = trim($brands, ",");
 
-        $locations = ProjectLocation::where('project_id', $project->id)->get();
+        // Check location cache
+        if ($this->hasCache('project-'.$project->id.'-location')) {
+            $locations = $this->getCache('project-'.$project->id.'-location');
+        } else {
+            $locations = ProjectLocation::where('project_id', $project->id)->get();
+        }
+
         $locations = $this->parseLocations($locations);
         $client = User::with('profile')->where('id', $project->user_id)
             ->first();
@@ -101,6 +107,9 @@ class ProjectsController extends Controller
         $project = Project::where('id', $id)->first();
         $project->update($input);
 
+        // update cache
+        $this->updateCache('projects', $project);
+
         return redirect()->back()->with('status', 'Successfully updated project');
     }
 
@@ -123,6 +132,9 @@ class ProjectsController extends Controller
             ];
 
             $location = ProjectLocation::create($data);
+
+            // add location cache
+            $this->addToCache('project-'.$id.'-location', $location);
 
             // Videos
             if (isset($input['assigned_raspberries']) && count($input['assigned_raspberries']) > 0) {

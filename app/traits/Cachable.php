@@ -35,6 +35,16 @@ trait Cachable {
         }
     }
 
+    public function addToCache($key, $data)
+    {
+        if (\Cache::has($key)) {
+            $collection = \Cache::get('$key');
+            $collection->push($data);
+
+            \Cache::forever($key, $collection);
+        }
+    }
+
     public function deleteCache($key)
     {
         \Cache::forget($key);
