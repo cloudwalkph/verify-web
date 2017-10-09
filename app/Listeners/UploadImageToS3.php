@@ -8,6 +8,14 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UploadImageToS3 implements ShouldQueue
 {
+
+    /**
+     * The name of the queue the job should be sent to.
+     *
+     * @var string|null
+     */
+    public $queue = 'uploader';
+
     /**
      * Create the event listener.
      *
