@@ -217,11 +217,6 @@
             maxFilesize: 100, // MB
             acceptedFiles: 'video/*, .mkv',
             timeout: 600000,
-            chunking: true,
-            chunkSize: 2000000,
-            parallelChunkUploads: true,
-            retryChunks: true,
-            retryChunksLimit: 5,
             accept: function(file, done) {
                 if (file.name == "justinbieber.jpg") {
                     done("Naha, you don't.");
