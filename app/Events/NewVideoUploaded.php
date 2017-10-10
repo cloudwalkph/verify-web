@@ -26,6 +26,8 @@ class NewVideoUploaded
     public function __construct($video, $projectId, $locationId)
     {
         $this->video = $video;
+        $this->projectId = $projectId;
+        $this->locationId = $locationId;
     }
 
     /**
