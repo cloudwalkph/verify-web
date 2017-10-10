@@ -46,7 +46,7 @@ class UploadVideoToS3 implements ShouldQueue
 
         // Remove locally
         if ($s3) {
-            \Storage::disk('local')->delete($event->video);
+//            \Storage::disk('local')->delete($event->video);
         }
     }
 }
