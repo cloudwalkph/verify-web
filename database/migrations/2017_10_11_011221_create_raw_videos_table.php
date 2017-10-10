@@ -17,7 +17,7 @@ class CreateRawVideosTable extends Migration
             $table->increments('id');
             $table->integer('project_location_id')->unsigned();
             $table->string('file');
-            $table->tinyIncrements('processed')->default(0);
+            $table->tinyInteger('processed')->default(0);
             $table->timestamps();
         });
     }
