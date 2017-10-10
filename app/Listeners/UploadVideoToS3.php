@@ -37,7 +37,7 @@ class UploadVideoToS3 implements ShouldQueue
     {
         $file = \Storage::disk('local')->get($event->video);
 
-        $s3 = \Storage::drive('s3')->put('videos/'.$event->projectId.'/'.$event->locationId, $file, [
+        $s3 = \Storage::drive('s3')->put($event->video, $file, [
             'visibility' => 'public'
         ]);
 
