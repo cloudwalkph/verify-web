@@ -171,7 +171,11 @@ class ProjectLocationsController extends Controller
 
             $filename = uniqid() . '-' . $locationId . '-' . $file->getClientOriginalName();
 //            $path = \Storage::drive('s3')->putFileAs('videos/'.$projectId.'/'.$locationId, $file, $filename, 'public');
-            $path = \Storage::disk('local')->putFileAs('videos', $file, $filename, 'public');
+//            $path = \Storage::disk('local')->putFileAs('videos', $file, $filename, 'public');
+            $path = $request->file('file')->storeAs('videos', $filename, [
+                'disk'  => 'local',
+                'visibility'   => 'public'
+            ]);
 
             $timestamp = $request->has('hit_timestamp') ? $request->get('hit_timestamp') : Carbon::today()->toDateTimeString();
 
