@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Events\NewVideoUploaded;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use League\Flysystem\Adapter\Local;
 
 class UploadVideoToS3 implements ShouldQueue
 {
@@ -40,11 +41,12 @@ class UploadVideoToS3 implements ShouldQueue
             'visibility' => 'public'
         ]);
 
+        \Log::info('Uploading ' . $event->video);
         \Log::info($s3);
 
         // Remove locally
         if ($s3) {
-            \Storage::disk('local')->delete($event->video);
+//            \Storage::disk('local')->delete($event->video);
         }
     }
 }
