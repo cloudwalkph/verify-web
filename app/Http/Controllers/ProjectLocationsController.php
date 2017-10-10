@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewVideoUploaded;
 use App\Models\Hit;
 use App\Models\Project;
 use App\Models\ProjectLocation;
@@ -169,10 +170,12 @@ class ProjectLocationsController extends Controller
             $file = $request->file('file');
 
             $filename = uniqid() . '-' . $locationId . '-' . $file->getClientOriginalName();
-            $path = \Storage::drive('s3')->putFileAs('videos/'.$projectId.'/'.$locationId, $file, $filename, 'public');
+//            $path = \Storage::drive('s3')->putFileAs('videos/'.$projectId.'/'.$locationId, $file, $filename, 'public');
+            $path = \Storage::drive('local')->putFileAs('videos/'.$projectId.'/'.$locationId, $file, $filename, 'public');
             $timestamp = $request->has('hit_timestamp') ? $request->get('hit_timestamp') : Carbon::today()->toDateTimeString();
 
             // Queue the image processing
+            event(new NewVideoUploaded($path, $projectId, $locationId));
 //            event(new NewFaceUploaded($path, $locationId, $timestamp, $user->id));
 
             return response()->json('success', 200);

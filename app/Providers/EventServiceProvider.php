@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\NewHitCreatedSuccessfully' => [
             'App\Listeners\UploadImageToS3'
+        ],
+        'App\Events\NewVideoUploaded' => [
+            'App\Listeners\UploadVideoToS3'
         ]
     ];
 
