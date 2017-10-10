@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\NewVideoUploaded;
+use App\RawVideo;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use League\Flysystem\Adapter\Local;
@@ -46,6 +47,12 @@ class UploadVideoToS3 implements ShouldQueue
 
         // Remove locally
         if ($s3) {
+            RawVideo::create([
+                'project_location_id'   => $event->locationId,
+                'file'                  => $event->video,
+                'processed'             => false
+            ]);
+
             \Storage::disk('local')->delete($event->video);
         }
     }
