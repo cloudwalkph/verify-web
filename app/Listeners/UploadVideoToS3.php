@@ -40,6 +40,8 @@ class UploadVideoToS3 implements ShouldQueue
             'visibility' => 'public'
         ]);
 
+        \Log::info($s3);
+
         // Remove locally
         if ($s3) {
             \Storage::disk('local')->delete($event->video);
