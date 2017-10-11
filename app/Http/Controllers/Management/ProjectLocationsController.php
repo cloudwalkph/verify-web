@@ -243,7 +243,7 @@ class ProjectLocationsController extends Controller
             if (isset($input['assigned_raspberries']) && count($input['assigned_raspberries']) > 0) {
 
                 $videos = Video::where('project_location_id', $locationId)->get();
-                Video::where('project_location_id', $locationId)->delete();
+                Video::where('project_location_id', $locationId)->forceDelete();
 
                 foreach ($input['assigned_raspberries'] as $key => $video) {
                     if (! $video) {
