@@ -89,7 +89,10 @@ class GpsReportController extends Controller
         $startDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(6)->toDateTimeString();
         $endDate = Carbon::createFromTimestamp(strtotime($location->date))->hour(19)->toDateTimeString();
 
-        $locations = $this->getLocationsPerHour($firstUser, $startDate, $endDate, $location);
+        $locations = [];
+        if ($firstUser) {
+            $locations = $this->getLocationsPerHour($firstUser, $startDate, $endDate, $location);
+        }
 
         $project = Project::find($projectId);
         $hits = Hit::with('answers')
