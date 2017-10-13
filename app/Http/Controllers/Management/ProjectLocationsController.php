@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Models\ProjectLocation;
 use App\Models\UserLocation;
 use App\Models\Video;
+use App\Traits\Cachable;
 use App\Traits\GPSTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ use App\Events\NewFaceUploaded;
 
 class ProjectLocationsController extends Controller
 {
-    use GPSTrait;
+    use GPSTrait, Cachable;
 
     /**
      * Show the application dashboard manual hits.
@@ -302,6 +303,8 @@ class ProjectLocationsController extends Controller
     public function destroy($projectId, $locationId)
     {
         ProjectLocation::find($locationId)->delete();
+
+        $this->deleteCache('project-'.$projectId.'-location');
 
         return redirect()->back();
     }
