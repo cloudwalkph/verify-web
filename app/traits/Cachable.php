@@ -23,7 +23,7 @@ trait Cachable {
     {
         if (\Cache::has($key)) {
             $collection = \Cache::get($key);
-            $collection->map(function($item, $key) use ($data) {
+            $collection = $collection->map(function($item, $key) use ($data) {
                 if ($item->id === $data->id) {
                     return $data;
                 }
