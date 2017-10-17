@@ -644,7 +644,7 @@
                                                 {{ $location['name'] }}
                                             </td>
                                             <td>{{ $location['services'] }}</td>
-                                            <td>{{ $location['vboxes'] }}</td>
+                                            <td>{!! $location['vboxes'] !!}</td>
                                             <td>{{ $location['target_hits'] }}</td>
                                             <td>{{ $location['reported_hits'] }}</td>
                                             <td>{{ $location['audited_hits'] }} (<span class="text-primary">{{ number_format($location['audit_percent'], 2) }}</span>%)</td>
