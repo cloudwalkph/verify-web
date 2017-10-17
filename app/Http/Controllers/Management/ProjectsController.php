@@ -280,7 +280,7 @@ class ProjectsController extends Controller
                 'target_hits'       => $location->target_hits,
                 'services'          => $services,
                 'vboxes'            => implode(", ", array_map_assoc(function($k, $v){
-                        return $v['alias'];
+                        return $v['alias'] . '(<span class="'. ($v['status'] == 'live' ? 'text-danger' : '') .'">'.ucwords($v['status'].'</span>)');
                     }, $location->videos->toArray())),
                 'status'            => $location->status
             ];
