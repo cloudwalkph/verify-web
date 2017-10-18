@@ -95,6 +95,7 @@
         });
 
         function loadMPD(a, status, file) {
+            console.log(file);
             let videoUrl = '';
 
             switch (status) {
