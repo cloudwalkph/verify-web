@@ -214,7 +214,7 @@
 
         Dropzone.options.myDropzoneVideos = {
             paramName: "file", // The name that will be used to transfer the file
-            maxFilesize: 1024, // MB
+            maxFilesize: 3000, // MB
             acceptedFiles: 'video/*, .mkv',
             timeout: 600000,
             accept: function(file, done) {
