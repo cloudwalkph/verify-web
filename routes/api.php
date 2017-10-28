@@ -41,4 +41,4 @@ Route::group(['prefix' => 'v1',
     Route::post('/raw-videos/{videoId}/results', 'ProjectVideosController@createVideoResult');
 });
 
-Route::post('v1/locations/{locationId}', 'BA\HitsController@createHit');
+Route::post('v1/locations/{locationId}', 'API\BA\HitsController@createHit');
