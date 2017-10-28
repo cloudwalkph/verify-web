@@ -16,6 +16,10 @@ class AddFaceIdOnRawVideoResults extends Migration
         Schema::table('raw_video_results', function(Blueprint $table) {
             $table->string('face_id');
         });
+
+        Schema::table('raw_videos', function(Blueprint $table) {
+            $table->dropColumn('processed');
+        });
     }
 
     /**
@@ -27,6 +31,10 @@ class AddFaceIdOnRawVideoResults extends Migration
     {
         Schema::table('raw_video_results', function(Blueprint $table) {
             $table->dropColumn('face_id');
+        });
+
+        Schema::table('raw_videos', function(Blueprint $table) {
+            $table->tinyInteger('processed');
         });
     }
 }
