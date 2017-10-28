@@ -34,6 +34,11 @@ Route::group(['prefix' => 'v1',
 
     Route::get('/ba/user-locations/{locationId}', 'BA\UserLocationController@self');
     Route::post('/ba/user-locations/{locationId}', 'BA\UserLocationController@saveLocation');
+
+    Route::get('/raw-videos', 'ProjectVideosController@getVideos');
+    Route::put('/raw-videos/{videoId}/process', 'ProjectVideosController@processVideo');
+    Route::put('/raw-videos/{videoId}/complete', 'ProjectVideosController@completeVideoProcessing');
+    Route::post('/raw-videos/{videoId}/results', 'ProjectVideosController@createVideoResult');
 });
 
 Route::post('v1/locations/{locationId}', 'BA\HitsController@createHit');
