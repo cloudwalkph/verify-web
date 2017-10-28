@@ -14,7 +14,7 @@ class AddStatusFieldOnRawVideos extends Migration
     public function up()
     {
         Schema::table('raw_videos', function(Blueprint $table) {
-            $table->enum('status', ['pending', 'completed', 'cancelled'])
+            $table->enum('status', ['pending', 'completed', 'cancelled', 'processing'])
                 ->default('pending');
         });
     }
