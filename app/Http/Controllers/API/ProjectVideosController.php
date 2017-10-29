@@ -26,6 +26,8 @@ class ProjectVideosController extends Controller {
     }
 
     public function createVideoResult(Request $request, $videoId) {
+        \Log::info($request->all());
+
         $video = \DB::transaction(function() use ($request, $videoId) {
             $video = RawVideo::find($videoId);
 
