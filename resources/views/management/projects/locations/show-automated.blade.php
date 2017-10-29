@@ -75,7 +75,7 @@
                                 <th>File</th>
                                 <th>Results</th>
                                 <th>Status</th>
-                                <th>Elapsed Time</th>
+                                <th>Processed Time</th>
                             </tr>
                             </thead>
 
