@@ -73,8 +73,113 @@ class ProjectLocationsController extends Controller
         $videos = Video::where('project_location_id', $locationId)
             ->get();
 
+
+        $rawVideos = RawVideo::where('project_location_id', $locationId)
+            ->where('status', 'completed')
+            ->get();
+
+        $processedData = [];
+        foreach ($rawVideos as $raw) {
+            $processedData = array_merge($processedData, $raw->results->toArray());
+        }
+
+        $genderData = [
+            'male' => 0,
+            'female' => 0
+        ];
+
+        $ageRangeData = [
+            '5-9'     => 0,
+            '10-14'   => 0,
+            '15-19'   => 0,
+            '20-24'   => 0,
+            '25-29'   => 0,
+            '30-34'   => 0,
+            '35-39'   => 0,
+            '40-44'   => 0,
+            '45-49'   => 0,
+            '50-54'   => 0,
+            '55-59'   => 0,
+            '60-100'   => 0
+        ];
+
+        foreach ($processedData as $item) {
+            $raw = json_decode($item['result']);
+            $faceDetails = $raw->FaceRecords[0]->FaceDetail;
+            $gender = $faceDetails->Gender;
+            $ageRange = $faceDetails->AgeRange;
+            $age = $this->getAge($ageRange->Low, $ageRange->High);
+            $ageCategory = $this->categorizeAgeRange($age);
+
+            $ageRangeData[$ageCategory] = $ageRangeData[$ageCategory] + 1;
+
+            if (strtolower($gender->Value) === 'male') {
+                $genderData['male'] = (int) $genderData['male'] + 1;
+            } else {
+                $genderData['female'] = (int) $genderData['female'] + 1;
+            }
+        }
+
         return view('management.projects.locations.show-automated',
             compact('location', 'project', 'hits', 'services', 'videos', 'raws'));
+    }
+
+    private function getAge($low, $high)
+    {
+        $realAge = ((int)$low + (int)$high) / 2;
+
+        return $realAge >= 40 ? ($realAge - 10) : $realAge;
+    }
+
+    private function categorizeAgeRange($age)
+    {
+        $age = (int) $age;
+
+        if ($age >= 5 && $age <= 9) {
+            return '5-9';
+        }
+
+        if ($age >= 10 && $age <= 14) {
+            return '10-14';
+        }
+
+        if ($age >= 15 && $age <= 19) {
+            return '15-19';
+        }
+
+        if ($age >= 20 && $age <= 24) {
+            return '20-24';
+        }
+
+        if ($age >= 25 && $age <= 29) {
+            return '25-29';
+        }
+
+        if ($age >= 30 && $age <= 34) {
+            return '30-34';
+        }
+
+        if ($age >= 35 && $age <= 39) {
+            return '35-39';
+        }
+
+        if ($age >= 40 && $age <= 44) {
+            return '40-44';
+        }
+
+        if ($age >= 45 && $age <= 49) {
+            return '45-49';
+        }
+
+        if ($age >= 50 && $age <= 54) {
+            return '50-54';
+        }
+
+        if ($age >= 55 && $age <= 59) {
+            return '55-59';
+        }
+
+        return '60-100';
     }
 
     /**
