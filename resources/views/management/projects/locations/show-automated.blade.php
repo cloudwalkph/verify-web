@@ -21,7 +21,7 @@
 
             function drawCharts() {
                 try {
-                    data = createDataTable(JSON.parse('{!! $chartData !!}'), ['Age Group', 'Gender']);
+                    data = createDataTable(JSON.parse('{!! $chartData !!}'), ['Gender', 'Age Group']);
 
                     drawPieChart();
                     drawBarChart();
@@ -51,6 +51,7 @@
 
             function drawBarChart() {
                 let ageData = groupData(1);
+                console.log(ageData);
 
                 let options = {
                     title: '',
