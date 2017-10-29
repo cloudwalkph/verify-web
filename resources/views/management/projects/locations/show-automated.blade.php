@@ -67,12 +67,15 @@
                         @endslot
                         @endcomponent
 
+
+                        <h1>Raw Videos</h1>
                         <table class="table table-bordered locations-table">
                             <thead>
                             <tr>
                                 <th>File</th>
-                                <th>Processing Time</th>
-                                <th>Completed Time</th>
+                                <th>Results</th>
+                                <th>Status</th>
+                                <th>Elapsed Time</th>
                             </tr>
                             </thead>
 
@@ -80,8 +83,15 @@
                             @foreach ($raws as $raw)
                                 <tr>
                                     <td>{{ $raw->file }}</td>
-                                    <td>{{ $raw->processing_time }}</td>
-                                    <td>{{ $raw->completed_time }}</td>
+                                    <td>{{ $raw->results()->count }}</td>
+                                    <td>{{ $raw->status }}</td>
+                                    <td>
+                                        @if ($raw->status === 'completed')
+                                            {{ \Carbon\Carbon::createFromTimestamp(strtotime($raw->completed_time))->diffInMinutes(\Carbon\Carbon::createFromTimestamp(strtotime($raw->processing_time))) }} Minutes
+                                        @else
+                                            Not Completed
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
