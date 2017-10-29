@@ -40,7 +40,7 @@ class ProjectVideosController extends Controller {
             return $video;
         });
 
-        return response()->json($video);
+        return response()->json($video, 201);
     }
 
     public function completeVideoProcessing(Request $request, $videoId) {
