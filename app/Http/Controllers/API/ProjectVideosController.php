@@ -31,7 +31,7 @@ class ProjectVideosController extends Controller {
 
             // Create result
             $video->results()->create([
-                'file'      => $request->get('file'),
+                'file'      => $request->get('file_name'),
                 'result'    => json_encode($request->get('result')),
                 'face_id'   => $request->get('face_id')
             ]);
