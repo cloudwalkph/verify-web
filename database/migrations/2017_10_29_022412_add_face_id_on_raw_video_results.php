@@ -19,6 +19,8 @@ class AddFaceIdOnRawVideoResults extends Migration
 
         Schema::table('raw_videos', function(Blueprint $table) {
             $table->dropColumn('processed');
+            $table->timestamp('processing_time');
+            $table->timestamp('completed_time');
         });
     }
 
