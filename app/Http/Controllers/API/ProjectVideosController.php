@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ProjectVideosController extends Controller {
     public function getVideos(Request $request) {
-        $videos = RawVideo::where('status', 'pending')
+        $videos = RawVideo::take(1)->where('status', 'pending')
             ->get();
 
         return response()->json($videos);
