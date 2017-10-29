@@ -125,7 +125,7 @@ class ProjectLocationsController extends Controller
         $age = (int) $age;
 
         if ($age >= 5 && $age <= 9) {
-            return '5-9';
+            return '05-09';
         }
 
         if ($age >= 10 && $age <= 14) {
