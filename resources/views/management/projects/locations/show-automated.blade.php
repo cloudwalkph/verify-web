@@ -83,7 +83,7 @@
                             @foreach ($raws as $raw)
                                 <tr>
                                     <td>{{ $raw->file }}</td>
-                                    <td>{{ $raw->results()->count }}</td>
+                                    <td>{{ $raw->results()->count() }}</td>
                                     <td>{{ $raw->status }}</td>
                                     <td>
                                         @if ($raw->status === 'completed')
