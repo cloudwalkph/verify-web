@@ -26,14 +26,12 @@ class ProjectVideosController extends Controller {
     }
 
     public function createVideoResult(Request $request, $videoId) {
-        \Log::info($request->all());
-
         $video = \DB::transaction(function() use ($request, $videoId) {
             $video = RawVideo::find($videoId);
 
             // Create result
             $video->results()->create([
-                'file'      => $request->get('file_name'),
+                'file'      => $request->get('file'),
                 'result'    => json_encode($request->get('result')),
                 'face_id'   => $request->get('face_id')
             ]);
