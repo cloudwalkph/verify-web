@@ -3,6 +3,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\RawVideo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProjectVideosController extends Controller {
@@ -17,7 +18,8 @@ class ProjectVideosController extends Controller {
         $video = RawVideo::find($videoId);
 
         $video->update([
-            'status'    => 'processing'
+            'status'    => 'processing',
+            'processing_time' => Carbon::now('Asia/Manila')->toDateTimeString()
         ]);
 
         return response()->json($video);
@@ -44,7 +46,8 @@ class ProjectVideosController extends Controller {
         $video = RawVideo::find($videoId);
 
         $video->update([
-            'status'    => 'completed'
+            'status'    => 'completed',
+            'completed_time' => Carbon::now('Asia/Manila')->toDateTimeString()
         ]);
 
         return response()->json($video);
