@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Models\ProjectLocation;
 use App\Models\UserLocation;
 use App\Models\Video;
+use App\RawVideo;
 use App\Traits\Cachable;
 use App\Traits\GPSTrait;
 use Carbon\Carbon;
@@ -65,13 +66,15 @@ class ProjectLocationsController extends Controller
             ->limit(10)
             ->paginate();
 
+        $raws = RawVideo::where('project_location_id', $locationId)->get();
+
         $services = $location->services ? json_decode($location->services) : [];
 
         $videos = Video::where('project_location_id', $locationId)
             ->get();
 
-        return view('projects.locations.show-automated',
-            compact('location', 'project', 'hits', 'services', 'videos'));
+        return view('management.projects.locations.show-automated',
+            compact('location', 'project', 'hits', 'services', 'videos', 'raws'));
     }
 
     /**
@@ -93,7 +96,7 @@ class ProjectLocationsController extends Controller
 
         $services = $location->services ? json_decode($location->services) : [];
 
-        return view('projects.locations.show-videos',
+        return view('management.projects.locations.show-videos',
             compact('location', 'project', 'hits',
                 'answers', 'videos', 'services', 'auto'));
     }

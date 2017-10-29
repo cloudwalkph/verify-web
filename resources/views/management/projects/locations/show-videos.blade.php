@@ -4,15 +4,11 @@
     <div class="info-section">
         <div class="info-title">
             <div class="col-sm-6" style="display: inline-flex;">
-                <a href="/management/projects/update/{{ $project['id'] }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                <a href="/projects/{{ $project->id }}" class="nav-back"><i class="glyphicon glyphicon-chevron-left"></i></a>
                 <h1 style="color: #fff">
                     {{ $project->name }}
                     <p class="info-sub-title">{{ $location->name }}</p>
                 </h1>
-            </div>
-            <div class="col-sm-3">
-                <h5 style="color: #B4B4B4;"><b>Reported Hits:</b></h5>
-                <h5 class="text-primary">{{ $location->manual_hits }}</h5>
             </div>
         </div>
 
@@ -39,28 +35,29 @@
                             <p style="color: #FF7300;">Last updated: {{ $project->updated_at->toFormattedDateString() }}</p>
 
                             <ul class="nav nav-tabs" id="serviceTabs">
-                                <li>
-                                    <a href="/management/projects/update/{{ $project['id'] }}/locations/{{ $location['id'] }}">Manual</a>
+                                <li class="{{ $services && in_array('manual', $services) ? '' : 'hide' }}">
+                                    <a href="/management/projects/update/{{ $project->id }}/locations/{{ $location->id }}">Manual</a>
                                 </li>
 
                                 <li class="{{ $services && in_array('automatic', $services) ? '' : 'hide' }}">
-                                    <a href="/management/projects/update/{{ $project['id'] }}/locations/{{ $location['id'] }}/automated">Automated</a>
+                                    <a href="/management/projects/update/{{ $project->id }}/locations/{{ $location->id }}/automated">Automated</a>
                                 </li>
 
                                 <li class="{{ $services && in_array('gps', $services) ? '' : 'hide' }}">
-                                    <a href="/management/projects/update/{{ $project['id'] }}/locations/{{ $location['id'] }}/gps">GPS</a>
+                                    <a href="/management/projects/update/{{ $project->id }}/locations/{{ $location->id }}/gps">GPS</a>
                                 </li>
 
-                                <li class="{{ count($videos) <= 0 ? 'hide' : '' }} active">
+                                <li class="{{ count($videos) <= 0 ? 'hide' : '' }}">
                                     <a href="/management/projects/update/{{ $project['id'] }}/locations/{{ $location['id'] }}/videos">Video
                                     </a>
                                 </li>
+
                             </ul>
 
                             <div class="content-body">
                                 <select name="videos" id="video-selection" class="form-control">
-                                    @foreach ($videos as $video)
-                                        <option value="{{ $video->name }}" data-status="{{ $video->status }}" selected>{{ $video->alias }}</option>
+                                    @foreach ($videos as $key => $video)
+                                        <option value="{{ $video->name }}" data-status="{{ $video->status }}" {{ $key === 0 ? 'selected' : '' }}>{{ $video->alias }}</option>
                                     @endforeach
                                 </select>
 
@@ -111,7 +108,11 @@
                     videoUrl = `//streamer.medix.ph/vods3/_definst_/mp4:amazons3/verify-bucket/playback/${file}`;
                     break;
                 default:
-                    videoUrl = '';
+                    videoUrl = null;
+            }
+
+            if (videoUrl === null) {
+                return;
             }
 
             let source = {

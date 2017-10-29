@@ -58,6 +58,8 @@ Route::group(['prefix' => 'management', 'namespace' => 'Management'], function()
 
         Route::get('/update/{id}/locations/{locationId}', 'ProjectLocationsController@show');
         Route::delete('/update/{id}/locations/{locationId}', 'ProjectLocationsController@destroy');
+        Route::get('/update/{projectId}/locations/{locationId}/automated', 'ProjectLocationsController@showAutomated');
+        Route::get('/update/{projectId}/locations/{locationId}/videos', 'ProjectLocationsController@showVideos');
         Route::get('/update/{id}/locations/{locationId}/gps', 'ProjectLocationsController@showGPS');
         Route::post('/update/{id}/locations/{locationId}/gps', 'ProjectLocationsController@importGPSData');
         Route::get('/{id}/locations/{locationId}/gps', 'ProjectLocationsController@getGPSData');
