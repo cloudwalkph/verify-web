@@ -83,25 +83,7 @@ class ProjectLocationsController extends Controller
             $processedData = array_merge($processedData, $raw->results->toArray());
         }
 
-        $genderData = [
-            'male' => 0,
-            'female' => 0
-        ];
-
-        $ageRangeData = [
-            '5-9'     => 0,
-            '10-14'   => 0,
-            '15-19'   => 0,
-            '20-24'   => 0,
-            '25-29'   => 0,
-            '30-34'   => 0,
-            '35-39'   => 0,
-            '40-44'   => 0,
-            '45-49'   => 0,
-            '50-54'   => 0,
-            '55-59'   => 0,
-            '60-100'   => 0
-        ];
+        $chartData = [];
 
         foreach ($processedData as $item) {
             $raw = json_decode($item['result']);
@@ -111,17 +93,24 @@ class ProjectLocationsController extends Controller
             $age = $this->getAge($ageRange->Low, $ageRange->High);
             $ageCategory = $this->categorizeAgeRange($age);
 
-            $ageRangeData[$ageCategory] = $ageRangeData[$ageCategory] + 1;
+//            $ageRangeData[$ageCategory] = $ageRangeData[$ageCategory] + 1;
+            $chartData[] = [
+                strtolower($gender->Value),
+                $ageCategory
+            ];
 
-            if (strtolower($gender->Value) === 'male') {
-                $genderData['male'] = (int) $genderData['male'] + 1;
-            } else {
-                $genderData['female'] = (int) $genderData['female'] + 1;
-            }
+//            if (strtolower($gender->Value) === 'male') {
+//                $genderData['male'] = (int) $genderData['male'] + 1;
+//            } else {
+//                $genderData['female'] = (int) $genderData['female'] + 1;
+//            }
         }
 
+        $chartData = json_encode($chartData);
+
         return view('management.projects.locations.show-automated',
-            compact('location', 'project', 'hits', 'services', 'videos', 'raws'));
+            compact('location', 'project', 'hits', 'services', 'videos',
+                'raws', 'chartData'));
     }
 
     private function getAge($low, $high)

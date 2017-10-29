@@ -6,6 +6,92 @@
             $('.locations-table').DataTable()
         })
     </script>
+
+    <script type="text/javascript">
+        $(function() {
+            let data = [];
+
+            function init() {
+                // Load the Visualization API and the corechart package.
+                google.charts.load('current', {'packages':['corechart']});
+
+                // Set a callback to run when the Google Visualization API is loaded.
+                google.charts.setOnLoadCallback(drawCharts);
+            }
+
+            function drawCharts() {
+                try {
+                    data = createDataTable(JSON.parse('{!! $chartData !!}'), ['Age Group', 'Gender']);
+
+                    drawPieChart();
+                    drawBarChart();
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+
+            function createDataTable(rawData, $tableHeader) {
+                try {
+                    return google.visualization.arrayToDataTable([
+                        $tableHeader,
+                        ...rawData
+                    ]);
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            function groupData(columnIndex) {
+                return google.visualization.data.group(data, [columnIndex], [{
+                    'column': columnIndex,
+                    'aggregation': google.visualization.data.count,
+                    'type': 'number'
+                }])
+            }
+
+            function drawBarChart() {
+                let ageData = groupData(1);
+
+                let options = {
+                    title: '',
+                    width: '810',
+                    height: '500',
+                    chartArea: {width: '50%'},
+                    colors: ['#FF7300', '#383A38', '#FFC799'],
+                    hAxis: {
+                        title: 'Age Groups',
+                        minValue: 0
+                    },
+                    vAxis: {
+                        title: 'Hits'
+                    },
+                    orientation: 'horizontal',
+                    legend: { position: 'none' }
+                };
+
+                let chart = new google.visualization.BarChart(document.getElementById('age-graph'));
+                chart.draw(ageData, options);
+            }
+
+            function drawPieChart() {
+                let genderData = groupData(0);
+
+                // Set chart options
+                let options = {
+                    title:'',
+                    width: '810',
+                    height: '500',
+                    colors: ['#FF7300', '#383A38']
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                let chart = new google.visualization.PieChart(document.getElementById('gender-graph'));
+                chart.draw(genderData, options);
+            }
+
+            init();
+        })
+    </script>
 @endsection
 
 @section('content')
@@ -38,33 +124,34 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
 
-                        @component('components.chart', ['project' => $project, 'location' => $location])
-                        @slot('nav')
-                        <li class="{{ $services && in_array('manual', $services) ? '' : 'hide' }}">
-                            <a href="/management/projects/update/{{ $project->id }}/locations/{{ $location->id }}">Manual</a>
-                        </li>
+                        @component('components.automated-chart', ['project' => $project, 'location' => $location])
+                            @slot('nav')
+                                <li class="{{ $services && in_array('manual', $services) ? '' : 'hide' }}">
+                                    <a href="/management/projects/update/{{ $project->id }}/locations/{{ $location->id }}">Manual</a>
+                                </li>
 
-                        <li class="{{ $services && in_array('automatic', $services) ? '' : 'hide' }} active">
-                            <a href="/management/projects/update/{{ $project->id }}/locations/{{ $location->id }}/automated">Automated</a>
-                        </li>
+                                <li class="{{ $services && in_array('automatic', $services) ? '' : 'hide' }} active">
+                                    <a href="/management/projects/update/{{ $project->id }}/locations/{{ $location->id }}/automated">Automated</a>
+                                </li>
 
-                        <li class="{{ $services && in_array('gps', $services) ? '' : 'hide' }}">
-                            <a href="/management/projects/update/{{ $project->id }}/locations/{{ $location->id }}/gps">GPS</a>
-                        </li>
+                                <li class="{{ $services && in_array('gps', $services) ? '' : 'hide' }}">
+                                    <a href="/management/projects/update/{{ $project->id }}/locations/{{ $location->id }}/gps">GPS</a>
+                                </li>
 
-                        <li class="{{ count($videos) <= 0 ? 'hide' : '' }}">
-                            <a href="/management/projects/update/{{ $project['id'] }}/locations/{{ $location['id'] }}/videos">Video
-                            </a>
-                        </li>
+                                <li class="{{ count($videos) <= 0 ? 'hide' : '' }}">
+                                    <a href="/management/projects/update/{{ $project['id'] }}/locations/{{ $location['id'] }}/videos">Video
+                                    </a>
+                                </li>
+                            @endslot
 
-                        @endslot
+                            @slot('title')
+                            @endslot
 
-                        @slot('title')
-                        @endslot
-                        @slot('ongoingReport')
-                        @endslot
-                        @slot('timeandvideo')
-                        @endslot
+                            @slot('ongoingReport')
+                            @endslot
+
+                            {{--@slot('timeandvideo')--}}
+                            {{--@endslot--}}
                         @endcomponent
 
 
