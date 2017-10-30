@@ -128,9 +128,9 @@
 
 
     @component('components.location-description',
-        ['project' => $project, 'location' => $location])
+        ['project' => $project, 'location' => $location, 'chartData' => $chartData])
     @endcomponent
-
+{
     <div class="container-fluid" style="margin-top: -130px">
         <div class="row">
             <div class="col-md-12">
