@@ -21,9 +21,10 @@
 
             function drawCharts() {
                 try {
+                    console.log(JSON.parse('{!! $chartData !!}'));
                     data = createDataTable(JSON.parse('{!! $chartData !!}'), ['Gender', 'Age Group']);
 
-                    drawPieChart();
+//                    drawPieChart();
                     drawBarChart();
                 } catch (e) {
                     console.log(e);
@@ -42,6 +43,18 @@
             }
 
             function groupData(columnIndex) {
+//                if (columnIndex === 1) {
+//                    return google.visualization.data.group(data, [1], [{
+//                        'column': 1,
+//                        'aggregation': google.visualization.data.count,
+//                        'type': 'number'
+//                    }, {
+//                        'column': 0,
+//                        'aggregation': google.visualization.data.count,
+//                        'type': 'number'
+//                    }])
+//                }
+
                 return google.visualization.data.group(data, [columnIndex], [{
                     'column': columnIndex,
                     'aggregation': google.visualization.data.count,
@@ -51,7 +64,6 @@
 
             function drawBarChart() {
                 let ageData = groupData(1);
-                console.log(ageData);
 
                 let options = {
                     title: '',
