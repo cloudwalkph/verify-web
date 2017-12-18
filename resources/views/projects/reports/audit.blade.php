@@ -103,8 +103,14 @@
                                         <div class="col-md-6 col-sm-8 hits-value-container">
                                             <h3>{{ $hit->name }}</h3>
                                             <ul>
-                                                {{ ($hit->email) ? '<li>'.$hit->email.'</li>' : '' }}
-                                                {{ ($hit->contact_number) ? '<li>'.$hit->contact_number.'</li>' : '' }}
+                                                @if($hit->email)
+                                                <li>{{ $hit->email }}</li>
+                                                @endif
+
+                                                @if($hit->contact_number)
+                                                <li>{{ $hit->contact_number }}</li>
+                                                @endif
+
                                                 @foreach($hit['answers'] as $answer)
                                                     <li>{{ $answer->value }}</li>
                                                 @endforeach
