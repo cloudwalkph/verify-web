@@ -24,7 +24,7 @@
                     console.log(JSON.parse('{!! $chartData !!}'));
                     data = createDataTable(JSON.parse('{!! $chartData !!}'), ['Gender', 'Age Group']);
 
-//                    drawPieChart();
+                    drawPieChart();
                     drawBarChart();
                 } catch (e) {
                     console.log(e);
