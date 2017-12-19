@@ -136,6 +136,29 @@
                             @slot('ongoingReport')
                             @endslot
                             @slot('timeandvideo')
+                                <div class="col-md-6">
+                                    <div class="graph-description-container">
+                                        <h2>Timestamp</h2>
+                                        <p class="help-block">Data or hits recorded during specific hours of the day or run.</p>
+                                    </div>
+                                    <div id="time-graph"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h2>Live Stream</h2>
+                                    <p class="help-block">Live streaming of videos on site.</p>
+                                    <div class="content-body">
+                                        <select name="videos" id="video-selection" class="form-control">
+                                            @foreach ($videos as $key => $video)
+                                                <option value="{{ $video->name }}" data-status="{{ $video->status }}"
+                                                        data-playback="{{ $video->playback_name }}"
+                                                        {{ $key === 0 ? 'selected' : '' }}>{{ $video->alias }}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="video-feed bmpui-flexbox" id="player">
+                                        </div>
+                                    </div>
+                                </div>
                             @endslot
                         @endcomponent
                     </div>
